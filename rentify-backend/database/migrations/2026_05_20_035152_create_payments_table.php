@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('payment_method');
             $table->decimal('amount', 15, 2);
             $table->string('status')->default('pending'); // pending, approved, rejected
-            $table->string('proof_of_payment')->nullable();
+            $table->longText('proof_of_payment')->nullable();
             $table->timestamps();
         });
     }

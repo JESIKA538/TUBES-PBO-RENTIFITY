@@ -156,7 +156,7 @@
             const bookingId = urlParams.get('booking_id');
 
             if (!bookingId) {
-                alert('ID Pemesanan tidak ditemukan!');
+                // Tidak ada booking_id — arahkan ke riwayat tanpa alert
                 window.location.href = 'riwayat.html';
                 return;
             }

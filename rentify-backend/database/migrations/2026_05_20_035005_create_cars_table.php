@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('fuel_type');
             $table->decimal('price_per_day', 15, 2);
             $table->string('status')->default('available'); // available, rented, maintenance
-            $table->string('image_url')->nullable();
+            $table->longText('image_url')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

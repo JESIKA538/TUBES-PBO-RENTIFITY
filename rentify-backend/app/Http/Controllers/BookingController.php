@@ -37,10 +37,19 @@ class BookingController extends Controller
     {
         $validated = $request->validate([
             'car_id' => 'required|exists:cars,id',
-            'start_date' => 'required|date|after_or_equal:today',
+            'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'notes' => 'nullable|string',
         ]);
+
+        // Manual check: start_date harus >= hari ini (timezone WIB)
+        $today = Carbon::now('Asia/Jakarta')->startOfDay();
+        $startDate = Carbon::parse($validated['start_date'])->startOfDay();
+        if ($startDate->lt($today)) {
+            return response()->json([
+                'message' => 'Tanggal mulai tidak boleh sebelum hari ini.'
+            ], 422);
+        }
 
         $car = Car::findOrFail($validated['car_id']);
 
