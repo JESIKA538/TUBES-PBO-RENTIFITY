@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Rentify - Pesan Pengalaman Premium Anda</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #F8FAFC;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e7",
+                        "primary": "#00449d",
+                        "surface-container": "#eeedf2",
+                        "tertiary": "#004695",
+                        "emerald-subtle": "#ECFDF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf9fe",
+                        "primary-container": "#005acc",
+                        "surface-container-high": "#e9e7ed",
+                        "background": "#faf9fe",
+                        "surface": "#faf9fe",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "inverse-surface": "#2f3034",
+                        "warning-amber": "#F59E0B",
+                        "tertiary-container": "#005dc2",
+                        "on-tertiary-container": "#cddbff",
+                        "on-tertiary-fixed": "#001a40",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#cedbff",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001944",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#00429a",
+                        "on-background": "#1a1b1f",
+                        "surface-bg": "#F8FAFC",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "on-secondary-container": "#00714d",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-tint": "#0058c9",
+                        "outline": "#737785",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#424653",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e2e7",
+                        "on-surface": "#1a1b1f",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "surface-card": "#FFFFFF",
+                        "surface-dim": "#dad9de",
+                        "secondary": "#006c49",
+                        "inverse-primary": "#afc6ff",
+                        "outline-variant": "#c2c6d6",
+                        "tertiary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px",
+                        "unit": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<<body class="bg-surface-bg text-on-surface">
+    <!-- TopAppBar -->
+    <header
+        class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-on-surface cursor-pointer">menu</span>
+            <span
+                class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Rentify</span>
+        </div>
+        <nav class="hidden md:flex gap-8">
+            <a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded"
+                href="index.html">Dashboard</a>
+            <a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded"
+                href="daftar-mobil.html">Mobil</a>
+            <a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary font-label-md text-label-md px-3 py-1"
+                href="booking-mobil.html">Pesanan</a>
+        </nav>
+        <div class="flex items-center gap-2">
+            <div
+                class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container">
+                <img alt="Alex Walker" class="w-full h-full object-cover" id="nav-profile-img"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd-8ThrBQmfwSfe7svApn5gxJFxTKnf2NsSw5cnp1hhnizwERNtcObe-gh8G7_DmagZTnpEKGymDScry8xgOE6_HgpPeJ5aKhmjkuCDvBVEDv9AEZi_vx0ZQiWwzW1ww-dm0k9WObjLe8qPTGo6TaJI7kMEt3e1hG8hfTdtTUdgZkVSXiXXSDIZezvWwkXWkGixGCnQtmSh-wBzsgNKue4dqs79R53d6VCbWUkGcUSbHZjb7kesKUsqB9CiNzak8AxP6_mq_d8M-E" />
+            </div>
+        </div>
+    </header>
+    <main class="max-w-[1440px] mx-auto px-margin-mobile md:px-margin-desktop py-8 mb-24 lg:mb-0">
+        <!-- Bento Grid Layout for Booking Journey -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+            <!-- Left Column: Selection Form (Bento Item 1) -->
+            <section class="lg:col-span-4 flex flex-col gap-gutter">
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    <h2 class="font-headline-sm text-headline-sm mb-6 text-on-surface">Pemilihan Kendaraan</h2>
+                    <form class="space-y-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Model Terpilih</label>
+                            <div class="relative">
+                                <select id="select-car"
+                                    class="w-full p-4 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md appearance-none focus:border-primary focus:ring-1 focus:ring-primary outline-none">
+                                    <option>Memuat armada...</option>
+                                </select>
+                                <span
+                                    class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">expand_more</span>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4">
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-md text-label-md text-on-surface-variant">Tanggal Mulai</label>
+                                <div
+                                    class="flex items-center gap-2 bg-surface-container-low border border-outline-variant rounded-lg p-3">
+                                    <span class="material-symbols-outlined text-primary">calendar_today</span>
+                                    <input id="booking-start-date"
+                                        class="bg-transparent border-none w-full font-body-sm text-body-sm focus:ring-0"
+                                        type="date" />
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-md text-label-md text-on-surface-variant">Tanggal Selesai</label>
+                                <div
+                                    class="flex items-center gap-2 bg-surface-container-low border border-outline-variant rounded-lg p-3">
+                                    <span class="material-symbols-outlined text-primary">event_note</span>
+                                    <input id="booking-end-date"
+                                        class="bg-transparent border-none w-full font-body-sm text-body-sm focus:ring-0"
+                                        type="date" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-emerald-subtle rounded-lg border border-secondary/20">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-label-md text-label-md text-secondary">Durasi Sewa</span>
+                                <span id="rental-duration" class="font-body-md text-body-md font-bold">0 Hari</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="font-label-md text-label-md text-secondary">Asuransi Termasuk</span>
+                                <span class="material-symbols-outlined text-secondary text-sm"
+                                    style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- Bento Item 2: Quick Features -->
+                <div class="bg-primary text-on-primary p-6 rounded-xl shadow-lg relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="font-headline-sm text-headline-sm mb-4">Layanan Prioritas</h3>
+                        <p class="font-body-sm text-body-sm opacity-90 mb-4">Anggota premium menikmati pengiriman
+                            concierge dan supercharging tak terbatas di semua stasiun.</p>
+                        <button
+                            class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md flex items-center gap-2">
+                            Lihat Manfaat <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                    <div class="absolute -right-8 -bottom-8 opacity-10">
+                        <span class="material-symbols-outlined text-[160px]">verified</span>
+                    </div>
+                </div>
+            </section>
+            <!-- Middle/Right Column: Details & Pricing (Bento Item 3) -->
+            <section class="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                <!-- Vehicle Detail View (Span 2 Cols) -->
+                <div
+                    class="md:col-span-2 bg-surface-card rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col md:flex-row">
+                    <div class="md:w-3/5 relative h-64 md:h-auto">
+                        <img id="detail-car-image" class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9pio0mNE04ncr1fgm4OFZhH87F_fiJFd6N5Cyi3RIjn6FFHDY5_HOdedFGGtJS2U8PZDhFErcbuZJz2sS07KOYI_VliNKO4u4CSYgS7GZPYQNMbS_AHNZrKNT7D5ZzTZkUw0nQmzTprskRMcq9Ps95QxowgbitIoTQsX15pFpbp5uAC4YrsI9xxlWhteCPgSoDiK9GOHpjmn87GhkrOgyEvBuV_owBveeQSxO5tfiaruzZw0IUEtBuX-gvBYo_5gxqVZJLpUWEGA" />
+                        <div class="absolute top-4 left-4 flex gap-2">
+                            <span
+                                class="bg-secondary text-on-secondary px-3 py-1 rounded-full text-label-sm font-label-sm">Premium</span>
+                            <span
+                                class="bg-white/90 backdrop-blur-sm text-on-surface px-3 py-1 rounded-full text-label-sm font-label-sm border border-outline-variant">Mewah</span>
+                        </div>
+                    </div>
+                    <div class="md:w-2/5 p-6 flex flex-col justify-center">
+                        <h1 id="detail-car-name" class="font-headline-lg text-headline-lg text-on-surface mb-2">Porsche Taycan</h1>
+                        <p id="detail-car-subtitle" class="text-on-surface-variant font-body-md text-body-md mb-6">Edisi Performa Turbo S • 2024</p>
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary-container">speed</span>
+                                <div>
+                                    <p class="text-label-sm font-label-sm text-on-surface-variant">Transmisi</p>
+                                    <p id="spec-transmission" class="text-body-sm font-bold">Otomatis</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary-container">bolt</span>
+                                <div>
+                                    <p class="text-label-sm font-label-sm text-on-surface-variant">Bahan Bakar</p>
+                                    <p id="spec-fuel" class="text-body-sm font-bold">Bensin</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary-container">directions_car</span>
+                                <div>
+                                    <p class="text-label-sm font-label-sm text-on-surface-variant">Merk</p>
+                                    <p id="spec-brand" class="text-body-sm font-bold">Porsche</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary-container">category</span>
+                                <div>
+                                    <p class="text-label-sm font-label-sm text-on-surface-variant">Tipe</p>
+                                    <p id="spec-type" class="text-body-sm font-bold">Sport</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Location View (Bento Item 4) -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-headline-sm text-headline-sm">Titik Penjemputan</h3>
+                        <span class="material-symbols-outlined text-primary">map</span>
+                    </div>
+                    <div class="rounded-lg h-32 bg-surface-container-high mb-4 overflow-hidden">
+                        <div class="w-full h-full flex items-center justify-center bg-blue-50">
+                            <!-- Simulated Map via Image -->
+                            <img class="w-full h-full object-cover grayscale opacity-60"
+                                data-alt="A clean, minimalist vector-style map view showing a high-end commercial district with a prominent blue marker for a rental agency."
+                                data-location="Stuttgart, Germany"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWSROxoEHEtl-dCLMzJI6T8hofJMaSGNRtKbkwZIdHEOCohQ6w0P4HG-Ce8j7eLIg9w8vKe0VSFIeG6gR5oNoGguFa8Yw2R0hc6JBoga4HE-Ks3lcfAwjq7oz_Go1cZDVCHmJ46kl7kSS3-DgazxgghkSXhH5zHJaB25h0s1zn3yIvst0rz1E0U-7pm9Hrso9WEkp7f0xUJVgOD-fQUrmhgry3MJ6zyuuTn9lk8SnqWg5ShHfKUKeTZfa-fDyWv9JJ2CAjZnkQeno" />
+                        </div>
+                    </div>
+                    <p class="font-label-md text-label-md text-on-surface mb-1">Hub Utama Rentify</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Flughafenstraße 43, 70629 Stuttgart</p>
+                </div>
+                <!-- Price Calculation (Bento Item 5) -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-headline-sm text-headline-sm mb-4">Rincian Harga</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between font-body-md text-body-md">
+                                <span id="label-base-rate" class="text-on-surface-variant">Tarif Dasar (0 hari)</span>
+                                <span id="val-base-rate">Rp 0</span>
+                            </div>
+                            <div class="flex justify-between font-body-md text-body-md">
+                                <span class="text-on-surface-variant">Perlindungan Kerusakan</span>
+                                <span class="text-secondary">GRATIS</span>
+                            </div>
+                            <div class="flex justify-between font-body-md text-body-md">
+                                <span class="text-on-surface-variant">Biaya Layanan</span>
+                                <span id="val-service-fee">Rp 50.000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 pt-4 border-t border-outline-variant">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <p class="text-label-sm font-label-sm text-on-surface-variant">Estimasi Total</p>
+                                <h4 id="val-total-price" class="text-headline-md font-headline-md text-primary">Rp 0</h4>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-label-sm font-label-sm text-on-surface-variant">Termasuk Pajak</p>
+                            </div>
+                        </div>
+                        <button id="btn-confirm-booking"
+                            class="w-full py-4 bg-secondary text-on-secondary rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all">
+                            Konfirmasi Pesanan
+                            <span class="material-symbols-outlined">payments</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- NavigationDrawer (Desktop Only Hidden LG) -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-4 flex items-center gap-4 mb-6">
+            <div
+                class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+                <span class="material-symbols-outlined">person</span>
+            </div>
+            <div>
+                <p class="font-headline-sm text-headline-sm text-on-surface" id="profile-name-aside">Alex Walker</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant" id="profile-occupation-aside">Anggota Premium</p>
+            </div>
+        </div>
+        <nav class="flex-1 px-2 space-y-1">
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="index.html">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="daftar-mobil.html">
+                <span class="material-symbols-outlined">directions_car</span>
+                Armada Mobil
+            </a>
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3"
+                href="booking-mobil.html">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+                Pesanan Saya
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pembayaran.html">
+                <span class="material-symbols-outlined">payments</span> Riwayat Pembayaran
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined">assessment</span> Laporan
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pengaturan.html">
+                <span class="material-symbols-outlined">settings</span> Pengaturan
+            </a>
+        </nav>
+        <div class="p-6 border-t border-outline-variant">
+            <div class="bg-primary-container/10 p-4 rounded-xl">
+                <p class="text-label-sm font-label-sm text-primary mb-2">Dukungan 24/7</p>
+                <button class="text-primary font-bold text-body-sm flex items-center gap-1">
+                    Hubungi Agen <span class="material-symbols-outlined text-sm">open_in_new</span>
+                </button>
+            </div>
+        </div>
+    </aside>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+            href="index.html">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-sm text-label-sm">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+            href="daftar-mobil.html">
+            <span class="material-symbols-outlined">directions_car</span>
+            <span class="font-label-sm text-label-sm">Mobil</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold"
+            href="booking-mobil.html">
+            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_note</span>
+            <span class="font-label-sm text-label-sm">Pesanan</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+            href="manajemen-user.html">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-label-sm text-label-sm">Profil</span>
+        </a>
+    </nav>
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Enforce authentication
+            if (!AuthAPI.checkAuth()) return;
+            
+            const user = AuthAPI.getUser();
+            
+            // Redirect admin to admin page
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Update profile info
+            if (user.avatar) {
+                document.getElementById('nav-profile-img').src = user.avatar;
+            }
+            document.getElementById('profile-name-aside').textContent = user.name;
+            document.getElementById('profile-occupation-aside').textContent = user.occupation || 'Pelanggan Rentify';
+
+            // Add logout dynamic button
+            const nav = document.querySelector('aside nav');
+            if (nav) {
+                const logoutBtn = document.createElement('a');
+                logoutBtn.className = "text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer mt-auto";
+                logoutBtn.innerHTML = `
+                    <span class="material-symbols-outlined text-error-red">logout</span>
+                    <span class="font-body-md text-body-md font-manrope font-semibold">Keluar</span>
+                `;
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+                nav.appendChild(logoutBtn);
+            }
+
+            // 2. Fetch cars list to populate select
+            let carsList = [];
+            try {
+                const cars = await CarsAPI.getAll();
+                // Filter only available cars for selection, or keep all to avoid breaking if user has currently selected one
+                carsList = cars;
+                
+                const selectCar = document.getElementById('select-car');
+                selectCar.innerHTML = '';
+                
+                if (carsList.length === 0) {
+                    selectCar.innerHTML = '<option value="">Tidak ada armada tersedia</option>';
+                } else {
+                    carsList.forEach(car => {
+                        const opt = document.createElement('option');
+                        opt.value = car.id;
+                        opt.textContent = `${car.brand} ${car.name} (${car.type}) - Rp ${Number(car.price_per_day).toLocaleString('id-ID')}/hari`;
+                        selectCar.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error('Gagal memuat mobil:', err);
+            }
+
+            // 3. Extract query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlCarId = urlParams.get('car_id');
+            const urlStartDate = urlParams.get('start_date');
+            const urlEndDate = urlParams.get('end_date');
+
+            const selectCar = document.getElementById('select-car');
+            const startDateInput = document.getElementById('booking-start-date');
+            const endDateInput = document.getElementById('booking-end-date');
+
+            if (urlCarId) {
+                selectCar.value = urlCarId;
+            }
+            if (urlStartDate) {
+                startDateInput.value = urlStartDate;
+            } else {
+                startDateInput.value = new Date().toISOString().split('T')[0];
+            }
+            if (urlEndDate) {
+                endDateInput.value = urlEndDate;
+            } else {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                endDateInput.value = tomorrow.toISOString().split('T')[0];
+            }
+
+            let selectedCarObj = null;
+
+            function updateCarDetails() {
+                const selectedId = selectCar.value;
+                selectedCarObj = carsList.find(c => String(c.id) === String(selectedId));
+
+                if (selectedCarObj) {
+                    document.getElementById('detail-car-image').src = selectedCarObj.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800';
+                    document.getElementById('detail-car-name').textContent = `${selectedCarObj.brand} ${selectedCarObj.name}`;
+                    document.getElementById('detail-car-subtitle').textContent = `${selectedCarObj.brand} ${selectedCarObj.type} • ${selectedCarObj.transmission === 'automatic' ? 'Otomatis' : 'Manual'}`;
+                    document.getElementById('spec-transmission').textContent = selectedCarObj.transmission === 'automatic' ? 'Otomatis' : 'Manual';
+                    document.getElementById('spec-fuel').textContent = selectedCarObj.fuel_type;
+                    document.getElementById('spec-brand').textContent = selectedCarObj.brand;
+                    document.getElementById('spec-type').textContent = selectedCarObj.type;
+                    
+                    calculatePrice();
+                }
+            }
+
+            function calculatePrice() {
+                if (!selectedCarObj) return;
+
+                const startVal = startDateInput.value;
+                const endVal = endDateInput.value;
+
+                if (startVal && endVal) {
+                    const start = new Date(startVal);
+                    const end = new Date(endVal);
+                    
+                    const diffTime = end - start;
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                    if (diffDays > 0) {
+                        document.getElementById('rental-duration').textContent = `${diffDays} Hari`;
+                        document.getElementById('label-base-rate').textContent = `Tarif Dasar (${diffDays} hari)`;
+                        
+                        const price = Number(selectedCarObj.price_per_day);
+                        const basePrice = price * diffDays;
+                        const serviceFee = 50000;
+                        const total = basePrice + serviceFee;
+
+                        document.getElementById('val-base-rate').textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
+                        document.getElementById('val-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
+                        document.getElementById('val-total-price').textContent = `Rp ${total.toLocaleString('id-ID')}`;
+
+                        const btn = document.getElementById('btn-confirm-booking');
+                        btn.disabled = false;
+                        btn.className = "w-full py-4 bg-secondary text-on-secondary rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all cursor-pointer hover:opacity-90";
+                        return;
+                    }
+                }
+
+                // Fallback
+                document.getElementById('rental-duration').textContent = '0 Hari';
+                document.getElementById('label-base-rate').textContent = 'Tarif Dasar (0 hari)';
+                document.getElementById('val-base-rate').textContent = 'Rp 0';
+                document.getElementById('val-total-price').textContent = 'Rp 0';
+                
+                const btn = document.getElementById('btn-confirm-booking');
+                btn.disabled = true;
+                btn.className = "w-full py-4 bg-gray-400 text-white rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg cursor-not-allowed";
+            }
+
+            selectCar.addEventListener('change', updateCarDetails);
+            startDateInput.addEventListener('change', calculatePrice);
+            endDateInput.addEventListener('change', calculatePrice);
+
+            // Populate initially
+            if (carsList.length > 0) {
+                updateCarDetails();
+            } else {
+                setTimeout(updateCarDetails, 500);
+            }
+
+            // Booking creation submission
+            const btnConfirm = document.getElementById('btn-confirm-booking');
+            btnConfirm.addEventListener('click', async (e) => {
+                e.preventDefault();
+                if (!selectedCarObj) return;
+
+                const carId = selectCar.value;
+                const startDate = startDateInput.value;
+                const endDate = endDateInput.value;
+
+                if (!startDate || !endDate) {
+                    alert('Harap pilih tanggal sewa terlebih dahulu!');
+                    return;
+                }
+
+                try {
+                    btnConfirm.disabled = true;
+                    btnConfirm.textContent = 'Memproses...';
+                    
+                    const result = await BookingsAPI.create(carId, startDate, endDate, 'Sewa Mobil Premium');
+                    alert('Sewa mobil berhasil dipesan!');
+                    
+                    // Redirect to payment page
+                    window.location.href = `pembayaran.html?booking_id=${result.booking.id}`;
+                } catch (err) {
+                    alert(`Gagal memesan sewa mobil: ${err.message}`);
+                    btnConfirm.disabled = false;
+                    btnConfirm.innerHTML = `Konfirmasi Pesanan <span class="material-symbols-outlined">payments</span>`;
+                }
+            });
+        });
+    </script>
+</body>
+</body>
+
+</html>

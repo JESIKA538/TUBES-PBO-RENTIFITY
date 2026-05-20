@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentify — Daftar Akun</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00449d", "primary-dark": "#003080", secondary: "#006c49"
+                    },
+                    fontFamily: { sans: ["Manrope", "sans-serif"], heading: ["Plus Jakarta Sans", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .gradient-hero {
+            background: linear-gradient(135deg, #006c49 0%, #00449d 60%, #003080 100%);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-10px)
+            }
+        }
+
+        .float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp .5s ease forwards;
+        }
+
+        .input-field {
+            @apply w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all;
+        }
+
+        .input-icon {
+            @apply material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl;
+        }
+    </style>
+</head>
+
+<body class="font-sans bg-gray-50 min-h-screen flex">
+
+    <!-- Left Panel -->
+    <div class="hidden lg:flex lg:w-5/12 gradient-hero flex-col justify-between p-12 relative overflow-hidden">
+        <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-white/5"></div>
+        <div class="absolute -bottom-32 -left-20 w-96 h-96 rounded-full bg-white/5"></div>
+
+        <div class="relative z-10">
+            <a href="landing.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary text-xl">directions_car</span>
+                </div>
+                <span class="text-white text-2xl font-heading font-bold">Rentify</span>
+            </a>
+        </div>
+
+        <div class="relative z-10 text-center">
+            <div class="float mb-8">
+                <div class="glass rounded-3xl p-6 inline-block">
+                    <span class="material-symbols-outlined text-white text-6xl">card_membership</span>
+                </div>
+            </div>
+            <h2 class="text-white text-3xl font-heading font-bold mb-4">Bergabung dengan<br />100.000+ Pelanggan</h2>
+            <p class="text-white/70 text-base leading-relaxed mb-8">Daftar gratis dan nikmati akses ke armada premium
+                kami dengan harga terjangkau.</p>
+
+            <div class="space-y-3">
+                <div class="glass rounded-xl p-3 flex items-center gap-3 text-left">
+                    <span class="material-symbols-outlined text-white text-xl">check_circle</span>
+                    <span class="text-white/80 text-sm">Booking instan tanpa antrian</span>
+                </div>
+                <div class="glass rounded-xl p-3 flex items-center gap-3 text-left">
+                    <span class="material-symbols-outlined text-white text-xl">check_circle</span>
+                    <span class="text-white/80 text-sm">Harga transparan, tanpa biaya tersembunyi</span>
+                </div>
+                <div class="glass rounded-xl p-3 flex items-center gap-3 text-left">
+                    <span class="material-symbols-outlined text-white text-xl">check_circle</span>
+                    <span class="text-white/80 text-sm">Support 24/7 siap membantu</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="relative z-10 text-center">
+            <p class="text-white/40 text-sm">© 2025 Rentify. All rights reserved.</p>
+        </div>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="w-full lg:w-7/12 flex items-center justify-center p-6 lg:p-12 overflow-y-auto">
+        <div class="w-full max-w-lg fade-up">
+
+            <div class="flex lg:hidden items-center gap-3 mb-6">
+                <div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-lg">directions_car</span>
+                </div>
+                <span class="text-primary text-xl font-heading font-bold">Rentify</span>
+            </div>
+
+            <h1 class="text-3xl font-heading font-bold text-gray-900 mb-1">Buat Akun Baru 🚗</h1>
+            <p class="text-gray-500 mb-6">Isi data di bawah untuk mulai menyewa</p>
+
+            <form id="registerForm" class="space-y-4">
+                <!-- Name -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Nama Lengkap</label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl">person</span>
+                        <input id="name" type="text" placeholder="Nama lengkap Anda" required
+                            class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Email</label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl">mail</span>
+                        <input id="email" type="email" placeholder="email@contoh.com" required
+                            class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                    </div>
+                </div>
+
+                <!-- Phone -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Nomor Telepon</label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl">phone</span>
+                        <input id="phone" type="tel" placeholder="08xxxxxxxxxx" required
+                            class="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Password</label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl">lock</span>
+                        <input id="password" type="password" placeholder="Minimal 8 karakter" required minlength="8"
+                            class="w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                        <button type="button" id="togglePwd"
+                            class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <span class="material-symbols-outlined text-xl" id="eyeIcon1">visibility</span>
+                        </button>
+                    </div>
+                    <!-- Strength bar -->
+                    <div class="flex gap-1 mt-2" id="strengthBar">
+                        <div class="h-1 flex-1 rounded bg-gray-200" id="s1"></div>
+                        <div class="h-1 flex-1 rounded bg-gray-200" id="s2"></div>
+                        <div class="h-1 flex-1 rounded bg-gray-200" id="s3"></div>
+                        <div class="h-1 flex-1 rounded bg-gray-200" id="s4"></div>
+                    </div>
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1.5">Konfirmasi Password</label>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xl">lock_reset</span>
+                        <input id="confirmPwd" type="password" placeholder="Ulangi password" required
+                            class="w-full pl-11 pr-12 py-3 rounded-xl border border-gray-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all" />
+                        <button type="button" id="togglePwd2"
+                            class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <span class="material-symbols-outlined text-xl" id="eyeIcon2">visibility</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="flex items-start gap-2">
+                    <input type="checkbox" id="terms" required class="mt-0.5 w-4 h-4 rounded accent-primary" />
+                    <label for="terms" class="text-sm text-gray-600">
+                        Saya menyetujui <a href="#" class="text-primary font-semibold hover:underline">Syarat &
+                            Ketentuan</a> dan
+                        <a href="#" class="text-primary font-semibold hover:underline">Kebijakan Privasi</a> Rentify
+                    </label>
+                </div>
+
+                <!-- Error/Success -->
+                <div id="alertMsg" class="hidden text-sm rounded-xl px-4 py-3 flex items-center gap-2"></div>
+
+                <!-- Submit -->
+                <button type="submit" id="submitBtn"
+                    class="w-full py-3.5 bg-primary hover:bg-primary-dark text-white font-bold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 shadow-lg shadow-primary/30 active:scale-[0.98]">
+                    <span class="material-symbols-outlined">person_add</span>
+                    <span id="btnText">Daftar Sekarang</span>
+                </button>
+            </form>
+
+            <p class="text-center text-gray-500 text-sm mt-6">
+                Sudah punya akun?
+                <a href="login.html" class="text-primary font-bold hover:underline">Masuk di sini</a>
+            </p>
+            <p class="text-center mt-3">
+                <a href="landing.html"
+                    class="text-gray-400 text-xs hover:text-primary flex items-center justify-center gap-1">
+                    <span class="material-symbols-outlined text-sm">arrow_back</span> Kembali ke halaman utama
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script>
+        // Toggle passwords
+        document.getElementById('togglePwd').addEventListener('click', () => {
+            const p = document.getElementById('password');
+            const i = document.getElementById('eyeIcon1');
+            p.type = p.type === 'password' ? 'text' : 'password';
+            i.textContent = p.type === 'password' ? 'visibility' : 'visibility_off';
+        });
+        document.getElementById('togglePwd2').addEventListener('click', () => {
+            const p = document.getElementById('confirmPwd');
+            const i = document.getElementById('eyeIcon2');
+            p.type = p.type === 'password' ? 'text' : 'password';
+            i.textContent = p.type === 'password' ? 'visibility' : 'visibility_off';
+        });
+
+        // Password strength
+        document.getElementById('password').addEventListener('input', function () {
+            const v = this.value;
+            const bars = ['s1', 's2', 's3', 's4'];
+            let strength = 0;
+            if (v.length >= 8) strength++;
+            if (/[A-Z]/.test(v)) strength++;
+            if (/[0-9]/.test(v)) strength++;
+            if (/[^A-Za-z0-9]/.test(v)) strength++;
+            const colors = ['bg-red-400', 'bg-orange-400', 'bg-yellow-400', 'bg-green-500'];
+            bars.forEach((id, i) => {
+                const el = document.getElementById(id);
+                el.className = `h-1 flex-1 rounded ${i < strength ? colors[strength - 1] : 'bg-gray-200'}`;
+            });
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPwd = document.getElementById('confirmPwd').value;
+
+            if (password !== confirmPwd) {
+                showAlert('error', 'Password dan konfirmasi password tidak cocok!');
+                return;
+            }
+
+            const btn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            btnText.textContent = 'Mendaftarkan...';
+            btn.disabled = true;
+            document.getElementById('alertMsg').classList.add('hidden');
+
+            try {
+                const data = await AuthAPI.register(name, email, password, phone, '', '');
+                showAlert('success', 'Pendaftaran berhasil! Mengalihkan...');
+                setTimeout(() => { 
+                    window.location.href = data.user.role === 'admin' ? 'admin.html' : 'index.html'; 
+                }, 1200);
+            } catch (error) {
+                showAlert('error', error.message || 'Pendaftaran gagal. Pastikan email unik dan data valid.');
+                btn.disabled = false;
+                btnText.textContent = 'Daftar Sekarang';
+            }
+        });
+
+        function showAlert(type, msg) {
+            const el = document.getElementById('alertMsg');
+            el.className = type === 'error'
+                ? 'bg-red-50 border border-red-200 text-red-700 text-sm rounded-xl px-4 py-3 flex items-center gap-2'
+                : 'bg-green-50 border border-green-200 text-green-700 text-sm rounded-xl px-4 py-3 flex items-center gap-2';
+            el.innerHTML = `<span class="material-symbols-outlined text-base">${type === 'error' ? 'error' : 'check_circle'}</span><span>${msg}</span>`;
+            el.classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

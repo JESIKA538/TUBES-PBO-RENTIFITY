@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id" class="light">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentify - Detail Mobil</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#00449d",
+                        secondary: "#006c49",
+                        surface: "#faf9fe",
+                        background: "#F8FAFC",
+                        card: "#FFFFFF",
+                        outline: "#d9dce3",
+                        text: "#1a1b1f",
+                        muted: "#6b7280"
+                    },
+                    fontFamily: {
+                        heading: ["Plus Jakarta Sans"],
+                        body: ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-background text-text">
+
+    <!-- NAVBAR -->
+    <header class="sticky top-0 z-50 bg-white border-b border-outline">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+
+            <div class="flex items-center gap-3">
+                <span class="text-2xl font-bold text-primary font-heading">
+                    Rentify
+                </span>
+            </div>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="index.html" class="text-muted hover:text-primary transition">Dashboard</a>
+                <a href="daftar-mobil.html" class="text-primary hover:text-primary transition font-bold">Mobil</a>
+                <a href="booking-mobil.html" class="text-muted hover:text-primary transition">Pesanan</a>
+                <a href="riwayat.html" class="text-muted hover:text-primary transition">Laporan</a>
+            </div>
+
+            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+                <img id="nav-profile-img" class="w-full h-full object-cover"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43d?q=80&w=400" />
+            </div>
+
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="max-w-7xl mx-auto px-6 py-10">
+
+        <!-- TOP SECTION -->
+        <div class="grid lg:grid-cols-2 gap-10">
+
+            <!-- IMAGE -->
+            <div>
+
+                <div class="rounded-3xl overflow-hidden shadow-xl">
+                    <img id="car-image" class="w-full h-[420px] object-cover"
+                        src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600" />
+                </div>
+
+                <!-- THUMBNAILS -->
+                <div class="grid grid-cols-3 gap-4 mt-4">
+
+                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
+                        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800" />
+
+                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
+                        src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800" />
+
+                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
+                        src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=800" />
+
+                </div>
+
+            </div>
+
+            <!-- DETAIL -->
+            <div>
+
+                <div class="flex items-start justify-between gap-4">
+
+                    <div>
+                        <h1 id="car-name" class="text-4xl font-bold font-heading">
+                            Porsche 911 Carrera
+                        </h1>
+
+                        <p id="car-subtitle" class="text-muted mt-2">
+                            Mobil sport premium dengan performa tinggi dan desain elegan.
+                        </p>
+                    </div>
+
+                    <button
+                        class="w-12 h-12 rounded-xl border border-outline flex items-center justify-center hover:bg-gray-100 transition">
+                        <span class="material-symbols-outlined">
+                            favorite
+                        </span>
+                    </button>
+
+                </div>
+
+                <!-- INFO -->
+                <div class="grid grid-cols-2 gap-4 mt-8">
+
+                    <div class="bg-white rounded-2xl p-5 border border-outline">
+                        <p class="text-muted text-sm">Transmisi</p>
+                        <h3 id="car-transmission" class="font-bold mt-1">Automatic</h3>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-outline">
+                        <p class="text-muted text-sm">Bahan Bakar</p>
+                        <h3 id="car-fuel-type" class="font-bold mt-1">Bensin</h3>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-outline">
+                        <p class="text-muted text-sm">Merk</p>
+                        <h3 id="car-brand" class="font-bold mt-1">Porsche</h3>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-5 border border-outline">
+                        <p class="text-muted text-sm">Tipe Mobil</p>
+                        <h3 id="car-type" class="font-bold mt-1">Sport</h3>
+                    </div>
+
+                </div>
+
+                <!-- PRICE -->
+                <div class="mt-10 bg-primary rounded-3xl p-8 text-white">
+
+                    <div class="flex items-end gap-2">
+                        <h2 id="car-price" class="text-4xl font-bold">Rp 240.000</h2>
+                        <span class="mb-2 opacity-80">/ hari</span>
+                    </div>
+
+                    <p class="mt-3 opacity-80">
+                        Sudah termasuk asuransi kendaraan dan layanan bantuan 24 jam.
+                    </p>
+
+                    <!-- BOOKING -->
+                    <div class="grid md:grid-cols-2 gap-4 mt-8">
+
+                        <div>
+                            <label class="block mb-2 text-sm">
+                                Tanggal Mulai
+                            </label>
+
+                            <input id="start-date" type="date" class="w-full rounded-xl border-none text-black animate-pulse" />
+                        </div>
+
+                        <div>
+                            <label class="block mb-2 text-sm">
+                                Tanggal Selesai
+                            </label>
+
+                            <input id="end-date" type="date" class="w-full rounded-xl border-none text-black animate-pulse" />
+                        </div>
+
+                    </div>
+
+                    <button id="btn-book-now"
+                        class="mt-6 w-full bg-white text-primary font-bold py-4 rounded-2xl hover:opacity-90 transition">
+                        Pesan Sekarang
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- DESCRIPTION -->
+        <section class="mt-20">
+
+            <h2 class="text-2xl font-bold font-heading mb-6">
+                Deskripsi Kendaraan
+            </h2>
+
+            <div id="car-description" class="bg-white rounded-3xl p-8 border border-outline leading-8 text-muted">
+                Porsche 911 Carrera menghadirkan kombinasi sempurna antara kemewahan,
+                kenyamanan, dan performa. Mobil ini cocok digunakan untuk perjalanan bisnis,
+                liburan premium, maupun pengalaman berkendara eksklusif.
+
+                Dilengkapi dengan sistem navigasi modern, interior kulit premium,
+                audio berkualitas tinggi, dan teknologi keamanan terbaru.
+            </div>
+
+        </section>
+
+        <!-- REVIEW -->
+        <section class="mt-20">
+
+            <div class="flex items-center justify-between mb-8">
+
+                <h2 class="text-2xl font-bold font-heading">
+                    Review Pengguna
+                </h2>
+
+                <button class="text-primary font-semibold">
+                    Lihat Semua
+                </button>
+
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-6">
+
+                <!-- REVIEW CARD -->
+                <div class="bg-white border border-outline rounded-3xl p-6">
+
+                    <div class="flex items-center gap-4">
+
+                        <img class="w-14 h-14 rounded-full object-cover"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400" />
+
+                        <div>
+                            <h4 class="font-bold">Jessica Miller</h4>
+                            <p class="text-sm text-muted">2 hari lalu</p>
+                        </div>
+
+                    </div>
+
+                    <div class="flex mt-4 text-yellow-400">
+                        ★★★★★
+                    </div>
+
+                    <p class="text-muted mt-4 leading-7">
+                        Mobil sangat nyaman dan bersih. Proses booking cepat dan pelayanan sangat
+                        profesional.
+                    </p>
+
+                </div>
+
+                <!-- REVIEW CARD -->
+                <div class="bg-white border border-outline rounded-3xl p-6">
+
+                    <div class="flex items-center gap-4">
+
+                        <img class="w-14 h-14 rounded-full object-cover"
+                            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43d?q=80&w=400" />
+
+                        <div>
+                            <h4 class="font-bold">Michael Brown</h4>
+                            <p class="text-sm text-muted">5 hari lalu</p>
+                        </div>
+
+                    </div>
+
+                    <div class="flex mt-4 text-yellow-400">
+                        ★★★★★
+                    </div>
+
+                    <p class="text-muted mt-4 leading-7">
+                        Pengalaman berkendara luar biasa. Sangat recommended untuk perjalanan premium.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-outline lg:hidden">
+
+        <div class="grid grid-cols-4 py-3">
+
+            <a href="index.html" class="flex flex-col items-center text-muted">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text-xs">Beranda</span>
+            </a>
+
+            <a href="daftar-mobil.html" class="flex flex-col items-center text-primary">
+                <span class="material-symbols-outlined">directions_car</span>
+                <span class="text-xs">Mobil</span>
+            </a>
+
+            <a href="booking-mobil.html" class="flex flex-col items-center text-muted">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span class="text-xs">Pesanan</span>
+            </a>
+
+            <a href="manajemen-user.html" class="flex flex-col items-center text-muted">
+                <span class="material-symbols-outlined">person</span>
+                <span class="text-xs">Profil</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Enforce authentication
+            if (!AuthAPI.checkAuth()) return;
+            
+            const user = AuthAPI.getUser();
+            
+            // Redirect admin to admin page
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Update profile image
+            if (user.avatar) {
+                document.getElementById('nav-profile-img').src = user.avatar;
+            }
+
+            // 2. Extract id from URL params
+            const urlParams = new URLSearchParams(window.location.search);
+            const carId = urlParams.get('id');
+
+            if (!carId) {
+                alert('Mobil tidak ditemukan.');
+                window.location.href = 'daftar-mobil.html';
+                return;
+            }
+
+            try {
+                // 3. Fetch car details
+                const car = await CarsAPI.getById(carId);
+                
+                // 4. Update UI elements
+                document.getElementById('car-image').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800';
+                document.getElementById('car-name').textContent = `${car.brand} ${car.name}`;
+                document.getElementById('car-subtitle').textContent = `${car.brand} ${car.type} - Sewa Mobil Premium`;
+                document.getElementById('car-transmission').textContent = car.transmission === 'automatic' ? 'Otomatis' : 'Manual';
+                document.getElementById('car-fuel-type').textContent = car.fuel_type;
+                document.getElementById('car-brand').textContent = car.brand;
+                document.getElementById('car-type').textContent = car.type;
+                document.getElementById('car-price').textContent = `Rp ${Number(car.price_per_day).toLocaleString('id-ID')}`;
+                document.getElementById('car-description').textContent = car.description || 'Tidak ada deskripsi tersedia.';
+
+                // Check if car status is not available
+                if (car.status !== 'available') {
+                    const btn = document.getElementById('btn-book-now');
+                    btn.disabled = true;
+                    btn.textContent = 'Mobil Sedang Disewa';
+                    btn.className = 'mt-6 w-full bg-gray-400 text-white font-bold py-4 rounded-2xl cursor-not-allowed';
+                }
+
+                // 5. Handle booking button
+                const btnBookNow = document.getElementById('btn-book-now');
+                if (car.status === 'available') {
+                    btnBookNow.addEventListener('click', () => {
+                        const startDate = document.getElementById('start-date').value;
+                        const endDate = document.getElementById('end-date').value;
+
+                        let redirectUrl = `booking-mobil.html?car_id=${car.id}`;
+                        if (startDate) {
+                            redirectUrl += `&start_date=${startDate}`;
+                        }
+                        if (endDate) {
+                            redirectUrl += `&end_date=${endDate}`;
+                        }
+                        window.location.href = redirectUrl;
+                    });
+                }
+            } catch (err) {
+                console.error('Gagal memuat detail mobil:', err);
+                alert('Gagal memuat informasi mobil. Silakan coba lagi nanti.');
+                window.location.href = 'daftar-mobil.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

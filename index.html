@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Rentify - Dashboard Pelanggan</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e7",
+                        "primary": "#00449d",
+                        "surface-container": "#eeedf2",
+                        "tertiary": "#004695",
+                        "emerald-subtle": "#ECFDF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf9fe",
+                        "primary-container": "#005acc",
+                        "surface-container-high": "#e9e7ed",
+                        "background": "#faf9fe",
+                        "surface": "#faf9fe",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "inverse-surface": "#2f3034",
+                        "warning-amber": "#F59E0B",
+                        "tertiary-container": "#005dc2",
+                        "on-tertiary-container": "#cddbff",
+                        "on-tertiary-fixed": "#001a40",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#cedbff",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001944",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#00429a",
+                        "on-background": "#1a1b1f",
+                        "surface-bg": "#F8FAFC",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "on-secondary-container": "#00714d",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-tint": "#0058c9",
+                        "outline": "#737785",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#424653",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e2e7",
+                        "on-surface": "#1a1b1f",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "surface-card": "#FFFFFF",
+                        "surface-dim": "#dad9de",
+                        "secondary": "#006c49",
+                        "inverse-primary": "#afc6ff",
+                        "outline-variant": "#c2c6d6",
+                        "tertiary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px",
+                        "unit": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface-bg text-on-surface font-body-md selection:bg-primary-container selection:text-white">
+    <!-- TopAppBar -->
+    <header
+        class="sticky top-0 z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm dark:shadow-none">
+        <div class="flex items-center gap-4">
+            <button class="lg:hidden text-primary dark:text-primary-fixed">
+                <span class="material-symbols-outlined" data-icon="menu">menu</span>
+            </button>
+            <span
+                class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Rentify</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
+                href="index.html">Dashboard</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="daftar-mobil.html">Armada Mobil</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="booking-mobil.html">Pesanan Saya</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+                <span class="material-symbols-outlined" data-icon="search">search</span>
+            </button>
+            <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+                <img alt="Profil Pengguna" class="w-full h-full object-cover" data-alt="Profil profesional"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAubF20vKm-N4ZJ4_1hs9bpv0Vjx10ebDd0YjqHN9_7a_5lTsMhLahjcc6Yak7xrCrYShFAZAzYp7Zgf0yZoeCI2yA2PQ_ZMX0U7-kcnufS1dyjn0hrxzpPTowc3Fjmjx28OdI-Lz1rU3abIF8_oXsTZ49K72BH_-m3MgZvEuf8mt46r1VitzFt1WYruLUlZZxClBR9diSP_fznJmvYaDAAqgc_tOpu3j1Sl8ywQwTa_DWNqjLjnkpd_tAaTP-iz4jZmxsk55zV5s" />
+            </div>
+        </div>
+    </header>
+    <!-- Sidebar Navigation -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg h-full w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-8 flex flex-col items-start gap-1">
+            <h2 id="profile-name-aside" class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Alex Walker</h2>
+            <p id="profile-occupation-aside" class="text-on-surface-variant text-body-sm">Anggota Premium</p>
+            <span id="profile-role-badge" class="mt-2 px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Peran User</span>
+        </div>
+        <nav class="flex-1 flex flex-col gap-1 px-2">
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99] transition-transform duration-150"
+                href="index.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="daftar-mobil.html">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pembayaran.html">
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pengaturan.html">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
+            </a>
+        </nav>
+        <div class="p-6">
+            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
+                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
+                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
+                    Anda.</p>
+                <button
+                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
+                    Dukungan</button>
+            </div>
+        </div>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="lg:ml-72 min-h-screen pb-24 md:pb-8">
+        <div class="max-w-container-max-width mx-auto px-margin-mobile md:px-margin-desktop py-8">
+            <!-- Welcome Header -->
+            <section class="mb-10">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <h1 id="welcome-title" class="font-headline-lg text-headline-lg text-on-background">Selamat datang kembali!</h1>
+                        <p class="text-body-lg text-on-surface-variant">Inilah yang terjadi dengan penyewaan Anda hari ini.</p>
+                    </div>
+                    <button
+                        class="bg-primary text-on-primary px-6 py-3 rounded-xl flex items-center gap-2 font-label-md shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity self-start md:self-center">
+                        <span class="material-symbols-outlined" data-icon="add">add</span>
+                        Pesan Perjalanan Baru
+                    </button>
+                </div>
+            </section>
+            <!-- Bento Stats Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
+                <!-- Total Bookings -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30">
+                    <div class="flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-lg text-primary">
+                            <span class="material-symbols-outlined" data-icon="event_available">event_available</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-on-surface-variant font-label-md uppercase tracking-wide">TOTAL PESANAN</p>
+                        <h3 id="stat-total-bookings" class="text-headline-md font-headline-md mt-1">0</h3>
+                    </div>
+                </div>
+                <!-- Available Cars -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30">
+                    <div class="flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 bg-secondary-container flex items-center justify-center rounded-lg text-secondary">
+                            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                        </div>
+                        <span class="text-on-surface-variant font-label-sm">Di area Anda</span>
+                    </div>
+                    <div>
+                        <p class="text-on-surface-variant font-label-md uppercase tracking-wide">MOBIL TERSEDIA</p>
+                        <h3 id="stat-available-cars" class="text-headline-md font-headline-md mt-1">0</h3>
+                    </div>
+                </div>
+                <!-- Transaction History - Featured Bento Card -->
+                <div
+                    class="bg-inverse-surface text-inverse-on-surface p-6 rounded-xl shadow-xl flex flex-col gap-4 md:row-span-1">
+                    <div class="flex justify-between items-center">
+                        <p class="font-label-md uppercase tracking-wide opacity-80">TRANSAKSI TERAKHIR</p>
+                        <span class="material-symbols-outlined" data-icon="history">history</span>
+                    </div>
+                    <div class="flex-1 flex flex-col justify-center">
+                        <h3 id="stat-latest-transaction" class="text-headline-md font-headline-md">Rp 0</h3>
+                        <p id="stat-latest-date" class="text-body-sm opacity-70">Belum ada transaksi</p>
+                    </div>
+                    <a href="pembayaran.html"
+                        class="bg-surface-container-highest/20 hover:bg-surface-container-highest/30 transition-colors text-white py-2 rounded-lg font-label-md text-center block">Lihat Riwayat Lengkap</a>
+                </div>
+            </section>
+            <!-- Popular Cars Section -->
+            <section>
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Populer untuk Anda</h2>
+                    <a class="text-primary font-label-md flex items-center gap-1 hover:underline"
+                        href="daftar-mobil.html">
+                        Lihat semua mobil
+                        <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+                    </a>
+                </div>
+                <div id="popular-cars-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                    <!-- Car Card 1 -->
+                    <div
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                        <div class="relative h-56 overflow-hidden">
+                            <img alt="Porsche 911"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Porsche 911"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmZJwX9HALduF9cKW_9r1FX0fb9wnG19XIslJbgp98yGwXW1QEwAiPNgv7tRYrEiK3o8EYdIKzxu3b0pbJWoCQMZ5oDNacSeIvBLhOYG_l5IX0cslvm2VjMgDx4vZMaTrJazcvSLxOYYb8N0goe5gpRPOIa049kcub7j21mA3_vGZCt0OgEWqtsvKLuqG2CsyQ6-qNQSiDYkGqvIil4QZK_949zEGXu9JTVLSoDmKmQnxRebLMI33fEhlPVwcNjvG71GMtgll5BV4" />
+                            <div
+                                class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-secondary font-label-sm flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm" data-icon="bolt"
+                                    data-weight="fill">bolt</span>
+                                Tersedia
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-headline-sm text-headline-sm">Porsche 911 Carrera</h4>
+                                    <p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm"
+                                            data-icon="settings">settings</span> Otomatis • Mewah
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-primary font-bold text-lg">Rp 340.000</p>
+                                    <p class="text-body-sm text-on-surface-variant">/ hari</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex gap-3">
+                                <button
+                                    class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Pesan
+                                    Sekarang</button>
+                                <button
+                                    class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Car Card 2 -->
+                    <div
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                        <div class="relative h-56 overflow-hidden">
+                            <img alt="BMW M4"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                data-alt="BMW M4"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeNMiv2GiR-ZCxsD67uplkSsAtXCblMeE1tGyqQAjsbHE9_2La2ul5-6NHe8r5vmfFMH384w7DH1u4O4M6w6-J8B0FCxcRCyGF5_-giQVORbqGjRxrx05Yzetbley8GU_z6qxvux2-Fn0XvALFjykU8qbbQzxSSKHAi54WfgoKetXyWaRIWbjSq6tK9Ab1Lm8VLrb4sUI7GH9yZnI7J6JL7W2iNQRmX1N8I9LIOZXa7FfCQWSYOxE2PHfm41bHx_UZAoHWkO8ALbM" />
+                            <div
+                                class="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-secondary font-label-sm flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm" data-icon="bolt"
+                                    data-weight="fill">bolt</span>
+                                Tersedia
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-headline-sm text-headline-sm">BMW M4 Coupe</h4>
+                                    <p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm"
+                                            data-icon="settings">settings</span> Semi-Auto • Sport
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-primary font-bold text-lg">Rp 500.000</p>
+                                    <p class="text-body-sm text-on-surface-variant">/ hari</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex gap-3">
+                                <button
+                                    class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Pesan
+                                    Sekarang</button>
+                                <button
+                                    class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Car Card 3 -->
+                    <div
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                        <div class="relative h-56 overflow-hidden">
+                            <img alt="Tesla Model S"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                data-alt="Tesla Model S"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIacGVrCXfEJFIOGDvCA8X7EEYHQICmfh8yt9Ee7_5NDQ1PPqgs87TOPtdZ3ApxgXWKhDI_tQgUGpmn4p71rbtMIsKz9jeNg0G5_gY9nDczMl8doEPvbR1Zkmjz-lZsuMYUGgJLVocKBM7MEmI2j_7wQhszzjd4PFgLKlFfXSujl-VBtMXYz8Xcupyf1cW15umF7tSffpbqZ266bpqFtOOu132bX3Ku11hcXfVEFZA8O9RCVL_1hq5_XHVRgozy676k1oq8_Myijc" />
+                            <div
+                                class="absolute top-4 right-4 bg-warning-amber/20 backdrop-blur px-3 py-1 rounded-full text-warning-amber font-label-sm flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+                                Segera Dipesan
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex justify-between items-start mb-2">
+                                <div>
+                                    <h4 class="font-headline-sm text-headline-sm">Tesla Model S Plaid</h4>
+                                    <p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm"
+                                            data-icon="ev_station">ev_station</span> Listrik • Sedan
+                                    </p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-primary font-bold text-lg">Rp 700.000</p>
+                                    <p class="text-body-sm text-on-surface-variant">/ hari</p>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex gap-3">
+                                <button
+                                    class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Pesan
+                                    Sekarang</button>
+                                <button
+                                    class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+                                    <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-95 duration-100"
+            href="index.html">
+            <span class="material-symbols-outlined" data-icon="home"
+                style="font-variation-settings: 'FILL' 1;">home</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="daftar-mobil.html">
+            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="booking-mobil.html">
+            <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="manajemen-user.html">
+            <span class="material-symbols-outlined" data-icon="person">person</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
+        </a>
+    </nav>
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Enforce authentication
+            if (!AuthAPI.checkAuth()) return;
+            
+            const user = AuthAPI.getUser();
+            
+            // Redirect admin to admin page
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // 2. Update UI with profile details
+            const firstName = user.name ? user.name.split(' ')[0] : 'Pengguna';
+            document.getElementById('welcome-title').textContent = `Selamat datang kembali, ${firstName}!`;
+            document.getElementById('profile-name-aside').textContent = user.name;
+            document.getElementById('profile-occupation-aside').textContent = user.occupation || 'Pelanggan Rentify';
+            
+            const roleBadge = document.getElementById('profile-role-badge');
+            if (roleBadge) {
+                roleBadge.textContent = 'Pelanggan';
+                roleBadge.className = 'mt-2 px-2 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase tracking-wider';
+            }
+
+            // 3. Inject dynamic Logout button to sidebar navigation
+            const nav = document.querySelector('aside nav');
+            if (nav) {
+                const logoutBtn = document.createElement('a');
+                logoutBtn.className = "text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer mt-auto";
+                logoutBtn.innerHTML = `
+                    <span class="material-symbols-outlined text-error-red">logout</span>
+                    <span class="font-body-md text-body-md font-manrope font-semibold">Keluar</span>
+                `;
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+                nav.appendChild(logoutBtn);
+            }
+
+            // 4. Fetch dynamic data from API
+            try {
+                // Fetch bookings
+                const bookings = await BookingsAPI.getAll();
+                document.getElementById('stat-total-bookings').textContent = bookings.length;
+
+                // Handle latest transaction
+                if (bookings.length > 0) {
+                    const latest = bookings[0];
+                    document.getElementById('stat-latest-transaction').textContent = `Rp ${Number(latest.total_price).toLocaleString('id-ID')}`;
+                    const date = new Date(latest.created_at);
+                    document.getElementById('stat-latest-date').textContent = `Pemesanan pada ${date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}`;
+                } else {
+                    document.getElementById('stat-latest-transaction').textContent = 'Rp 0';
+                    document.getElementById('stat-latest-date').textContent = 'Belum ada transaksi';
+                }
+
+                // Fetch cars
+                const cars = await CarsAPI.getAll();
+                const availableCars = cars.filter(c => c.status === 'available');
+                document.getElementById('stat-available-cars').textContent = availableCars.length;
+
+                // 5. Render popular cars dynamically
+                const popularGrid = document.getElementById('popular-cars-grid');
+                if (popularGrid) {
+                    popularGrid.innerHTML = ''; // Clear fallback mockup cards
+                    
+                    const displayCars = availableCars.length > 0 ? availableCars.slice(0, 3) : cars.slice(0, 3);
+                    
+                    if (displayCars.length === 0) {
+                        popularGrid.innerHTML = `<div class="col-span-full py-8 text-center text-on-surface-variant">Belum ada armada mobil terdaftar.</div>`;
+                    } else {
+                        displayCars.forEach(car => {
+                            popularGrid.innerHTML += `
+                            <div class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                                <div class="relative h-56 overflow-hidden">
+                                    <img alt="${car.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400'}" />
+                                    <div class="absolute top-4 right-4 ${car.status === 'available' ? 'bg-white/90 text-secondary' : 'bg-orange-50 text-warning-amber'} backdrop-blur px-3 py-1 rounded-full font-label-sm flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm" data-icon="${car.status === 'available' ? 'bolt' : 'schedule'}">${car.status === 'available' ? 'bolt' : 'schedule'}</span>
+                                        ${car.status === 'available' ? 'Tersedia' : 'Disewa'}
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <div>
+                                            <h4 class="font-headline-sm text-headline-sm font-bold text-gray-900">${car.name}</h4>
+                                            <p class="text-body-sm text-on-surface-variant flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-sm" data-icon="settings">settings</span> ${car.transmission} • ${car.type}
+                                            </p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-primary font-bold text-lg">Rp ${Number(car.price_per_day).toLocaleString('id-ID')}</p>
+                                            <p class="text-body-sm text-on-surface-variant">/ hari</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6 flex gap-3">
+                                        <a href="detail-mobil.html?id=${car.id}" class="flex-1 bg-primary text-on-primary text-center py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity block">Pesan Sekarang</a>
+                                    </div>
+                                </div>
+                            </div>
+                            `;
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error('Gagal memuat data dashboard:', err);
+            }
+        });
+    </script>
+</body>
+
+</html>

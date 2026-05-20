@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pengaturan - Rentify</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "warning-amber": "#F59E0B",
+                        "tertiary-container": "#005dc2",
+                        "surface-card": "#FFFFFF",
+                        "on-tertiary-fixed": "#001a40",
+                        "error-container": "#ffdad6",
+                        "outline": "#737785",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#005acc",
+                        "on-primary-fixed-variant": "#00429a",
+                        "tertiary-fixed": "#d7e2ff",
+                        "on-secondary-fixed": "#002113",
+                        "surface-container": "#eeedf2",
+                        "background": "#faf9fe",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#dad9de",
+                        "tertiary": "#004695",
+                        "on-surface": "#1a1b1f",
+                        "on-primary-container": "#cedbff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-container-highest": "#e3e2e7",
+                        "inverse-surface": "#2f3034",
+                        "surface-tint": "#0058c9",
+                        "on-secondary-container": "#00714d",
+                        "secondary-container": "#6cf8bb",
+                        "on-background": "#1a1b1f",
+                        "error-red": "#EF4444",
+                        "on-secondary-fixed-variant": "#005236",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#afc6ff",
+                        "surface-bg": "#F8FAFC",
+                        "surface-container-high": "#e9e7ed",
+                        "emerald-subtle": "#ECFDF5",
+                        "on-tertiary-container": "#cddbff",
+                        "surface-container-low": "#f4f3f8",
+                        "secondary-fixed": "#6ffbbe",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "surface-variant": "#e3e2e7",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "secondary": "#006c49",
+                        "on-primary-fixed": "#001944",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "primary-fixed": "#d9e2ff",
+                        "outline-variant": "#c2c6d6",
+                        "on-surface-variant": "#424653",
+                        "on-error": "#ffffff",
+                        "primary": "#00449d",
+                        "on-error-container": "#93000a",
+                        "surface": "#faf9fe",
+                        "surface-bright": "#faf9fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Manrope"],
+                        "body-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface-bg text-on-surface font-body-md min-h-screen pb-24 lg:pb-0">
+    <!-- Top AppBar (Mobile/Compact context suppressed for Back Action) -->
+    <header
+        class="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-margin-desktop w-full h-16 bg-surface shadow-sm transition-colors">
+        <div class="flex items-center gap-4">
+            <a href="index.html"
+                class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors">
+                <span class="material-symbols-outlined text-primary">arrow_back</span>
+            </a>
+            <h1 class="font-headline-md text-headline-md font-bold text-primary">Pengaturan</h1>
+        </div>
+        <div class="flex items-center gap-2">
+            <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low">
+                <span class="material-symbols-outlined text-on-surface-variant">search</span>
+            </button>
+        </div>
+    </header>
+    <main class="max-w-[1440px] mx-auto px-4 lg:px-margin-desktop py-6 lg:flex lg:gap-gutter">
+        <!-- Sidebar Navigation (Hidden on Mobile) -->
+        <nav
+            class="hidden lg:flex flex-col w-72 h-[calc(100vh-100px)] sticky top-24 bg-surface-container-lowest rounded-r-xl border-r border-outline-variant p-4">
+            <div class="flex items-center gap-3 px-4 py-6 mb-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+                    <img id="aside-profile-img" alt="Alex Walker" class="w-full h-full object-cover"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIrYHz04r8rJGmjTL2_FIs6c5hfqgdu5lMnWV1UPm7aH_YixO59eJrn6mtIkjvnBX8kGHnK7N1kiTbbfzl5bUvFKdzryag4ZFtCAOGmMQKp8uYxsKL5O_NLXFSb-lLaEpaRZ2KX5kxHaYwZDiiL1oC5fcmDxwBzn_1y-AF6_vS4Nut391Ef_2ldk1y7gtSdT0v7bflxsWpNdxCylcSE1mYvb3zSq2dQ6WaitIMsru80l7NztMhUIwGhuNFKoPCXJlAf3n5aHlPjvE" />
+                </div>
+                <div>
+                    <h2 id="aside-profile-name" class="font-headline-sm text-headline-sm text-primary">Alex Walker</h2>
+                    <p id="aside-profile-role" class="font-body-sm text-body-sm text-on-surface-variant">Premium Member</p>
+                </div>
+            </div>
+            <div class="space-y-1">
+                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                    href="index.html">
+                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    <span class="font-label-md">Dashboard</span>
+                </a>
+                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                    href="daftar-mobil.html">
+                    <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                    <span class="font-label-md">Car Fleet</span>
+                </a>
+                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                    href="booking-mobil.html">
+                    <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                    <span class="font-label-md">My Bookings</span>
+                </a>
+                <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]"
+                    href="pengaturan.html">
+                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    <span class="font-label-md font-bold">Settings</span>
+                </a>
+            </div>
+            <div class="mt-auto p-4">
+                <button id="btn-logout-sidebar"
+                    class="w-full flex items-center gap-3 px-4 py-3 text-error-red hover:bg-error-container/20 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-label-md font-bold">Keluar</span>
+                </button>
+            </div>
+        </nav>
+        <!-- Main Content Area -->
+        <div class="flex-1 space-y-gutter">
+
+            <!-- Profile Edit Form -->
+            <section class="bg-surface-card rounded-xl shadow-sm p-6 mb-6 border border-outline-variant/30">
+                <h3 class="font-headline-sm text-headline-sm text-primary mb-6">Edit Profil Anda</h3>
+                <form id="profile-form" class="space-y-6">
+                    <!-- Profile Picture Upload -->
+                    <div class="flex flex-col md:flex-row items-center gap-6 pb-6 border-b border-outline-variant/50">
+                        <div
+                            class="w-24 h-24 rounded-full overflow-hidden border-2 border-primary-container relative group cursor-pointer shadow-sm">
+                            <img id="form-profile-img" alt="Profile" class="w-full h-full object-cover"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIrYHz04r8rJGmjTL2_FIs6c5hfqgdu5lMnWV1UPm7aH_YixO59eJrn6mtIkjvnBX8kGHnK7N1kiTbbfzl5bUvFKdzryag4ZFtCAOGmMQKp8uYxsKL5O_NLXFSb-lLaEpaRZ2KX5kxHaYwZDiiL1oC5fcmDxwBzn_1y-AF6_vS4Nut391Ef_2ldk1y7gtSdT0v7bflxsWpNdxCylcSE1mYvb3zSq2dQ6WaitIMsru80l7NztMhUIwGhuNFKoPCXJlAf3n5aHlPjvE" />
+                            <div id="btn-change-photo-overlay"
+                                class="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center transition-all">
+                                <span class="material-symbols-outlined text-white">photo_camera</span>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <input type="file" id="input-profile-file" accept="image/*" class="hidden" />
+                            <button type="button" id="btn-change-photo"
+                                class="bg-primary/10 text-primary px-5 py-2 rounded-lg font-label-md font-bold hover:bg-primary/20 transition-colors">Ubah
+                                Foto Profil</button>
+                            <p class="text-body-sm text-on-surface-variant mt-2">Disarankan ukuran 500x500px, format
+                                JPG, GIF atau PNG. Maks 2MB.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Nama Lengkap</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">person</span>
+                                <input type="text" id="input-name" value="" required
+                                    class="w-full pl-10 pr-3 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Email</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">mail</span>
+                                <input type="email" id="input-email" value="" required
+                                    class="w-full pl-10 pr-3 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Nomor Telepon</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">call</span>
+                                <input type="tel" id="input-phone" value=""
+                                    class="w-full pl-10 pr-3 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Pekerjaan</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">work</span>
+                                <input type="text" id="input-occupation" value=""
+                                    class="w-full pl-10 pr-3 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2 md:col-span-2">
+                            <label class="font-label-md text-on-surface">Alamat Tersimpan (Utama)</label>
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-outlined absolute left-3 top-4 text-on-surface-variant">home</span>
+                                <textarea id="input-address"
+                                    class="w-full pl-10 pr-3 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                                    rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end gap-3 pt-4 border-t border-outline-variant/50">
+                        <button type="button" id="btn-cancel-profile"
+                            class="px-6 py-2 border border-outline-variant rounded-lg font-label-md text-on-surface hover:bg-surface-container-low transition-colors">Batal</button>
+                        <button type="submit" id="btn-save-profile"
+                            class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md font-bold hover:bg-primary/90 transition-colors shadow-sm">Simpan
+                            Perubahan</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Settings Groups Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                <!-- Account Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Akun</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">payments</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Metode Pembayaran</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">map</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Alamat Tersimpan</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Application Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Aplikasi</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">notifications</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Notifikasi</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <div class="w-10 h-5 bg-secondary rounded-full relative shadow-inner">
+                                        <div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm">
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">language</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Bahasa</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-body-sm text-on-surface-variant">Bahasa Indonesia</span>
+                                    <span
+                                        class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                                </div>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">dark_mode</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Tema</span>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <span class="font-body-sm text-on-surface-variant">Terang</span>
+                                    <span
+                                        class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Security Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Keamanan</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Ganti Kata Sandi</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">fingerprint</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Keamanan Biometrik</span>
+                                </div>
+                                <div class="w-10 h-5 bg-surface-container-highest rounded-full relative shadow-inner">
+                                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm">
+                                    </div>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Support Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Dukungan</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">help_center</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Pusat Bantuan</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">description</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Syarat &amp; Ketentuan</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">policy</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Kebijakan Privasi</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Mobile Logout Button (Suppressed FAB, so using a standard button) -->
+            <div class="lg:hidden mt-4 pb-12">
+                <button id="btn-logout-mobile"
+                    class="w-full flex items-center justify-center gap-3 bg-white text-error-red border border-error-red/20 py-4 rounded-xl font-bold shadow-sm active:scale-95 transition-transform">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Keluar</span>
+                </button>
+                <p class="text-center text-on-surface-variant font-label-sm mt-8 opacity-50">Rentify v2.4.0 • Made with
+                    Excellence</p>
+            </div>
+        </div>
+    </main>
+    <!-- Bottom Navigation Bar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
+            href="index.html">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-label-sm">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
+            href="daftar-mobil.html">
+            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+            <span class="font-label-sm">Mobil</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
+            href="booking-mobil.html">
+            <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+            <span class="font-label-sm">Pesanan</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-95 duration-100"
+            href="pengaturan.html">
+            <span class="material-symbols-outlined" data-icon="person" data-weight="fill">person</span>
+            <span class="font-label-sm">Profil</span>
+        </a>
+    </nav>
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Authenticate user session
+            if (!AuthAPI.checkAuth()) return;
+
+            let originalProfile = null;
+            let uploadedAvatarBase64 = null;
+
+            // Elements
+            const asideProfileImg = document.getElementById('aside-profile-img');
+            const asideProfileName = document.getElementById('aside-profile-name');
+            const asideProfileRole = document.getElementById('aside-profile-role');
+            const formProfileImg = document.getElementById('form-profile-img');
+            const btnChangePhoto = document.getElementById('btn-change-photo');
+            const btnChangePhotoOverlay = document.getElementById('btn-change-photo-overlay');
+            const inputProfileFile = document.getElementById('input-profile-file');
+
+            const inputName = document.getElementById('input-name');
+            const inputEmail = document.getElementById('input-email');
+            const inputPhone = document.getElementById('input-phone');
+            const inputOccupation = document.getElementById('input-occupation');
+            const inputAddress = document.getElementById('input-address');
+
+            const profileForm = document.getElementById('profile-form');
+            const btnCancelProfile = document.getElementById('btn-cancel-profile');
+            const btnSaveProfile = document.getElementById('btn-save-profile');
+
+            const btnLogoutSidebar = document.getElementById('btn-logout-sidebar');
+            const btnLogoutMobile = document.getElementById('btn-logout-mobile');
+
+            // 2. Fetch and render user profile data
+            async function loadProfile() {
+                try {
+                    const profile = await UserAPI.getProfile();
+                    originalProfile = profile;
+                    renderProfile(profile);
+                } catch (error) {
+                    console.error('Gagal mengambil data profil:', error);
+                    alert('Gagal memuat profil. Silakan muat ulang halaman.');
+                }
+            }
+
+            function renderProfile(profile) {
+                const isAdmin = profile.role === 'admin';
+                
+                // Header & aside bindings
+                asideProfileName.textContent = profile.name;
+                asideProfileRole.textContent = isAdmin ? 'Administrator' : (profile.occupation || 'Pelanggan Rentify');
+                
+                if (profile.avatar) {
+                    asideProfileImg.src = profile.avatar;
+                    formProfileImg.src = profile.avatar;
+                }
+
+                // Input fields
+                inputName.value = profile.name || '';
+                inputEmail.value = profile.email || '';
+                inputPhone.value = profile.phone || '';
+                inputOccupation.value = profile.occupation || '';
+                inputAddress.value = profile.address || '';
+                
+                uploadedAvatarBase64 = null;
+            }
+
+            // Load on init
+            await loadProfile();
+
+            // 3. Picture upload logic
+            const triggerPhotoSelect = () => inputProfileFile.click();
+            btnChangePhoto.addEventListener('click', triggerPhotoSelect);
+            if (btnChangePhotoOverlay) {
+                btnChangePhotoOverlay.addEventListener('click', triggerPhotoSelect);
+            }
+
+            inputProfileFile.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('Ukuran file terlalu besar! Maksimal 2MB.');
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        uploadedAvatarBase64 = reader.result;
+                        formProfileImg.src = reader.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // 4. Save updates
+            profileForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                btnSaveProfile.disabled = true;
+                btnSaveProfile.textContent = 'Menyimpan...';
+
+                const profileData = {
+                    name: inputName.value,
+                    email: inputEmail.value,
+                    phone: inputPhone.value,
+                    occupation: inputOccupation.value,
+                    address: inputAddress.value,
+                };
+
+                if (uploadedAvatarBase64) {
+                    profileData.avatar = uploadedAvatarBase64;
+                }
+
+                try {
+                    const result = await UserAPI.updateProfile(profileData);
+                    alert(result.message || 'Profil berhasil diperbarui!');
+                    await loadProfile(); // reload to sync all elements
+                } catch (error) {
+                    alert('Gagal memperbarui profil: ' + error.message);
+                } finally {
+                    btnSaveProfile.disabled = false;
+                    btnSaveProfile.textContent = 'Simpan Perubahan';
+                }
+            });
+
+            // 5. Cancel reset
+            btnCancelProfile.addEventListener('click', () => {
+                if (originalProfile) {
+                    renderProfile(originalProfile);
+                }
+            });
+
+            // 6. Logouts
+            if (btnLogoutSidebar) {
+                btnLogoutSidebar.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+            }
+            if (btnLogoutMobile) {
+                btnLogoutMobile.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

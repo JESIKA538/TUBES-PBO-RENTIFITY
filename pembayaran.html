@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background: #F8FAFC;
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+    <title>Rentify - Proses Pembayaran</title>
+</head>
+
+<body>
+    <header class="sticky top-0 z-50 flex justify-between items-center px-8 w-full h-16 bg-white shadow-sm">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-blue-700">menu</span>
+            <h1 class="text-2xl font-bold text-blue-700">Rentify</h1>
+        </div>
+        <div class="hidden md:flex gap-8">
+            <a href="index.html" class="text-slate-500 hover:text-blue-700">Dashboard</a>
+            <a href="daftar-mobil.html" class="text-slate-500 hover:text-blue-700">Armada</a>
+            <a href="riwayat.html" class="text-blue-700 font-bold border-b-2 border-blue-700">Riwayat Pembayaran</a>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 grid lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 space-y-6">
+            <div class="bg-white rounded-2xl shadow p-6 border">
+                <h2 class="text-2xl font-bold mb-6">Detail Transaksi</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="font-semibold">Jumlah Pembayaran</label>
+                        <input type="text" id="payment-amount" readonly value="Rp 0" class="w-full mt-2 border rounded-xl px-4 py-3 font-bold bg-slate-100 cursor-not-allowed" />
+                    </div>
+                    <div>
+                        <label class="font-semibold">Status Saat Ini</label>
+                        <div id="payment-status-badge" class="mt-2 px-4 py-3 rounded-xl border bg-amber-50 text-amber-600 font-semibold uppercase">
+                            Menunggu Pembayaran
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-6 border">
+                <h2 class="text-2xl font-bold mb-6">Pilih Metode Pembayaran</h2>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <label
+                        class="border-2 border-blue-700 bg-blue-50 rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card" id="card-transfer">
+                        <input checked type="radio" name="payment" id="payment-transfer" value="Transfer Bank" class="cursor-pointer" />
+                        <div>
+                            <h3 class="font-bold text-blue-700">Transfer Bank</h3>
+                            <p class="text-sm text-slate-500">Transfer Bank Aman</p>
+                        </div>
+                    </label>
+
+                    <label class="border rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card" id="card-cash">
+                        <input type="radio" name="payment" id="payment-cash" value="Tunai" class="cursor-pointer" />
+                        <div>
+                            <h3 class="font-bold text-slate-700">Tunai</h3>
+                            <p class="text-sm text-slate-500">Bayar di lokasi pengambilan</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow p-6 border" id="upload-proof-container">
+                <h2 class="text-2xl font-bold mb-6">Unggah Bukti Transfer</h2>
+                <div class="border-2 border-dashed rounded-2xl p-10 text-center bg-slate-50 relative">
+                    <span class="material-symbols-outlined text-5xl text-blue-700">upload_file</span>
+                    <p class="font-bold mt-4" id="upload-file-label">Klik atau tarik file ke sini</p>
+                    <p class="text-sm text-slate-500">PDF, JPG, PNG hingga 5MB</p>
+                    <input type="file" id="payment-proof-file" class="mt-4 mx-auto block" accept="image/*" />
+                </div>
+            </div>
+
+            <button id="btn-process-payment"
+                class="w-full bg-green-700 hover:bg-green-800 transition text-white font-bold py-4 rounded-2xl shadow-lg cursor-pointer">
+                Proses Pembayaran
+            </button>
+        </div>
+
+        <div class="lg:col-span-5">
+            <div class="bg-white rounded-2xl shadow border overflow-hidden">
+                <div class="bg-blue-700 text-white p-6">
+                    <h3 class="text-xl font-bold">Ringkasan Pesanan</h3>
+                    <p id="summary-dates" class="text-sm opacity-80">Loading...</p>
+                </div>
+
+                <div class="p-6">
+                    <div class="flex gap-4 border-b pb-6 mb-6">
+                        <img id="summary-car-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop"
+                            class="w-28 h-20 rounded-xl object-cover" />
+                        <div>
+                            <h4 id="summary-car-name" class="font-bold">Tesla Model S Plaid</h4>
+                            <p id="summary-car-desc" class="text-sm text-slate-500">Long Range Dual Motor</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>Tarif Harian</span>
+                            <span id="summary-daily-rate" class="font-bold">Rp 0</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Durasi Sewa</span>
+                            <span id="summary-duration" class="font-bold">0 Hari</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Biaya Layanan</span>
+                            <span id="summary-service-fee" class="font-bold">Rp 50.000</span>
+                        </div>
+                        <hr />
+                        <div class="flex justify-between text-xl font-bold text-blue-700">
+                            <span>Total</span>
+                            <span id="summary-total">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Authenticate user
+            if (!AuthAPI.checkAuth()) return;
+            
+            const user = AuthAPI.getUser();
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
+
+            // Get booking ID from query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookingId = urlParams.get('booking_id');
+
+            if (!bookingId) {
+                alert('ID Pemesanan tidak ditemukan!');
+                window.location.href = 'riwayat.html';
+                return;
+            }
+
+            // 2. Fetch booking info by scanning the user's booking list
+            let targetBooking = null;
+            try {
+                const bookings = await BookingsAPI.getAll();
+                targetBooking = bookings.find(b => String(b.id) === String(bookingId));
+                
+                if (!targetBooking) {
+                    alert('Pemesanan tidak ditemukan atau Anda tidak memiliki akses!');
+                    window.location.href = 'riwayat.html';
+                    return;
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Gagal mengambil data pemesanan: ' + err.message);
+                window.location.href = 'riwayat.html';
+                return;
+            }
+
+            // 3. Render booking and car information
+            const car = targetBooking.car;
+            const totalPrice = Number(targetBooking.total_price);
+            
+            // Format dates
+            const start = new Date(targetBooking.start_date);
+            const end = new Date(targetBooking.end_date);
+            const diffTime = end - start;
+            const diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+            
+            const dateOptions = { day: 'numeric', month: 'short', year: 'numeric' };
+            const formattedStart = start.toLocaleDateString('id-ID', dateOptions);
+            const formattedEnd = end.toLocaleDateString('id-ID', dateOptions);
+            
+            // Fill UI details
+            document.getElementById('payment-amount').value = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            
+            const badge = document.getElementById('payment-status-badge');
+            badge.textContent = targetBooking.status;
+            if (targetBooking.status === 'confirmed' || targetBooking.status === 'completed') {
+                badge.className = 'mt-2 px-4 py-3 rounded-xl border bg-emerald-50 text-emerald-600 font-semibold uppercase';
+                // Disable payment processing if already paid
+                const btnPay = document.getElementById('btn-process-payment');
+                btnPay.disabled = true;
+                btnPay.textContent = 'Pemesanan Sudah Lunas';
+                btnPay.className = 'w-full bg-gray-400 text-white font-bold py-4 rounded-2xl shadow-lg cursor-not-allowed';
+            } else if (targetBooking.status === 'cancelled') {
+                badge.className = 'mt-2 px-4 py-3 rounded-xl border bg-red-50 text-red-600 font-semibold uppercase';
+                const btnPay = document.getElementById('btn-process-payment');
+                btnPay.disabled = true;
+                btnPay.textContent = 'Pemesanan Dibatalkan';
+                btnPay.className = 'w-full bg-gray-400 text-white font-bold py-4 rounded-2xl shadow-lg cursor-not-allowed';
+            } else {
+                badge.className = 'mt-2 px-4 py-3 rounded-xl border bg-amber-50 text-amber-600 font-semibold uppercase';
+            }
+
+            // Summary Side Card
+            document.getElementById('summary-dates').textContent = `Dipesan untuk ${formattedStart} - ${formattedEnd}`;
+            document.getElementById('summary-car-img').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop';
+            document.getElementById('summary-car-name').textContent = `${car.brand} ${car.name}`;
+            document.getElementById('summary-car-desc').textContent = `${car.brand} ${car.type} • ${car.transmission === 'automatic' ? 'Otomatis' : 'Manual'}`;
+            
+            const dailyRate = Number(car.price_per_day);
+            document.getElementById('summary-daily-rate').textContent = `Rp ${dailyRate.toLocaleString('id-ID')}`;
+            document.getElementById('summary-duration').textContent = `${diffDays} Hari`;
+            
+            // Assume 50k service fee included in total or keep it dynamic
+            const serviceFee = 50000;
+            document.getElementById('summary-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
+            document.getElementById('summary-total').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+
+            // 4. Toggle payment method UI interaction
+            const radioTransfer = document.getElementById('payment-transfer');
+            const radioCash = document.getElementById('payment-cash');
+            const cardTransfer = document.getElementById('card-transfer');
+            const cardCash = document.getElementById('card-cash');
+            const uploadContainer = document.getElementById('upload-proof-container');
+            
+            function togglePaymentUI() {
+                if (radioTransfer.checked) {
+                    cardTransfer.className = 'border-2 border-blue-700 bg-blue-50 rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card';
+                    cardTransfer.querySelector('h3').className = 'font-bold text-blue-700';
+                    
+                    cardCash.className = 'border rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card';
+                    cardCash.querySelector('h3').className = 'font-bold text-slate-700';
+                    
+                    uploadContainer.style.display = 'block';
+                } else {
+                    cardCash.className = 'border-2 border-blue-700 bg-blue-50 rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card';
+                    cardCash.querySelector('h3').className = 'font-bold text-blue-700';
+                    
+                    cardTransfer.className = 'border rounded-2xl p-4 flex items-center gap-4 cursor-pointer payment-method-card';
+                    cardTransfer.querySelector('h3').className = 'font-bold text-slate-700';
+                    
+                    uploadContainer.style.display = 'none';
+                }
+            }
+
+            radioTransfer.addEventListener('change', togglePaymentUI);
+            radioCash.addEventListener('change', togglePaymentUI);
+
+            // Handle file name label change
+            const fileInput = document.getElementById('payment-proof-file');
+            const fileLabel = document.getElementById('upload-file-label');
+            let base64Proof = '';
+
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    fileLabel.textContent = `Berkas Terpilih: ${file.name}`;
+                    
+                    // Convert to base64
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        base64Proof = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    fileLabel.textContent = 'Klik atau tarik file ke sini';
+                    base64Proof = '';
+                }
+            });
+
+            // 5. Submit Payment Action
+            const btnPay = document.getElementById('btn-process-payment');
+            btnPay.addEventListener('click', async () => {
+                const method = radioTransfer.checked ? 'Transfer Bank' : 'Tunai';
+                
+                // For Transfer Bank, enforce proof of payment optionally, or fallback to mock
+                let proof = base64Proof;
+                if (method === 'Transfer Bank' && !proof) {
+                    // Ask if they want mock proof or if it is required
+                    if (!confirm('Apakah Anda ingin memproses pembayaran transfer menggunakan bukti pembayaran tiruan?')) {
+                        return;
+                    }
+                    proof = 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=600&auto=format&fit=crop';
+                } else if (method === 'Tunai') {
+                    proof = 'Tunai di Kantor Pengambilan';
+                }
+
+                try {
+                    btnPay.disabled = true;
+                    btnPay.textContent = 'Memproses Pembayaran...';
+                    
+                    await PaymentsAPI.create(bookingId, method, totalPrice, proof);
+                    
+                    alert('Pembayaran berhasil dikonfirmasi! Pemesanan Anda kini telah Aktif.');
+                    window.location.href = 'riwayat.html';
+                } catch (err) {
+                    alert('Gagal memproses pembayaran: ' + err.message);
+                    btnPay.disabled = false;
+                    btnPay.textContent = 'Proses Pembayaran';
+                }
+            });
+        });
+    </script>
+</body>
+
+
+</html>

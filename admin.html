@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e7",
+                        "primary": "#00449d",
+                        "surface-container": "#eeedf2",
+                        "tertiary": "#004695",
+                        "emerald-subtle": "#ECFDF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf9fe",
+                        "primary-container": "#005acc",
+                        "surface-container-high": "#e9e7ed",
+                        "background": "#faf9fe",
+                        "surface": "#faf9fe",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "inverse-surface": "#2f3034",
+                        "warning-amber": "#F59E0B",
+                        "tertiary-container": "#005dc2",
+                        "on-tertiary-container": "#cddbff",
+                        "on-tertiary-fixed": "#001a40",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#cedbff",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001944",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#00429a",
+                        "on-background": "#1a1b1f",
+                        "surface-bg": "#F8FAFC",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "on-secondary-container": "#00714d",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-tint": "#0058c9",
+                        "outline": "#737785",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#424653",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e2e7",
+                        "on-surface": "#1a1b1f",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "surface-card": "#FFFFFF",
+                        "surface-dim": "#dad9de",
+                        "secondary": "#006c49",
+                        "inverse-primary": "#afc6ff",
+                        "outline-variant": "#c2c6d6",
+                        "tertiary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px",
+                        "unit": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2c6d6;
+            border-radius: 10px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface-bg text-on-background font-body-md overflow-x-hidden">
+    <!-- Navigation Drawer (SideNav) -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface w-72 rounded-r-xl shadow-lg">
+        <div class="p-8">
+            <span
+                class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">Rentify</span>
+        </div>
+        <div class="px-4 py-6 flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-grow">
+            <!-- Active Link: Dashboard -->
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-bold"
+                href="admin.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="manajemen-armada.html">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="manajemen-user.html">
+                <span class="material-symbols-outlined" data-icon="group">group</span>
+                <span class="font-body-md text-body-md font-manrope">Manajemen Pengguna</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pemesanan Saya</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pembayaran.html">
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
+            </a>
+            <div class="mt-auto border-t border-outline-variant pt-4">
+                <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-body-md"
+                    href="pengaturan.html">
+                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    <span>Pengaturan</span>
+                </a>
+                <a id="logout-btn-aside" class="text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer font-body-md font-semibold">
+                    <span class="material-symbols-outlined text-error-red">logout</span>
+                    <span>Keluar</span>
+                </a>
+            </div>
+        </div>
+        <!-- Profile Footer in SideNav -->
+        <div class="p-6 border-t border-outline-variant">
+            <div class="flex items-center gap-3">
+                <img id="aside-admin-img" alt="User Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm"
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" />
+                <div class="flex flex-col">
+                    <span id="aside-admin-name" class="font-label-md text-label-md text-on-surface">Alex Walker</span>
+                    <span class="text-xs text-on-surface-variant">Peran Admin</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <!-- Main Content Area -->
+    <main class="lg:ml-72 min-h-screen flex flex-col">
+        <!-- TopAppBar -->
+        <header
+            class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm">
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 text-on-surface">
+                    <span class="material-symbols-outlined" data-icon="menu">menu</span>
+                </button>
+                <h1 class="hidden lg:block font-headline-md text-headline-md font-plus-jakarta-sans text-on-surface">
+                    Ikhtisar Dashboard</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative hidden md:flex items-center">
+                    <span class="material-symbols-outlined absolute left-3 text-on-surface-variant"
+                        data-icon="search">search</span>
+                    <input
+                        class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-sm w-64 focus:ring-2 focus:ring-primary"
+                        placeholder="Cari data..." type="text" />
+                </div>
+                <button
+                    class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+                    <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+                </button>
+                <div id="top-admin-avatar"
+                    class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs overflow-hidden">
+                    AW
+                </div>
+            </div>
+        </header>
+        <div class="p-margin-desktop space-y-gutter flex-grow">
+            <!-- Stats Bento Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+                <!-- Card: Total Mobil -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                        </div>
+                        <span
+                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[14px]"
+                                data-icon="trending_up">trending_up</span> +12%
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-on-surface-variant font-label-md text-label-md">Total Mobil</p>
+                        <h3 id="stat-total-cars" class="text-headline-md font-headline-md text-on-surface">0</h3>
+                    </div>
+                </div>
+                <!-- Card: Mobil Disewa -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined" data-icon="key">key</span>
+                        </div>
+                        <span
+                            class="text-xs font-bold text-error-red flex items-center gap-1 bg-error-container/20 px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[14px]"
+                                data-icon="trending_down">trending_down</span> -2%
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-on-surface-variant font-label-md text-label-md">Mobil Disewa</p>
+                        <h3 id="stat-rented-cars" class="text-headline-md font-headline-md text-on-surface">0</h3>
+                    </div>
+                </div>
+                <!-- Card: Total Pelanggan -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined" data-icon="group">group</span>
+                        </div>
+                        <span
+                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[14px]"
+                                data-icon="trending_up">trending_up</span> +18%
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-on-surface-variant font-label-md text-label-md">Total Pelanggan</p>
+                        <h3 id="stat-total-customers" class="text-headline-md font-headline-md text-on-surface">0</h3>
+                    </div>
+                </div>
+                <!-- Card: Pendapatan -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div
+                            class="w-12 h-12 rounded-lg bg-warning-amber/10 flex items-center justify-center text-warning-amber">
+                            <span class="material-symbols-outlined"
+                                data-icon="account_balance_wallet">account_balance_wallet</span>
+                        </div>
+                        <span
+                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[14px]"
+                                data-icon="trending_up">trending_up</span> +24%
+                        </span>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-on-surface-variant font-label-md text-label-md">Total Pendapatan</p>
+                        <h3 id="stat-total-revenue" class="text-headline-md font-headline-md text-on-surface">Rp 0</h3>
+                    </div>
+                </div>
+            </div>
+            <!-- Main Layout Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+                <!-- Analytics Chart Placeholder Section -->
+                <div
+                    class="lg:col-span-2 bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    <div class="flex justify-between items-center mb-8">
+                        <div>
+                            <h2 class="text-headline-sm font-headline-sm text-on-surface">Analitik Penyewaan</h2>
+                            <p class="text-body-sm text-on-surface-variant">Frekuensi sewa mobil selama 30 hari terakhir
+                            </p>
+                        </div>
+                        <select id="filterData"
+                            class="bg-surface-container-low border-none rounded-lg text-label-md py-2 px-4 focus:ring-primary">
+                            <option value="30">30 Hari Terakhir</option>
+                            <option value="6">6 Bulan Terakhir</option>
+                            <option value="12">Tahun Ini</option>
+                        </select>
+                    </div>
+                    <!-- Mock Chart Visualization -->
+                    <div class="h-64 flex items-end justify-between gap-2 px-4">
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[40%] transition-all hover:bg-primary/20">
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                                120</div>
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[60%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[30%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[80%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[55%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[90%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary rounded-t-lg relative group h-[75%] transition-all hover:brightness-110">
+                            <div
+                                class="absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-xs py-1 px-2 rounded">
+                                245</div>
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[45%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[65%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[85%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[40%] transition-all hover:bg-primary/20">
+                        </div>
+                        <div
+                            class="w-full bg-primary/10 rounded-t-lg relative group h-[70%] transition-all hover:bg-primary/20">
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 text-label-sm text-on-surface-variant font-medium">
+                        <span>01 Jan</span>
+                        <span>08 Jan</span>
+                        <span>15 Jan</span>
+                        <span>22 Jan</span>
+                        <span>30 Jan</span>
+                    </div>
+                </div>
+                <!-- Secondary Focus Card: Performa Terbaik -->
+                <div
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    <h2 class="text-headline-sm font-headline-sm text-on-surface mb-6">Performa Terbaik</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Model Mobil" class="w-full h-full object-cover"
+                                    data-alt="A side view of a modern black luxury sedan parked in a minimalist showroom with concrete floors and soft overhead spotlighting. The image captures the sleek aerodynamic lines and polished finish of the vehicle. The lighting creates subtle reflections on the car's body, maintaining a professional and high-end automotive aesthetic."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWgfTTnNyMNN7R43FYpnf7-KO1QA-AoC9EOn8lNNikI94x2rP1GuSfThitLxKkVaFKdXsMMiRUm-c7iMA4RrsEDOlnxbAYQ8mj-_kA110qg-iKLNw54liYXxBqqIeqXLuHbjTXSG3fxhi2a1QJwX6vpK69xXQweoDiXo7kCTKA-eP_vtwpuqTUho1JIJ0Ntx-ZB8jQzk-TiLGqTL-OCm_XjPV6QLUMwPk-OtFRyyq3TDpZblF6z7uhbSiKuhX8RtFr5414Ku49poU" />
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-label-md text-label-md text-on-surface">BMW Series 5</p>
+                                <p class="text-xs text-on-surface-variant">Sedan Mewah</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-primary">84 penyewaan</p>
+                                <p class="text-[10px] text-secondary font-bold">+5%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Model Mobil" class="w-full h-full object-cover"
+                                    data-alt="A frontal perspective of a white premium electric SUV positioned against a clean studio backdrop. The lighting is bright and even, highlighting the car's futuristic design elements and sharp contours. The overall feel is modern, sustainable, and high-tech, aligning with a corporate fleet management interface."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd1NOmBYYUAUYLERLIcCqFLMzaFz-jbdTeFruBBQUNcUz60tJRAoW_G4-vvuq8R4xcEynlrsqI6FnT7RwH4HR_KjMU-LMUraBvL8YPZnj5aBX_4kC0rDmhImqiQPM8iMz5lf5VN4ZjkdOjW4qBUHM2oQkz-EvLwpEYceco6VK9_f1zbk7v3Fv9A6V5an_NrbTKkwhRsiIAuzIuboOUbUhlxMgpGdezSEDaJ5AL-3160gHB5_Wx0JjkfXwFOpdndfDTqsuN8PpRuvI" />
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-label-md text-label-md text-on-surface">Tesla Model Y</p>
+                                <p class="text-xs text-on-surface-variant">SUV Listrik</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-primary">72 penyewaan</p>
+                                <p class="text-[10px] text-secondary font-bold">+12%</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+                                <img alt="Model Mobil" class="w-full h-full object-cover"
+                                    data-alt="A vibrant red compact hatchback shown driving on a coastal road during golden hour. The warm sunlight glints off the metallic paint, creating a sense of energy and freedom. The composition is dynamic, focusing on the car's agile appearance and appeal for urban environments."
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6c0_-r6OZsfjNNKrpnp8JxlF-onrD7caCuw01iTS8UGRwVeonQ8alSZVdW8dCMuKviL_cBl4XgBrud0f1JmyUOVFaqxtMLj75ermQD01W0Jy7ET6_srTQXS0Vc074E4K4aBb6jtSmFl72C5f4U92p9yi0f8sFuwF3RX_LfwNjKFE8L-RsvfC6iYW16QreCEjHiHIEIU0OQA-sJNcv4weHjed6xU3zlIuy4I91sb9M5OWaQ4q2Z1p_3EYQ4BPb8NUE2mP6jMAkslU" />
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-label-md text-label-md text-on-surface">Audi A3</p>
+                                <p class="text-xs text-on-surface-variant">Sport Kompak</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="font-bold text-primary">65 penyewaan</p>
+                                <p class="text-[10px] text-error-red font-bold">-2%</p>
+                            </div>
+                        </div>
+                        <button
+                            class="w-full mt-4 py-3 border border-primary text-primary font-label-md text-label-md rounded-lg hover:bg-primary/5 transition-colors">
+                            Lihat Inventaris Detail
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Transactions Table -->
+            <div
+                class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 overflow-hidden">
+                <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+                    <h2 class="text-headline-sm font-headline-sm text-on-surface">Transaksi Terkini</h2>
+                    <button class="text-primary font-label-md text-label-md flex items-center gap-1">
+                        Unduh Laporan <span class="material-symbols-outlined text-[18px]"
+                            data-icon="download">download</span>
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead class="bg-surface-container-low">
+                            <tr>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    ID TRANSAKSI</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    PELANGGAN</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    Model Mobil</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    Tanggal</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    Jumlah</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    Status</th>
+                                <th
+                                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+                                    Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-outline-variant/30">
+                            <tr class="hover:bg-surface-container-lowest transition-colors">
+                                <td class="px-6 py-4 font-body-md text-on-surface">#RT-90124</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container text-xs font-bold">
+                                            MK</div>
+                                        <span class="font-body-md text-on-surface">Mark Kevin</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 font-body-md text-on-surface">Mercedes-Benz G63</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface-variant">24 Okt 2023</td>
+                                <td class="px-6 py-4 font-bold text-on-surface">$1,200.00</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button class="text-on-surface-variant hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-container-lowest transition-colors">
+                                <td class="px-6 py-4 font-body-md text-on-surface">#RT-90125</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container text-xs font-bold">
+                                            SJ</div>
+                                        <span class="font-body-md text-on-surface">Sarah Johnson</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 font-body-md text-on-surface">Porsche 911</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface-variant">24 Okt 2023</td>
+                                <td class="px-6 py-4 font-bold text-on-surface">$2,450.00</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1 bg-warning-amber/10 text-warning-amber text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span> Menunggu
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button class="text-on-surface-variant hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-surface-container-lowest transition-colors">
+                                <td class="px-6 py-4 font-body-md text-on-surface">#RT-90126</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">
+                                            DR</div>
+                                        <span class="font-body-md text-on-surface">Daniel Ricciardo</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 font-body-md text-on-surface">Lamborghini Urus</td>
+                                <td class="px-6 py-4 font-body-md text-on-surface-variant">23 Okt 2023</td>
+                                <td class="px-6 py-4 font-bold text-on-surface">$3,800.00</td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button class="text-on-surface-variant hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 bg-surface-container-lowest flex items-center justify-center">
+                    <button class="text-label-md font-label-md text-primary hover:underline">Lihat Semua
+                        Transaksi</button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Bottom Navigation (Only visible on small screens) -->
+        <nav
+            class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+            <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold scale-95 duration-100"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+                <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+                <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+                <span class="font-label-sm text-label-sm font-manrope">Profil</span>
+            </a>
+        </nav>
+    </main>
+    <!-- FAB (Contextual for creating new rental) -->
+    <button
+        class="fixed bottom-24 right-8 lg:bottom-12 lg:right-12 w-14 h-14 rounded-full bg-secondary text-on-secondary shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
+        <span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
+    </button>
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Authenticate user
+            if (!AuthAPI.checkAuth()) return;
+
+            const currentUser = AuthAPI.getUser();
+            if (currentUser.role !== 'admin') {
+                alert('Akses ditolak! Halaman ini hanya untuk Administrator.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Bind admin details in aside footer & header
+            const asideAdminImg = document.getElementById('aside-admin-img');
+            const asideAdminName = document.getElementById('aside-admin-name');
+            const topAdminAvatar = document.getElementById('top-admin-avatar');
+
+            if (currentUser.avatar) {
+                if (asideAdminImg) asideAdminImg.src = currentUser.avatar;
+                if (topAdminAvatar) {
+                    topAdminAvatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-full h-full rounded-full object-cover" />`;
+                }
+            } else {
+                const initials = currentUser.name ? currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'AW';
+                if (topAdminAvatar) topAdminAvatar.textContent = initials;
+            }
+
+            if (asideAdminName) asideAdminName.textContent = currentUser.name;
+
+            // Bind logout button dynamically
+            const logoutBtn = document.getElementById('logout-btn-aside');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+            }
+
+            // 2. Fetch and render Reports & Statistics
+            try {
+                const reports = await BookingsAPI.getReports();
+
+                // Stats Cards
+                document.getElementById('stat-total-cars').textContent = reports.total_cars;
+                document.getElementById('stat-rented-cars').textContent = reports.total_cars - reports.available_cars;
+                
+                // Fetch user counts for Total Pelanggan card
+                try {
+                    const users = await UserAPI.getAll();
+                    document.getElementById('stat-total-customers').textContent = users.length;
+                } catch (e) {
+                    console.error('Gagal mengambil daftar pengguna untuk statistik:', e);
+                    document.getElementById('stat-total-customers').textContent = '0';
+                }
+
+                document.getElementById('stat-total-revenue').textContent = `Rp ${Number(reports.total_revenue).toLocaleString('id-ID')}`;
+
+                // Render Analytics Chart
+                const chartContainer = document.querySelector('.h-64.flex.items-end');
+                if (chartContainer && reports.revenue_stats && reports.revenue_stats.length > 0) {
+                    chartContainer.innerHTML = '';
+                    const maxRevenue = Math.max(...reports.revenue_stats.map(s => s.revenue), 1);
+                    
+                    reports.revenue_stats.forEach((stat, idx) => {
+                        const percentage = Math.round((stat.revenue / maxRevenue) * 90); // max 90% height
+                        const formattedRevenue = `Rp ${Number(stat.revenue).toLocaleString('id-ID')}`;
+                        
+                        // Active/highlight color for the last entry (current month)
+                        const bgClass = idx === reports.revenue_stats.length - 1 ? 'bg-primary' : 'bg-primary/20 hover:bg-primary/40';
+                        
+                        chartContainer.innerHTML += `
+                            <div class="w-full ${bgClass} rounded-t-lg relative group transition-all" style="height: ${percentage}%">
+                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-xs py-1.5 px-3 rounded shadow-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                    ${formattedRevenue}
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    // Month Labels
+                    const labelContainer = document.querySelector('.flex.justify-between.mt-4');
+                    if (labelContainer) {
+                        labelContainer.innerHTML = reports.revenue_stats.map(stat => `<span>${stat.month}</span>`).join('');
+                    }
+                }
+
+                // Render Performa Terbaik (Top Cars)
+                try {
+                    const cars = await CarsAPI.getAll();
+                    const bestPerformersContainer = document.querySelector('.bg-surface-card .space-y-6');
+                    if (bestPerformersContainer && cars.length > 0) {
+                        const viewInventoryBtn = bestPerformersContainer.querySelector('button');
+                        bestPerformersContainer.innerHTML = '';
+                        
+                        // Pick first 3 cars as simulated top performers
+                        const performers = [
+                            { car: cars[0], count: 84, trend: '+5%', trendClass: 'text-secondary' },
+                            { car: cars[1], count: 72, trend: '+12%', trendClass: 'text-secondary' },
+                            { car: cars[2] || cars[0], count: 65, trend: '-2%', trendClass: 'text-error-red' }
+                        ];
+
+                        performers.forEach(p => {
+                            if (!p.car) return;
+                            bestPerformersContainer.innerHTML += `
+                                <div class="flex items-center gap-4">
+                                    <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
+                                        <img src="${p.car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400'}" alt="${p.car.name}" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div class="flex-grow">
+                                        <p class="font-label-md text-label-md text-on-surface">${p.car.name}</p>
+                                        <p class="text-xs text-on-surface-variant">${p.car.brand} • ${p.car.type}</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="font-bold text-primary">${p.count} penyewaan</p>
+                                        <p class="text-[10px] ${p.trendClass} font-bold">${p.trend}</p>
+                                    </div>
+                                </div>
+                            `;
+                        });
+
+                        if (viewInventoryBtn) {
+                            bestPerformersContainer.appendChild(viewInventoryBtn);
+                            viewInventoryBtn.addEventListener('click', () => {
+                                window.location.href = 'manajemen-armada.html';
+                            });
+                        }
+                    }
+                } catch (err) {
+                    console.error('Gagal memuat mobil performa terbaik:', err);
+                }
+
+                // Render Transaksi Terkini
+                const tbody = document.querySelector('table tbody');
+                if (tbody) {
+                    tbody.innerHTML = '';
+                    if (!reports.recent_bookings || reports.recent_bookings.length === 0) {
+                        tbody.innerHTML = `
+                            <tr>
+                                <td colspan="7" class="px-6 py-8 text-center text-on-surface-variant">
+                                    Belum ada transaksi terkini.
+                                </td>
+                            </tr>
+                        `;
+                    } else {
+                        reports.recent_bookings.forEach(booking => {
+                            const initials = booking.user ? booking.user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'US';
+                            const userName = booking.user ? booking.user.name : 'Pengguna';
+                            const carName = booking.car ? booking.car.name : 'Mobil';
+                            const date = new Date(booking.created_at || booking.start_date);
+                            const formattedDate = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                            const formattedAmount = `Rp ${Number(booking.total_price).toLocaleString('id-ID')}`;
+
+                            let statusBadge = '';
+                            if (booking.status === 'pending') {
+                                statusBadge = `
+                                    <span class="inline-flex items-center gap-1 bg-warning-amber/10 text-warning-amber text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span> Menunggu
+                                    </span>
+                                `;
+                            } else if (booking.status === 'confirmed' || booking.status === 'completed') {
+                                statusBadge = `
+                                    <span class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai
+                                    </span>
+                                `;
+                            } else {
+                                statusBadge = `
+                                    <span class="inline-flex items-center gap-1 bg-error-container/30 text-error-red text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span> Batal
+                                    </span>
+                                `;
+                            }
+
+                            tbody.innerHTML += `
+                                <tr class="hover:bg-surface-container-lowest transition-colors">
+                                    <td class="px-6 py-4 font-body-md text-on-surface">#RT-${booking.id}</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">
+                                                ${initials}
+                                            </div>
+                                            <span class="font-body-md text-on-surface">${userName}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 font-body-md text-on-surface">${carName}</td>
+                                    <td class="px-6 py-4 font-body-md text-on-surface-variant">${formattedDate}</td>
+                                    <td class="px-6 py-4 font-bold text-on-surface">${formattedAmount}</td>
+                                    <td class="px-6 py-4">${statusBadge}</td>
+                                    <td class="px-6 py-4">
+                                        <button class="text-on-surface-variant hover:text-primary transition-colors">
+                                            <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            `;
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error('Gagal mengambil laporan dashboard:', err);
+            }
+
+            // FAB navigation to add new car
+            const fab = document.querySelector('button.fixed');
+            if (fab) {
+                fab.addEventListener('click', () => {
+                    window.location.href = 'manajemen-armada.html';
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

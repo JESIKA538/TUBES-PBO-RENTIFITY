@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Rentify Admin - Manajemen Armada</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Manrope:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#e3e2e7",
+                        "primary": "#00449d",
+                        "surface-container": "#eeedf2",
+                        "tertiary": "#004695",
+                        "emerald-subtle": "#ECFDF5",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#faf9fe",
+                        "primary-container": "#005acc",
+                        "surface-container-high": "#e9e7ed",
+                        "background": "#faf9fe",
+                        "surface": "#faf9fe",
+                        "tertiary-fixed-dim": "#acc7ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-tertiary-fixed-variant": "#004492",
+                        "inverse-surface": "#2f3034",
+                        "warning-amber": "#F59E0B",
+                        "tertiary-container": "#005dc2",
+                        "on-tertiary-container": "#cddbff",
+                        "on-tertiary-fixed": "#001a40",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#cedbff",
+                        "secondary-container": "#6cf8bb",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#001944",
+                        "on-secondary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#00429a",
+                        "on-background": "#1a1b1f",
+                        "surface-bg": "#F8FAFC",
+                        "surface-container-low": "#f4f3f8",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ba1a1a",
+                        "error-red": "#EF4444",
+                        "on-secondary-container": "#00714d",
+                        "inverse-on-surface": "#f1f0f5",
+                        "surface-tint": "#0058c9",
+                        "outline": "#737785",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#424653",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e3e2e7",
+                        "on-surface": "#1a1b1f",
+                        "secondary-fixed": "#6ffbbe",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#afc6ff",
+                        "surface-card": "#FFFFFF",
+                        "surface-dim": "#dad9de",
+                        "secondary": "#006c49",
+                        "inverse-primary": "#afc6ff",
+                        "outline-variant": "#c2c6d6",
+                        "tertiary-fixed": "#d7e2ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max-width": "1440px",
+                        "unit": "8px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-sm": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2c6d6;
+            border-radius: 10px;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body class="bg-surface-bg text-on-background font-body-md overflow-x-hidden">
+    <!-- Navigation Drawer (SideNav) -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface w-72 rounded-r-xl shadow-lg">
+        <div class="p-8">
+            <span
+                class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">Rentify</span>
+        </div>
+        <div class="px-4 py-6 flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-grow">
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-body-md"
+                href="admin.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span>Dashboard</span>
+            </a>
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-bold"
+                href="manajemen-armada.html">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span>Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="manajemen-user.html">
+                <span class="material-symbols-outlined" data-icon="group">group</span>
+                <span>Manajemen Pengguna</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span>Pemesanan Saya</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pembayaran.html">
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span>Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span>Laporan</span>
+            </a>
+            <div class="mt-auto border-t border-outline-variant pt-4">
+                <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-body-md"
+                    href="pengaturan.html">
+                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    <span>Pengaturan</span>
+                </a>
+                <a id="logout-btn-aside" class="text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer font-body-md font-semibold">
+                    <span class="material-symbols-outlined text-error-red">logout</span>
+                    <span>Keluar</span>
+                </a>
+            </div>
+        </div>
+        <!-- Profile Footer in SideNav -->
+        <div class="p-6 border-t border-outline-variant">
+            <div class="flex items-center gap-3">
+                <img id="aside-admin-img" alt="User Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm"
+                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" />
+                <div class="flex flex-col">
+                    <span id="aside-admin-name" class="font-label-md text-label-md text-on-surface">Alex Walker</span>
+                    <span class="text-xs text-on-surface-variant">Peran Admin</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="lg:ml-72 min-h-screen flex flex-col">
+        <!-- TopAppBar -->
+        <header
+            class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm">
+            <div class="flex items-center gap-4">
+                <button class="lg:hidden p-2 text-on-surface">
+                    <span class="material-symbols-outlined" data-icon="menu">menu</span>
+                </button>
+                <h1 class="hidden lg:block font-headline-md text-headline-md font-plus-jakarta-sans text-on-surface">
+                    Manajemen Armada</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="top-admin-avatar"
+                    class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold text-xs overflow-hidden">
+                    AW
+                </div>
+            </div>
+        </header>
+
+        <div class="p-margin-desktop space-y-gutter flex-grow">
+            <!-- Header section -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-headline-lg font-headline-lg text-on-surface">Inventaris Kendaraan</h2>
+                    <p class="text-body-md text-on-surface-variant">Kelola penambahan, pembaruan, dan status ketersediaan armada mobil.</p>
+                </div>
+                <button id="btn-trigger-add"
+                    class="bg-blue-700 hover:bg-blue-800 transition text-white px-6 py-3 rounded-xl font-bold shadow-lg flex items-center gap-2">
+                    <span class="material-symbols-outlined">add</span>
+                    Tambah Kendaraan Baru
+                </button>
+            </div>
+
+            <!-- Main Bento Layout Grid -->
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+                <!-- Left Section: Form Kendaraan -->
+                <section class="xl:col-span-4">
+                    <div class="bg-surface-card rounded-xl p-6 shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 sticky top-24">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 id="form-title" class="text-headline-sm font-headline-sm text-on-surface">Detail Kendaraan</h3>
+                            <button id="btn-reset-form" class="text-xs text-primary font-bold hover:underline hidden">Reset / Baru</button>
+                        </div>
+
+                        <form id="car-form" class="space-y-4">
+                            <input type="hidden" id="car-id" />
+                            
+                            <!-- Image Upload Box -->
+                            <div class="space-y-2">
+                                <label class="block text-body-sm font-semibold text-on-surface-variant">Foto Kendaraan</label>
+                                <div id="image-upload-box" class="border-2 border-dashed rounded-xl aspect-video flex flex-col justify-center items-center bg-slate-50 relative overflow-hidden group cursor-pointer hover:border-primary/50 transition-colors">
+                                    <input type="file" id="car-image-input" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" />
+                                    <img id="car-image-preview" class="absolute inset-0 w-full h-full object-cover hidden" />
+                                    
+                                    <div id="image-upload-placeholder" class="text-center p-4">
+                                        <span class="material-symbols-outlined text-4xl text-slate-400">cloud_upload</span>
+                                        <p class="font-semibold text-xs mt-1">Unggah Gambar Kendaraan</p>
+                                        <p class="text-[10px] text-slate-400">Rekomendasi rasio 16:9</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vehicle Name -->
+                            <div>
+                                <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Nama Mobil</label>
+                                <input type="text" id="car-name" required placeholder="Contoh: Mercedes-Benz G63" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary focus:border-primary bg-white" />
+                            </div>
+
+                            <!-- Vehicle Brand & Plate -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Merek</label>
+                                    <input type="text" id="car-brand" required placeholder="Contoh: Mercedes" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white" />
+                                </div>
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Tipe Bodi</label>
+                                    <select id="car-type" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white">
+                                        <option value="Sedan">Sedan</option>
+                                        <option value="SUV">SUV</option>
+                                        <option value="Listrik">Listrik</option>
+                                        <option value="Mewah">Mewah</option>
+                                        <option value="Hatchback">Hatchback</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Transmission & Fuel -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Transmisi</label>
+                                    <select id="car-transmission" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white">
+                                        <option value="Otomatis">Otomatis</option>
+                                        <option value="Manual">Manual</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Bahan Bakar</label>
+                                    <select id="car-fuel-type" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white">
+                                        <option value="Bensin">Bensin</option>
+                                        <option value="Listrik">Listrik</option>
+                                        <option value="Diesel">Diesel</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Price Per Day & Status -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Tarif Harian (Rp)</label>
+                                    <input type="number" id="car-price" required placeholder="1200000" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white" />
+                                </div>
+                                <div>
+                                    <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Status</label>
+                                    <select id="car-status" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white">
+                                        <option value="available">Tersedia</option>
+                                        <option value="rented">Disewa</option>
+                                        <option value="maintenance">Perawatan</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div>
+                                <label class="block text-body-sm font-semibold text-on-surface-variant mb-1">Deskripsi Mobil</label>
+                                <textarea id="car-description" placeholder="Spesifikasi, keunggulan, atau catatan..." rows="2" class="w-full border border-outline-variant rounded-xl px-4 py-3 focus:ring-2 focus:ring-primary bg-white"></textarea>
+                            </div>
+
+                            <button type="submit" id="btn-save-car"
+                                class="w-full bg-secondary text-on-secondary hover:brightness-95 transition py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 shadow-md">
+                                <span class="material-symbols-outlined">save</span>
+                                Simpan Kendaraan
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Right Section: Table Armada Aktif -->
+                <section class="xl:col-span-8">
+                    <div class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 overflow-hidden">
+                        <div class="p-6 border-b border-outline-variant/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                            <div>
+                                <h3 class="text-headline-sm font-headline-sm text-on-surface">Daftar Armada Aktif</h3>
+                                <p id="fleet-count-label" class="text-xs text-on-surface-variant mt-0.5">Memuat armada...</p>
+                            </div>
+                            <div class="relative w-full sm:w-64">
+                                <span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-sm">search</span>
+                                <input type="text" id="search-car" placeholder="Cari berdasarkan nama/merek..." class="w-full pl-9 pr-4 py-2 border border-outline-variant rounded-full text-body-sm focus:ring-2 focus:ring-primary bg-surface-container-low" />
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                                    <tr>
+                                        <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">KENDARAAN</th>
+                                        <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">KATEGORI</th>
+                                        <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">TARIF HARIAN</th>
+                                        <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">STATUS</th>
+                                        <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="fleet-table-body" class="divide-y divide-outline-variant/20">
+                                    <!-- Dynamic rows will load here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="api.js"></script>
+    <script src="main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // 1. Authenticate user
+            if (!AuthAPI.checkAuth()) return;
+
+            const currentUser = AuthAPI.getUser();
+            if (currentUser.role !== 'admin') {
+                alert('Akses ditolak! Halaman ini hanya untuk Administrator.');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Bind admin details
+            const asideAdminImg = document.getElementById('aside-admin-img');
+            const asideAdminName = document.getElementById('aside-admin-name');
+            const topAdminAvatar = document.getElementById('top-admin-avatar');
+
+            if (currentUser.avatar) {
+                if (asideAdminImg) asideAdminImg.src = currentUser.avatar;
+                if (topAdminAvatar) {
+                    topAdminAvatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-full h-full rounded-full object-cover" />`;
+                }
+            } else {
+                const initials = currentUser.name ? currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'AW';
+                if (topAdminAvatar) topAdminAvatar.textContent = initials;
+            }
+            if (asideAdminName) asideAdminName.textContent = currentUser.name;
+
+            // Bind logout
+            const logoutBtn = document.getElementById('logout-btn-aside');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+            }
+
+            // 2. State & Elements
+            let carsList = [];
+            let editMode = false;
+            let currentBase64Image = '';
+
+            const tableBody = document.getElementById('fleet-table-body');
+            const searchInput = document.getElementById('search-car');
+            const form = document.getElementById('car-form');
+            const carIdInput = document.getElementById('car-id');
+            const carNameInput = document.getElementById('car-name');
+            const carBrandInput = document.getElementById('car-brand');
+            const carTypeSelect = document.getElementById('car-type');
+            const carTransmissionSelect = document.getElementById('car-transmission');
+            const carFuelSelect = document.getElementById('car-fuel-type');
+            const carPriceInput = document.getElementById('car-price');
+            const carStatusSelect = document.getElementById('car-status');
+            const carDescriptionInput = document.getElementById('car-description');
+            
+            const formTitle = document.getElementById('form-title');
+            const btnSaveCar = document.getElementById('btn-save-car');
+            const btnResetForm = document.getElementById('btn-reset-form');
+            const btnTriggerAdd = document.getElementById('btn-trigger-add');
+
+            const fileInput = document.getElementById('car-image-input');
+            const imgPreview = document.getElementById('car-image-preview');
+            const uploadPlaceholder = document.getElementById('image-upload-placeholder');
+
+            // 3. Image FileReader handler
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        currentBase64Image = event.target.result;
+                        imgPreview.src = currentBase64Image;
+                        imgPreview.classList.remove('hidden');
+                        uploadPlaceholder.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // 4. Reset Form function
+            function resetForm() {
+                editMode = false;
+                formTitle.textContent = 'Detail Kendaraan';
+                btnSaveCar.innerHTML = `<span class="material-symbols-outlined">save</span> Simpan Kendaraan`;
+                btnResetForm.classList.add('hidden');
+                
+                form.reset();
+                carIdInput.value = '';
+                currentBase64Image = '';
+                imgPreview.src = '';
+                imgPreview.classList.add('hidden');
+                uploadPlaceholder.classList.remove('hidden');
+            }
+
+            btnResetForm.addEventListener('click', (e) => {
+                e.preventDefault();
+                resetForm();
+            });
+
+            btnTriggerAdd.addEventListener('click', () => {
+                resetForm();
+                carNameInput.focus();
+            });
+
+            // 5. Fetch and Render Fleet
+            async function fetchAndRenderFleet() {
+                try {
+                    carsList = await CarsAPI.getAll();
+                    renderFleet(carsList);
+                } catch (error) {
+                    console.error('Gagal mengambil armada mobil:', error);
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-on-surface-variant">
+                                Gagal memuat armada kendaraan. Silakan muat ulang halaman.
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
+
+            function renderFleet(cars) {
+                tableBody.innerHTML = '';
+                
+                const totalCount = cars.length;
+                const availableCount = cars.filter(c => c.status === 'available').length;
+                document.getElementById('fleet-count-label').textContent = `Menampilkan ${cars.length} dari ${totalCount} mobil (${availableCount} Tersedia)`;
+
+                if (cars.length === 0) {
+                    tableBody.innerHTML = `
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-on-surface-variant">
+                                Tidak ada data kendaraan ditemukan.
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                cars.forEach(car => {
+                    const row = document.createElement('tr');
+                    row.className = "hover:bg-surface-container-lowest transition-colors border-t border-outline-variant/10 group";
+
+                    const fallbackImage = 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=400&auto=format&fit=crop';
+                    const carImage = car.image_url || fallbackImage;
+
+                    const formattedRate = `Rp ${Number(car.price_per_day).toLocaleString('id-ID')}`;
+
+                    let statusBadge = '';
+                    if (car.status === 'available') {
+                        statusBadge = `<span class="bg-emerald-subtle text-secondary px-3 py-1 rounded-full text-xs font-bold">Tersedia</span>`;
+                    } else if (car.status === 'rented') {
+                        statusBadge = `<span class="bg-warning-amber/10 text-warning-amber px-3 py-1 rounded-full text-xs font-bold">Disewa</span>`;
+                    } else {
+                        statusBadge = `<span class="bg-error-container/20 text-error-red px-3 py-1 rounded-full text-xs font-bold">Perawatan</span>`;
+                    }
+
+                    row.innerHTML = `
+                        <td class="px-6 py-4 flex items-center gap-4">
+                            <img src="${carImage}" class="w-20 h-12 rounded-lg object-cover bg-surface-container border shadow-sm flex-shrink-0" onerror="this.src='${fallbackImage}'" />
+                            <div>
+                                <p class="font-bold text-on-surface">${car.name}</p>
+                                <p class="text-xs text-on-surface-variant font-medium">${car.brand} • ${car.transmission}</p>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 text-body-sm text-on-surface-variant font-medium">
+                            ${car.type} / ${car.fuel_type}
+                        </td>
+                        <td class="px-6 py-4 text-primary font-bold">
+                            ${formattedRate}
+                        </td>
+                        <td class="px-6 py-4">
+                            ${statusBadge}
+                        </td>
+                        <td class="px-6 py-4 text-right space-x-2">
+                            <button class="btn-edit-car text-primary hover:bg-primary/10 p-2 rounded-lg transition-colors" data-id="${car.id}">
+                                <span class="material-symbols-outlined pointer-events-none">edit</span>
+                            </button>
+                            <button class="btn-delete-car text-error-red hover:bg-error-container/10 p-2 rounded-lg transition-colors" data-id="${car.id}" data-name="${car.name}">
+                                <span class="material-symbols-outlined pointer-events-none">delete</span>
+                            </button>
+                        </td>
+                    `;
+
+                    // Bind action listeners
+                    row.querySelector('.btn-edit-car').addEventListener('click', (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const vehicle = carsList.find(c => c.id == id);
+                        if (vehicle) {
+                            loadVehicleToForm(vehicle);
+                        }
+                    });
+
+                    row.querySelector('.btn-delete-car').addEventListener('click', async (e) => {
+                        const id = e.currentTarget.getAttribute('data-id');
+                        const name = e.currentTarget.getAttribute('data-name');
+                        
+                        if (confirm(`Apakah Anda yakin ingin menghapus kendaraan "${name}"? Tindakan ini tidak dapat dibatalkan.`)) {
+                            try {
+                                const result = await CarsAPI.delete(id);
+                                alert(result.message || 'Kendaraan berhasil dihapus!');
+                                fetchAndRenderFleet();
+                                if (editMode && carIdInput.value == id) {
+                                    resetForm();
+                                }
+                            } catch (err) {
+                                alert('Gagal menghapus kendaraan: ' + err.message);
+                            }
+                        }
+                    });
+
+                    tableBody.appendChild(row);
+                });
+            }
+
+            // 6. Load vehicle details into form for edit mode
+            function loadVehicleToForm(car) {
+                editMode = true;
+                formTitle.textContent = 'Edit Kendaraan';
+                btnSaveCar.innerHTML = `<span class="material-symbols-outlined">edit</span> Perbarui Kendaraan`;
+                btnResetForm.classList.remove('hidden');
+
+                carIdInput.value = car.id;
+                carNameInput.value = car.name;
+                carBrandInput.value = car.brand;
+                carTypeSelect.value = car.type;
+                carTransmissionSelect.value = car.transmission;
+                carFuelSelect.value = car.fuel_type;
+                carPriceInput.value = car.price_per_day;
+                carStatusSelect.value = car.status;
+                carDescriptionInput.value = car.description || '';
+
+                if (car.image_url) {
+                    currentBase64Image = car.image_url;
+                    imgPreview.src = car.image_url;
+                    imgPreview.classList.remove('hidden');
+                    uploadPlaceholder.classList.add('hidden');
+                } else {
+                    currentBase64Image = '';
+                    imgPreview.src = '';
+                    imgPreview.classList.add('hidden');
+                    uploadPlaceholder.classList.remove('hidden');
+                }
+
+                // Smooth scroll to form on mobile screens
+                form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            // 7. Form submission (Create or Update)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const carData = {
+                    name: carNameInput.value.trim(),
+                    brand: carBrandInput.value.trim(),
+                    type: carTypeSelect.value,
+                    transmission: carTransmissionSelect.value,
+                    fuel_type: carFuelSelect.value,
+                    price_per_day: parseFloat(carPriceInput.value),
+                    status: carStatusSelect.value,
+                    description: carDescriptionInput.value.trim(),
+                    image_url: currentBase64Image || null
+                };
+
+                try {
+                    if (editMode) {
+                        const id = carIdInput.value;
+                        const result = await CarsAPI.update(id, carData);
+                        alert(result.message || 'Kendaraan berhasil diperbarui!');
+                    } else {
+                        const result = await CarsAPI.create(carData);
+                        alert(result.message || 'Kendaraan baru berhasil ditambahkan!');
+                    }
+                    resetForm();
+                    fetchAndRenderFleet();
+                } catch (err) {
+                    alert('Gagal menyimpan kendaraan: ' + err.message);
+                }
+            });
+
+            // 8. Search input handler
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const filtered = carsList.filter(car => 
+                    car.name.toLowerCase().includes(query) || 
+                    car.brand.toLowerCase().includes(query) ||
+                    car.type.toLowerCase().includes(query)
+                );
+                renderFleet(filtered);
+            });
+
+            // 9. Initial Load
+            await fetchAndRenderFleet();
+        });
+    </script>
+</body>
+
+</html>
