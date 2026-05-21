@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000/api';
+const API_URL = 'http://127.0.0.1:8080/api';
 
 /**
  * Generic API Fetch wrapper that injects headers and bearer tokens,
@@ -56,8 +56,8 @@ const AuthAPI = {
             method: 'POST',
             body: JSON.stringify({ email, password }),
         });
-        if (data.access_token) {
-            localStorage.setItem('rentify_token', data.access_token);
+        if (data.token) {
+            localStorage.setItem('rentify_token', data.token);
             localStorage.setItem('rentify_user', JSON.stringify(data.user));
         }
         return data;
@@ -68,8 +68,8 @@ const AuthAPI = {
             method: 'POST',
             body: JSON.stringify({ name, email, password, phone, occupation, address }),
         });
-        if (data.access_token) {
-            localStorage.setItem('rentify_token', data.access_token);
+        if (data.token) {
+            localStorage.setItem('rentify_token', data.token);
             localStorage.setItem('rentify_user', JSON.stringify(data.user));
         }
         return data;
@@ -180,6 +180,13 @@ const PaymentsAPI = {
                 proof_of_payment: proofOfPayment
             }),
         });
+    },
+
+    async updateStatus(paymentId, status) {
+        return await apiFetch(`/payments/${paymentId}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ status }),
+        });
     }
 };
 
@@ -192,14 +199,24 @@ const UserAPI = {
     },
 
     async updateProfile(profileData) {
-        const result = await apiFetch('/user', {
+        const result = await apiFetch('/users/profile', {
             method: 'PUT',
             body: JSON.stringify(profileData),
         });
-        if (result.user) {
-            localStorage.setItem('rentify_user', JSON.stringify(result.user));
+        if (result && result.id) { // spring boot returns the updated user object directly
+            localStorage.setItem('rentify_user', JSON.stringify(result));
         }
         return result;
+    },
+
+    async changePassword(passwordData) {
+        return await apiFetch('/users/password', {
+            method: 'PUT',
+            body: JSON.stringify({
+                old_password: passwordData.oldPassword,
+                new_password: passwordData.newPassword
+            }) // sending as snake_case per spring boot Jackson configuration
+        });
     },
 
     async getAll() {

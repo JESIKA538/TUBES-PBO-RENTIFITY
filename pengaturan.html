@@ -314,7 +314,7 @@
                     </div>
                     <ul class="divide-y divide-outline-variant">
                         <li>
-                            <button
+                            <button id="btn-toggle-notification"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -324,15 +324,15 @@
                                     <span class="font-body-md text-on-surface">Notifikasi</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <div class="w-10 h-5 bg-secondary rounded-full relative shadow-inner">
-                                        <div class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm">
+                                    <div id="toggle-notif-track" class="w-10 h-5 bg-secondary rounded-full relative shadow-inner transition-colors">
+                                        <div id="toggle-notif-thumb" class="absolute right-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-all">
                                         </div>
                                     </div>
                                 </div>
                             </button>
                         </li>
                         <li>
-                            <button
+                            <button id="btn-toggle-lang"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -349,17 +349,17 @@
                             </button>
                         </li>
                         <li>
-                            <button
+                            <button id="btn-toggle-theme"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
                                         class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
-                                        <span class="material-symbols-outlined">dark_mode</span>
+                                        <span id="icon-theme" class="material-symbols-outlined">light_mode</span>
                                     </div>
                                     <span class="font-body-md text-on-surface">Tema</span>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                    <span class="font-body-sm text-on-surface-variant">Terang</span>
+                                    <span id="text-theme" class="font-body-sm text-on-surface-variant">Terang</span>
                                     <span
                                         class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
                                 </div>
@@ -374,7 +374,7 @@
                     </div>
                     <ul class="divide-y divide-outline-variant">
                         <li>
-                            <button
+                            <button id="btn-change-password"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -388,7 +388,7 @@
                             </button>
                         </li>
                         <li>
-                            <button
+                            <button id="btn-toggle-biometric"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -397,8 +397,8 @@
                                     </div>
                                     <span class="font-body-md text-on-surface">Keamanan Biometrik</span>
                                 </div>
-                                <div class="w-10 h-5 bg-surface-container-highest rounded-full relative shadow-inner">
-                                    <div class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm">
+                                <div id="toggle-bio-track" class="w-10 h-5 bg-surface-container-highest rounded-full relative shadow-inner transition-colors">
+                                    <div id="toggle-bio-thumb" class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-all">
                                     </div>
                                 </div>
                             </button>
@@ -412,7 +412,7 @@
                     </div>
                     <ul class="divide-y divide-outline-variant">
                         <li>
-                            <button
+                            <button id="btn-help-center"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -426,7 +426,7 @@
                             </button>
                         </li>
                         <li>
-                            <button
+                            <button id="btn-terms"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -440,7 +440,7 @@
                             </button>
                         </li>
                         <li>
-                            <button
+                            <button id="btn-privacy"
                                 class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
                                 <div class="flex items-center gap-4">
                                     <div
@@ -465,6 +465,60 @@
                 </button>
                 <p class="text-center text-on-surface-variant font-label-sm mt-8 opacity-50">Rentify v2.4.0 • Made with
                     Excellence</p>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <!-- Password Modal -->
+        <div id="password-modal" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="password-modal-bg"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
+                <div class="bg-surface dark:bg-inverse-surface rounded-2xl shadow-xl overflow-hidden">
+                    <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
+                        <h3 class="font-headline-sm text-on-surface">Ganti Kata Sandi</h3>
+                        <button id="btn-close-password" class="text-on-surface-variant hover:text-error-red transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <form id="password-form" class="p-6 space-y-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Kata Sandi Lama</label>
+                            <input type="password" id="input-old-password" required
+                                class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-md text-on-surface">Kata Sandi Baru</label>
+                            <input type="password" id="input-new-password" required
+                                class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div class="pt-4 flex justify-end">
+                            <button type="submit" id="btn-save-password"
+                                class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md font-bold hover:bg-primary/90 transition-colors shadow-sm w-full">Simpan Kata Sandi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div id="info-modal" class="fixed inset-0 z-[60] hidden">
+            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="info-modal-bg"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg px-4">
+                <div class="bg-surface dark:bg-inverse-surface rounded-2xl shadow-xl overflow-hidden flex flex-col max-h-[80vh]">
+                    <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low">
+                        <h3 id="info-modal-title" class="font-headline-sm text-on-surface">Judul Info</h3>
+                        <button id="btn-close-info" class="text-on-surface-variant hover:text-error-red transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                    </div>
+                    <div id="info-modal-content" class="p-6 overflow-y-auto font-body-md text-on-surface-variant space-y-4">
+                        <!-- Content injected via JS -->
+                    </div>
+                    <div class="p-6 border-t border-outline-variant/30 bg-surface-container-low flex justify-end">
+                        <button id="btn-close-info-bottom"
+                            class="px-6 py-2 bg-primary text-on-primary rounded-lg font-label-md font-bold hover:bg-primary/90 transition-colors shadow-sm">Tutup</button>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -571,14 +625,37 @@
             inputProfileFile.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (file) {
-                    if (file.size > 2 * 1024 * 1024) {
-                        alert('Ukuran file terlalu besar! Maksimal 2MB.');
-                        return;
-                    }
                     const reader = new FileReader();
-                    reader.onload = () => {
-                        uploadedAvatarBase64 = reader.result;
-                        formProfileImg.src = reader.result;
+                    reader.onload = (event) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const MAX_WIDTH = 500;
+                            const MAX_HEIGHT = 500;
+                            let width = img.width;
+                            let height = img.height;
+                            
+                            if (width > height) {
+                                if (width > MAX_WIDTH) {
+                                    height *= MAX_WIDTH / width;
+                                    width = MAX_WIDTH;
+                                }
+                            } else {
+                                if (height > MAX_HEIGHT) {
+                                    width *= MAX_HEIGHT / height;
+                                    height = MAX_HEIGHT;
+                                }
+                            }
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            const resizedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                            
+                            uploadedAvatarBase64 = resizedBase64;
+                            formProfileImg.src = resizedBase64;
+                        };
+                        img.src = event.target.result;
                     };
                     reader.readAsDataURL(file);
                 }
@@ -635,6 +712,185 @@
                     AuthAPI.logout();
                 });
             }
+
+            // 7. Implement Settings Interactions
+            
+            // Password Modal
+            const btnChangePassword = document.getElementById('btn-change-password');
+            const passwordModal = document.getElementById('password-modal');
+            const btnClosePassword = document.getElementById('btn-close-password');
+            const passwordModalBg = document.getElementById('password-modal-bg');
+            const passwordForm = document.getElementById('password-form');
+            const btnSavePassword = document.getElementById('btn-save-password');
+
+            const togglePasswordModal = (show) => {
+                if (show) {
+                    passwordModal.classList.remove('hidden');
+                } else {
+                    passwordModal.classList.add('hidden');
+                    passwordForm.reset();
+                }
+            };
+
+            if (btnChangePassword) btnChangePassword.addEventListener('click', () => togglePasswordModal(true));
+            if (btnClosePassword) btnClosePassword.addEventListener('click', () => togglePasswordModal(false));
+            if (passwordModalBg) passwordModalBg.addEventListener('click', () => togglePasswordModal(false));
+
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    btnSavePassword.disabled = true;
+                    btnSavePassword.textContent = 'Menyimpan...';
+
+                    try {
+                        const oldPassword = document.getElementById('input-old-password').value;
+                        const newPassword = document.getElementById('input-new-password').value;
+                        await UserAPI.changePassword({ oldPassword, newPassword });
+                        alert('Kata sandi berhasil diubah!');
+                        togglePasswordModal(false);
+                    } catch (error) {
+                        alert('Gagal mengubah kata sandi: ' + error.message);
+                    } finally {
+                        btnSavePassword.disabled = false;
+                        btnSavePassword.textContent = 'Simpan Kata Sandi';
+                    }
+                });
+            }
+
+            // Info Modal (Support, Terms, Privacy)
+            const infoModal = document.getElementById('info-modal');
+            const infoModalTitle = document.getElementById('info-modal-title');
+            const infoModalContent = document.getElementById('info-modal-content');
+            const btnCloseInfo = document.getElementById('btn-close-info');
+            const btnCloseInfoBottom = document.getElementById('btn-close-info-bottom');
+            const infoModalBg = document.getElementById('info-modal-bg');
+
+            const toggleInfoModal = (show, title = '', contentHtml = '') => {
+                if (show) {
+                    infoModalTitle.textContent = title;
+                    infoModalContent.innerHTML = contentHtml;
+                    infoModal.classList.remove('hidden');
+                } else {
+                    infoModal.classList.add('hidden');
+                }
+            };
+
+            if (btnCloseInfo) btnCloseInfo.addEventListener('click', () => toggleInfoModal(false));
+            if (btnCloseInfoBottom) btnCloseInfoBottom.addEventListener('click', () => toggleInfoModal(false));
+            if (infoModalBg) infoModalBg.addEventListener('click', () => toggleInfoModal(false));
+
+            const btnHelpCenter = document.getElementById('btn-help-center');
+            if (btnHelpCenter) btnHelpCenter.addEventListener('click', () => {
+                toggleInfoModal('Pusat Bantuan', `
+                    <p>Selamat datang di Pusat Bantuan Rentify.</p>
+                    <p class="mt-2">Jika Anda mengalami kendala terkait penyewaan mobil, pembayaran, atau akun Anda, silakan hubungi tim dukungan kami di:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1">
+                        <li>Email: support@rentify.co.id</li>
+                        <li>Telepon: 0800-123-4567</li>
+                        <li>WhatsApp: +62 811 2233 4455</li>
+                    </ul>
+                    <p class="mt-2">Jam operasional layanan pelanggan kami adalah Senin - Jumat, 08:00 - 17:00 WIB.</p>
+                `);
+            });
+
+            const btnTerms = document.getElementById('btn-terms');
+            if (btnTerms) btnTerms.addEventListener('click', () => {
+                toggleInfoModal('Syarat & Ketentuan', `
+                    <p><strong>1. Ketentuan Penyewaan</strong></p>
+                    <p class="text-sm">Penyewa wajib memiliki SIM yang masih berlaku dan setuju untuk bertanggung jawab atas segala kerusakan yang terjadi selama masa sewa.</p>
+                    <p class="mt-4"><strong>2. Pembayaran</strong></p>
+                    <p class="text-sm">Pembayaran harus diselesaikan 100% di muka. Pembatalan dalam kurun waktu kurang dari 24 jam tidak dapat di-refund penuh.</p>
+                    <p class="mt-4"><strong>3. Pengembalian</strong></p>
+                    <p class="text-sm">Mobil harus dikembalikan tepat waktu. Keterlambatan akan dikenakan denda per jam sesuai dengan tarif mobil yang berlaku.</p>
+                `);
+            });
+
+            const btnPrivacy = document.getElementById('btn-privacy');
+            if (btnPrivacy) btnPrivacy.addEventListener('click', () => {
+                toggleInfoModal('Kebijakan Privasi', `
+                    <p>Kami sangat menghargai privasi Anda.</p>
+                    <p class="mt-2 text-sm">Rentify akan menggunakan data pribadi Anda (seperti nama, email, nomor telepon, dan identitas) semata-mata untuk keperluan verifikasi penyewaan mobil dan meningkatkan kualitas layanan kami.</p>
+                    <p class="mt-2 text-sm">Kami tidak akan membagikan, menjual, atau menyewakan informasi pribadi Anda kepada pihak ketiga tanpa persetujuan eksplisit dari Anda, kecuali diwajibkan oleh hukum.</p>
+                `);
+            });
+
+            // Theme Toggle
+            const btnToggleTheme = document.getElementById('btn-toggle-theme');
+            const iconTheme = document.getElementById('icon-theme');
+            const textTheme = document.getElementById('text-theme');
+            
+            const updateThemeUI = (isDark) => {
+                if (isDark) {
+                    document.documentElement.classList.add('dark');
+                    if (iconTheme) iconTheme.textContent = 'dark_mode';
+                    if (textTheme) textTheme.textContent = 'Gelap';
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    if (iconTheme) iconTheme.textContent = 'light_mode';
+                    if (textTheme) textTheme.textContent = 'Terang';
+                }
+            };
+            
+            // Initialize theme from localStorage
+            let currentIsDark = localStorage.getItem('theme') === 'dark';
+            updateThemeUI(currentIsDark);
+
+            if (btnToggleTheme) {
+                btnToggleTheme.addEventListener('click', () => {
+                    currentIsDark = !currentIsDark;
+                    localStorage.setItem('theme', currentIsDark ? 'dark' : 'light');
+                    updateThemeUI(currentIsDark);
+                });
+            }
+
+            // Simple Toggle Animations (Visual Only)
+            const setupToggle = (btnId, trackId, thumbId, storageKey) => {
+                const btn = document.getElementById(btnId);
+                const track = document.getElementById(trackId);
+                const thumb = document.getElementById(thumbId);
+                if (!btn || !track || !thumb) return;
+
+                let isOn = localStorage.getItem(storageKey) === 'true';
+                
+                const updateToggleUI = () => {
+                    if (isOn) {
+                        track.classList.replace('bg-surface-container-highest', 'bg-primary');
+                        track.classList.replace('bg-secondary', 'bg-primary'); // for notif
+                        thumb.classList.replace('left-0.5', 'left-[22px]');
+                        thumb.classList.replace('right-0.5', 'left-[22px]'); // normalize position
+                    } else {
+                        track.classList.replace('bg-primary', 'bg-surface-container-highest');
+                        thumb.classList.replace('left-[22px]', 'left-0.5');
+                    }
+                };
+                
+                // normalize initial UI classes for simple math
+                if (thumb.classList.contains('right-0.5')) {
+                    thumb.classList.remove('right-0.5');
+                    thumb.classList.add(isOn ? 'left-[22px]' : 'left-0.5');
+                }
+                updateToggleUI();
+
+                btn.addEventListener('click', () => {
+                    isOn = !isOn;
+                    localStorage.setItem(storageKey, isOn.toString());
+                    updateToggleUI();
+                });
+            };
+
+            setupToggle('btn-toggle-notification', 'toggle-notif-track', 'toggle-notif-thumb', 'pref_notif');
+            setupToggle('btn-toggle-biometric', 'toggle-bio-track', 'toggle-bio-thumb', 'pref_bio');
+
+            // Fallback for remaining unhandled settings buttons
+            const allSettingsButtons = document.querySelectorAll('.bg-surface-card ul button');
+            allSettingsButtons.forEach(btn => {
+                // If button doesn't have an ID that we handled, show alert
+                if (!btn.id || btn.id === 'btn-toggle-lang' || (!['btn-change-password', 'btn-toggle-theme', 'btn-help-center', 'btn-terms', 'btn-privacy', 'btn-toggle-notification', 'btn-toggle-biometric'].includes(btn.id))) {
+                    btn.addEventListener('click', () => {
+                        alert('Fitur ini masih dalam tahap pengembangan dan akan segera hadir pada pembaruan berikutnya!');
+                    });
+                }
+            });
         });
     </script>
 </body>

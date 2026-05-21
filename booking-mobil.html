@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light" lang="id">
 
@@ -122,6 +122,12 @@
         body {
             min-height: max(884px, 100dvh);
         }
+    </style>
+    <!-- Leaflet.js — Peta Interaktif -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #pickup-map .leaflet-control-attribution { font-size: 9px; }
     </style>
 </head>
 
@@ -271,24 +277,43 @@
                         </div>
                     </div>
                 </div>
-                <!-- Location View (Bento Item 4) -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                <!-- Location View (Bento Item 4) — Interaktif -->
+                <div class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
                     <div class="flex justify-between items-center mb-4">
                         <h3 class="font-headline-sm text-headline-sm">Titik Penjemputan</h3>
-                        <span class="material-symbols-outlined text-primary">map</span>
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings:'FILL' 1">location_on</span>
                     </div>
-                    <div class="rounded-lg h-32 bg-surface-container-high mb-4 overflow-hidden">
-                        <div class="w-full h-full flex items-center justify-center bg-blue-50">
-                            <!-- Simulated Map via Image -->
-                            <img class="w-full h-full object-cover grayscale opacity-60"
-                                data-alt="A clean, minimalist vector-style map view showing a high-end commercial district with a prominent blue marker for a rental agency."
-                                data-location="Stuttgart, Germany"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWSROxoEHEtl-dCLMzJI6T8hofJMaSGNRtKbkwZIdHEOCohQ6w0P4HG-Ce8j7eLIg9w8vKe0VSFIeG6gR5oNoGguFa8Yw2R0hc6JBoga4HE-Ks3lcfAwjq7oz_Go1cZDVCHmJ46kl7kSS3-DgazxgghkSXhH5zHJaB25h0s1zn3yIvst0rz1E0U-7pm9Hrso9WEkp7f0xUJVgOD-fQUrmhgry3MJ6zyuuTn9lk8SnqWg5ShHfKUKeTZfa-fDyWv9JJ2CAjZnkQeno" />
+
+                    <!-- Search Input + Autocomplete -->
+                    <div class="relative mb-3">
+                        <div class="flex items-center gap-2 bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+                            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:20px">search</span>
+                            <input type="text" id="input-pickup-location"
+                                placeholder="Cari atau ketik alamat penjemputan..."
+                                class="bg-transparent border-none w-full font-body-sm text-body-sm focus:ring-0 outline-none py-1"
+                                autocomplete="off" />
+                            <button id="btn-clear-location" class="hidden text-on-surface-variant hover:text-on-surface transition-colors flex-shrink-0">
+                                <span class="material-symbols-outlined" style="font-size:18px">close</span>
+                            </button>
+                        </div>
+                        <!-- Dropdown Saran Alamat -->
+                        <div id="location-suggestions"
+                            class="absolute w-full bg-surface border border-outline-variant rounded-lg shadow-xl mt-1 hidden max-h-48 overflow-y-auto"
+                            style="z-index:2000">
                         </div>
                     </div>
-                    <p class="font-label-md text-label-md text-on-surface mb-1">Hub Utama Rentify</p>
-                    <p class="font-body-sm text-body-sm text-on-surface-variant">Flughafenstraße 43, 70629 Stuttgart</p>
+
+                    <!-- Peta Leaflet Interaktif -->
+                    <div id="pickup-map"
+                        class="rounded-lg overflow-hidden border border-outline-variant mb-3"
+                        style="height:170px"></div>
+
+                    <!-- Tombol Lokasi Saya -->
+                    <button id="btn-use-my-location"
+                        class="w-full flex items-center justify-center gap-2 py-2 px-4 border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container-low hover:text-primary hover:border-primary transition-all">
+                        <span class="material-symbols-outlined" style="font-size:18px">my_location</span>
+                        <span>Gunakan Lokasi Saya</span>
+                    </button>
                 </div>
                 <!-- Price Calculation (Bento Item 5) -->
                 <div
@@ -329,6 +354,47 @@
                 </div>
             </section>
         </div>
+
+        <!-- ===== SECTION: PESANAN SAYA ===== -->
+        <section class="mt-8 mb-4">
+            <div class="flex items-center justify-between mb-5">
+                <div>
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Pesanan Saya</h2>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Riwayat dan status pemesanan kendaraan Anda</p>
+                </div>
+                <span id="bookings-count-badge" class="hidden px-3 py-1 bg-secondary text-on-secondary rounded-full font-label-md text-sm"></span>
+            </div>
+
+            <!-- Loading skeleton -->
+            <div id="bookings-loading" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
+                <div class="bg-surface-card rounded-xl border border-outline-variant/30 overflow-hidden animate-pulse">
+                    <div class="h-40 bg-surface-container-high"></div>
+                    <div class="p-5 space-y-3">
+                        <div class="h-4 bg-surface-container-high rounded w-3/4"></div>
+                        <div class="h-3 bg-surface-container-high rounded w-1/2"></div>
+                        <div class="h-3 bg-surface-container-high rounded w-2/3"></div>
+                    </div>
+                </div>
+                <div class="bg-surface-card rounded-xl border border-outline-variant/30 overflow-hidden animate-pulse hidden md:block">
+                    <div class="h-40 bg-surface-container-high"></div>
+                    <div class="p-5 space-y-3">
+                        <div class="h-4 bg-surface-container-high rounded w-3/4"></div>
+                        <div class="h-3 bg-surface-container-high rounded w-1/2"></div>
+                        <div class="h-3 bg-surface-container-high rounded w-2/3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bookings grid (rendered dynamically) -->
+            <div id="bookings-list" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter hidden"></div>
+
+            <!-- Empty state -->
+            <div id="bookings-empty" class="hidden flex flex-col items-center justify-center py-16 bg-surface-card rounded-xl border border-outline-variant/30">
+                <span class="material-symbols-outlined text-6xl text-outline mb-4" style="font-variation-settings:'FILL' 0">directions_car</span>
+                <p class="font-headline-sm text-headline-sm text-on-surface mb-2">Belum Ada Pesanan</p>
+                <p class="font-body-sm text-body-sm text-on-surface-variant text-center max-w-xs">Anda belum pernah memesan kendaraan. Pilih mobil di atas dan mulai perjalanan Anda!</p>
+            </div>
+        </section>
     </main>
     <!-- NavigationDrawer (Desktop Only Hidden LG) -->
     <aside
@@ -399,7 +465,7 @@
             <span class="font-label-sm text-label-sm">Pesanan</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
-            href="manajemen-user.html">
+            href="pengaturan.html">
             <span class="material-symbols-outlined">person</span>
             <span class="font-label-sm text-label-sm">Profil</span>
         </a>
@@ -507,6 +573,7 @@
             }
 
             let selectedCarObj = null;
+            let pickupLocation = ''; // Menyimpan alamat penjemputan yang dipilih
 
             function updateCarDetails() {
                 const selectedId = selectCar.value;
@@ -608,7 +675,10 @@
                     btnConfirm.disabled = true;
                     btnConfirm.textContent = 'Memproses...';
                     
-                    const result = await BookingsAPI.create(carId, startDate, endDate, 'Sewa Mobil Premium');
+                    const pickupNote = pickupLocation
+                        ? `Penjemputan: ${pickupLocation}`
+                        : 'Sewa Mobil Premium';
+                    const result = await BookingsAPI.create(carId, startDate, endDate, pickupNote);
                     alert('Sewa mobil berhasil dipesan!');
                     
                     // Redirect to payment page
@@ -619,6 +689,305 @@
                     btnConfirm.innerHTML = `Konfirmasi Pesanan <span class="material-symbols-outlined">payments</span>`;
                 }
             });
+            // ============================================================
+            //  FITUR TITIK PENJEMPUTAN — Leaflet.js + Nominatim
+            // ============================================================
+            let pickupMap = null;
+            let pickupMarker = null;
+
+            function initPickupMap() {
+                if (pickupMap) return;
+                const mapEl = document.getElementById('pickup-map');
+                if (!mapEl) return;
+                // Default view: Jakarta
+                pickupMap = L.map('pickup-map').setView([-6.2088, 106.8456], 12);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '\u00a9 <a href="https://openstreetmap.org" target="_blank">OpenStreetMap</a>',
+                    maxZoom: 19
+                }).addTo(pickupMap);
+
+                // Klik pada peta → reverse geocode → isi input
+                pickupMap.on('click', async (e) => {
+                    const { lat, lng } = e.latlng;
+                    setPickupMarker(lat, lng);
+                    const addr = await reverseGeocode(lat, lng);
+                    if (addr) setPickupInputValue(addr);
+                });
+            }
+
+            function setPickupMarker(lat, lng) {
+                const customIcon = L.divIcon({
+                    className: '',
+                    html: `<div style="width:22px;height:22px;background:#d4af37;border:3px solid #18181b;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 3px 10px rgba(0,0,0,0.35)"></div>`,
+                    iconSize: [22, 22],
+                    iconAnchor: [11, 22]
+                });
+                if (pickupMarker) {
+                    pickupMarker.setLatLng([lat, lng]);
+                } else {
+                    pickupMarker = L.marker([lat, lng], { icon: customIcon }).addTo(pickupMap);
+                }
+                pickupMap.setView([lat, lng], 15);
+            }
+
+            async function reverseGeocode(lat, lng) {
+                try {
+                    const res = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`,
+                        { headers: { 'Accept-Language': 'id' } }
+                    );
+                    const data = await res.json();
+                    return data.display_name || null;
+                } catch { return null; }
+            }
+
+            function setPickupInputValue(address) {
+                pickupLocation = address;
+                const inp = document.getElementById('input-pickup-location');
+                if (inp) inp.value = address;
+                const clrBtn = document.getElementById('btn-clear-location');
+                if (clrBtn) clrBtn.classList.remove('hidden');
+                closeLocSuggestions();
+            }
+
+            function closeLocSuggestions() {
+                const box = document.getElementById('location-suggestions');
+                if (box) { box.classList.add('hidden'); box.innerHTML = ''; }
+            }
+
+            // ---- Autocomplete ----
+            const locationInput = document.getElementById('input-pickup-location');
+            const locSugBox    = document.getElementById('location-suggestions');
+            const btnClearLoc  = document.getElementById('btn-clear-location');
+            let locSearchTimer;
+
+            if (locationInput) {
+                // Inisialisasi peta saat user mulai mengisi lokasi
+                locationInput.addEventListener('focus', () => initPickupMap());
+
+                locationInput.addEventListener('input', () => {
+                    clearTimeout(locSearchTimer);
+                    const q = locationInput.value.trim();
+                    pickupLocation = q;
+                    if (btnClearLoc) btnClearLoc.classList.toggle('hidden', !q);
+                    if (q.length < 3) { closeLocSuggestions(); return; }
+
+                    locSearchTimer = setTimeout(async () => {
+                        try {
+                            const res = await fetch(
+                                `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=5&countrycodes=id`,
+                                { headers: { 'Accept-Language': 'id' } }
+                            );
+                            const results = await res.json();
+                            if (!results.length) { closeLocSuggestions(); return; }
+
+                            locSugBox.innerHTML = results.map(item =>
+                                `<div data-lat="${item.lat}" data-lon="${item.lon}" data-name="${item.display_name.replace(/"/g, '&quot;')}"
+                                    class="loc-sug-item px-4 py-3 cursor-pointer hover:bg-surface-container-low transition-colors border-b border-outline-variant/30 last:border-0 flex items-start gap-2">
+                                    <span class="material-symbols-outlined text-secondary flex-shrink-0" style="font-size:16px;margin-top:2px">location_on</span>
+                                    <span class="font-body-sm text-body-sm text-on-surface leading-snug">${item.display_name}</span>
+                                </div>`
+                            ).join('');
+
+                            locSugBox.querySelectorAll('.loc-sug-item').forEach(el => {
+                                el.addEventListener('click', () => {
+                                    const lat = parseFloat(el.dataset.lat);
+                                    const lon = parseFloat(el.dataset.lon);
+                                    setPickupInputValue(el.dataset.name);
+                                    initPickupMap();
+                                    setPickupMarker(lat, lon);
+                                });
+                            });
+                            locSugBox.classList.remove('hidden');
+                        } catch { closeLocSuggestions(); }
+                    }, 400);
+                });
+            }
+
+            if (btnClearLoc) {
+                btnClearLoc.addEventListener('click', () => {
+                    if (locationInput) locationInput.value = '';
+                    pickupLocation = '';
+                    btnClearLoc.classList.add('hidden');
+                    closeLocSuggestions();
+                    if (pickupMarker && pickupMap) {
+                        pickupMap.removeLayer(pickupMarker);
+                        pickupMarker = null;
+                    }
+                });
+            }
+
+            // Tutup dropdown saat klik di luar
+            document.addEventListener('click', (e) => {
+                if (locationInput && !locationInput.contains(e.target) &&
+                    locSugBox && !locSugBox.contains(e.target)) {
+                    closeLocSuggestions();
+                }
+            });
+
+            // ---- Gunakan Lokasi Saya ----
+            const btnMyLoc = document.getElementById('btn-use-my-location');
+            if (btnMyLoc) {
+                btnMyLoc.addEventListener('click', function () {
+                    if (!navigator.geolocation) {
+                        alert('Browser Anda tidak mendukung geolocation.');
+                        return;
+                    }
+                    this.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px">hourglass_top</span><span>Mencari lokasi...</span>`;
+                    this.disabled = true;
+                    const self = this;
+                    navigator.geolocation.getCurrentPosition(
+                        async (pos) => {
+                            const { latitude: lat, longitude: lng } = pos.coords;
+                            initPickupMap();
+                            setPickupMarker(lat, lng);
+                            const addr = await reverseGeocode(lat, lng);
+                            if (addr) setPickupInputValue(addr);
+                            self.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px">my_location</span><span>Gunakan Lokasi Saya</span>`;
+                            self.disabled = false;
+                        },
+                        () => {
+                            alert('Gagal mendapat lokasi. Pastikan izin lokasi aktif di browser Anda.');
+                            self.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px">my_location</span><span>Gunakan Lokasi Saya</span>`;
+                            self.disabled = false;
+                        }
+                    );
+                });
+            }
+
+            // Inisialisasi peta otomatis saat halaman selesai dimuat
+            setTimeout(initPickupMap, 300);
+
+            // ============================================================
+            //  PESANAN SAYA — Fetch & Render Daftar Booking
+            // ============================================================
+            async function loadMyBookings() {
+                const loadingEl = document.getElementById('bookings-loading');
+                const listEl    = document.getElementById('bookings-list');
+                const emptyEl   = document.getElementById('bookings-empty');
+                const badgeEl   = document.getElementById('bookings-count-badge');
+
+                try {
+                    const bookings = await BookingsAPI.getAll();
+
+                    // Hide skeleton
+                    if (loadingEl) loadingEl.classList.add('hidden');
+
+                    if (!bookings || bookings.length === 0) {
+                        if (emptyEl) emptyEl.classList.remove('hidden');
+                        return;
+                    }
+
+                    // Show badge count
+                    if (badgeEl) {
+                        badgeEl.textContent = `${bookings.length} Pesanan`;
+                        badgeEl.classList.remove('hidden');
+                    }
+
+                    // Render each booking card
+                    listEl.innerHTML = bookings.map(booking => {
+                        const car = booking.car;
+                        const carName  = car ? `${car.brand} ${car.name}` : 'Kendaraan Dihapus';
+                        const carImg   = car?.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800';
+                        const carType  = car?.type  || '';
+                        const carBrand = car?.brand || '';
+
+                        const startDate = new Date(booking.start_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const endDate   = new Date(booking.end_date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        const totalFmt  = `Rp ${Number(booking.total_price).toLocaleString('id-ID')}`;
+
+                        // Calculate duration
+                        const days = Math.max(1, Math.ceil((new Date(booking.end_date) - new Date(booking.start_date)) / (1000*60*60*24)));
+
+                        // Status badge
+                        const statusMap = {
+                            pending:   { label: 'Menunggu Pembayaran', cls: 'bg-amber-100 text-amber-800',   icon: 'hourglass_top' },
+                            confirmed: { label: 'Dikonfirmasi',         cls: 'bg-blue-100 text-blue-800',    icon: 'check_circle' },
+                            completed: { label: 'Selesai',              cls: 'bg-emerald-100 text-emerald-800', icon: 'task_alt' },
+                            cancelled: { label: 'Dibatalkan',           cls: 'bg-red-100 text-red-800',      icon: 'cancel' },
+                        };
+                        const st = statusMap[booking.status] || { label: booking.status, cls: 'bg-gray-100 text-gray-700', icon: 'info' };
+
+                        // Pickup location from notes
+                        const pickupInfo = booking.notes && booking.notes.startsWith('Penjemputan:')
+                            ? booking.notes.replace('Penjemputan:', '').trim()
+                            : null;
+
+                        // Pay button if pending
+                        const payBtn = booking.status === 'pending'
+                            ? `<a href="pembayaran.html?booking_id=${booking.id}"
+                                class="w-full flex items-center justify-center gap-2 py-2.5 bg-secondary text-on-secondary rounded-lg font-label-md font-bold hover:opacity-90 active:scale-[0.98] transition-all shadow-sm">
+                                <span class="material-symbols-outlined text-[18px]">payments</span>
+                                Bayar Sekarang
+                               </a>`
+                            : '';
+
+                        return `
+                        <div class="bg-surface-card rounded-xl border border-outline-variant/30 overflow-hidden shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col group hover:shadow-md transition-shadow">
+                            <!-- Car Image -->
+                            <div class="relative h-44 overflow-hidden">
+                                <img src="${carImg}" alt="${carName}"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    onerror="this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800'" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                <!-- Status badge on image -->
+                                <span class="absolute top-3 right-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold ${st.cls} shadow">
+                                    <span class="material-symbols-outlined" style="font-size:13px">${st.icon}</span>
+                                    ${st.label}
+                                </span>
+                                <!-- Car name on image -->
+                                <div class="absolute bottom-3 left-4 right-4">
+                                    <p class="font-headline-sm text-white text-shadow drop-shadow-lg leading-tight">${carName}</p>
+                                    <p class="font-body-sm text-white/80 text-xs">${carBrand} ${carType}</p>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-5 flex flex-col gap-3 flex-1">
+                                <!-- Date range -->
+                                <div class="flex items-center gap-3 bg-surface-container-low rounded-lg px-3 py-2">
+                                    <span class="material-symbols-outlined text-secondary" style="font-size:18px">calendar_month</span>
+                                    <div class="text-xs">
+                                        <p class="font-label-md text-on-surface">${startDate} &rarr; ${endDate}</p>
+                                        <p class="text-on-surface-variant">${days} hari sewa</p>
+                                    </div>
+                                </div>
+
+                                ${pickupInfo ? `
+                                <!-- Pickup location -->
+                                <div class="flex items-start gap-2">
+                                    <span class="material-symbols-outlined text-secondary flex-shrink-0" style="font-size:16px;margin-top:1px">location_on</span>
+                                    <p class="font-body-sm text-body-sm text-on-surface-variant leading-snug line-clamp-2">${pickupInfo}</p>
+                                </div>` : ''}
+
+                                <!-- Price -->
+                                <div class="flex items-center justify-between mt-auto pt-3 border-t border-outline-variant/40">
+                                    <span class="font-body-sm text-on-surface-variant">Total</span>
+                                    <span class="font-headline-sm text-headline-sm text-primary font-bold">${totalFmt}</span>
+                                </div>
+
+                                <!-- Pay button -->
+                                ${payBtn}
+                            </div>
+                        </div>`;
+                    }).join('');
+
+                    listEl.classList.remove('hidden');
+
+                } catch (err) {
+                    console.error('Gagal memuat pesanan:', err);
+                    if (loadingEl) loadingEl.classList.add('hidden');
+                    if (emptyEl) {
+                        emptyEl.classList.remove('hidden');
+                        emptyEl.querySelector('p.font-headline-sm').textContent = 'Gagal Memuat Pesanan';
+                        emptyEl.querySelector('p.font-body-sm').textContent = 'Terjadi kesalahan saat mengambil data pesanan. Coba muat ulang halaman.';
+                    }
+                }
+            }
+
+            // Jalankan saat halaman siap
+            loadMyBookings();
+
         });
     </script>
 </body>

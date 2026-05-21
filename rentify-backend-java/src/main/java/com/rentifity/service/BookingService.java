@@ -1,0 +1,112 @@
+package com.rentifity.service;
+
+import com.rentifity.dto.request.BookingRequest;
+import com.rentifity.dto.response.ReportResponse;
+import com.rentifity.exception.ResourceNotFoundException;
+import com.rentifity.model.Booking;
+import com.rentifity.model.Car;
+import com.rentifity.model.User;
+import com.rentifity.repository.BookingRepository;
+import com.rentifity.repository.CarRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+public class BookingService {
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
+    public List<Booking> getAllBookings(User user) {
+        if (user.getRole().equals("admin")) {
+            return bookingRepository.findAllByOrderByCreatedAtDesc();
+        }
+        return bookingRepository.findByUserIdOrderByCreatedAtDesc(user.getId());
+    }
+
+    public Booking createBooking(BookingRequest req, User user) {
+        Car car = carRepository.findById(req.getCarId())
+                .orElseThrow(() -> new ResourceNotFoundException("Mobil tidak ditemukan"));
+
+        if (!car.getStatus().equals("available")) {
+            throw new RuntimeException("Mobil tidak tersedia");
+        }
+
+        LocalDate startDate = LocalDate.parse(req.getStartDate());
+        LocalDate endDate = LocalDate.parse(req.getEndDate());
+
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Jakarta"));
+        if (startDate.isBefore(today)) {
+            throw new RuntimeException("Tanggal mulai tidak boleh sebelum hari ini");
+        }
+
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
+        if (days < 1) {
+            days = 1;
+        }
+
+        BigDecimal totalPrice = car.getPricePerDay().multiply(BigDecimal.valueOf(days));
+
+        Booking booking = Booking.builder()
+                .user(user)
+                .car(car)
+                .startDate(startDate)
+                .endDate(endDate)
+                .totalPrice(totalPrice)
+                .status("pending")
+                .notes(req.getNotes())
+                .build();
+
+        car.setStatus("rented");
+        carRepository.save(car);
+
+        return bookingRepository.save(booking);
+    }
+
+    public ReportResponse getReports() {
+        long totalBookings = bookingRepository.count();
+
+        BigDecimal totalRevenue = bookingRepository.getTotalRevenue();
+        if (totalRevenue == null) {
+            totalRevenue = BigDecimal.ZERO;
+        }
+
+        long availableCars = carRepository.countByStatus("available");
+        long totalCars = carRepository.count();
+
+        List<Booking> recentBookings = bookingRepository.findTop5ByOrderByCreatedAtDesc();
+
+        List<Map<String, Object>> revenueStats = new ArrayList<>();
+
+        String[] months = {"Jan", "Feb", "Mar", "Apr", "Mei"};
+        long[] revenues = {15000000L, 23000000L, 18000000L, 31000000L, 27000000L};
+
+        for (int i = 0; i < months.length; i++) {
+            Map<String, Object> stat = new HashMap<>();
+            stat.put("month", months[i]);
+            stat.put("revenue", revenues[i]);
+            revenueStats.add(stat);
+        }
+
+        return ReportResponse.builder()
+                .totalBookings(totalBookings)
+                .totalRevenue(totalRevenue)
+                .availableCars(availableCars)
+                .totalCars(totalCars)
+                .recentBookings(recentBookings)
+                .revenueStats(revenueStats)
+                .build();
+    }
+}
