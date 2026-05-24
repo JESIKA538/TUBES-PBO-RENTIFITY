@@ -1,4 +1,7 @@
-const API_URL = 'http://127.0.0.1:8080/api';
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    const API_BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://127.0.0.1:8080/api'
+    : 'https://tubes-pbo-rentifity-production.up.railway.app/api';
 
 /**
  * Generic API Fetch wrapper that injects headers and bearer tokens,
