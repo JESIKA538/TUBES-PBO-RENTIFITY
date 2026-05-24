@@ -40,9 +40,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors(cors -> {}) // Mengizinkan CORS di tingkat Spring Security
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Mengizinkan semua preflight request OPTIONS
                         .requestMatchers(HttpMethod.POST, "/api/login", "/api/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/cars", "/api/cars/**").permitAll()
                         .anyRequest().authenticated()

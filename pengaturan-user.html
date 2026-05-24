@@ -194,7 +194,7 @@
                     <span class="font-label-md">My Bookings</span>
                 </a>
                 <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]"
-                    href="pengaturan.html">
+                    href="pengaturan-user.html">
                     <span class="material-symbols-outlined" data-icon="settings">settings</span>
                     <span class="font-label-md font-bold">Settings</span>
                 </a>
@@ -703,7 +703,7 @@
             <span class="font-label-sm">Pesanan</span>
         </a>
         <a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-95 duration-100"
-            href="pengaturan.html">
+            href="pengaturan-user.html">
             <span class="material-symbols-outlined" data-icon="person" data-weight="fill">person</span>
             <span class="font-label-sm">Profil</span>
         </a>
@@ -716,8 +716,8 @@
             if (!AuthAPI.checkAuth()) return;
 
             const currentUser = AuthAPI.getUser();
-            if (currentUser.role !== 'admin') {
-                window.location.href = 'pengaturan-user.html';
+            if (currentUser.role === 'admin') {
+                window.location.href = 'pengaturan.html';
                 return;
             }
 
@@ -814,7 +814,7 @@
                                 <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                                 <span class="font-label-md">My Bookings</span>
                             </a>
-                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="pengaturan.html">
+                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="pengaturan-user.html">
                                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                                 <span class="font-label-md font-bold">Settings</span>
                             </a>

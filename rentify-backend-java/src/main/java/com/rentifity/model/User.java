@@ -39,6 +39,7 @@ public class User {
     @Column(columnDefinition = "TEXT")
     private String address;
 
+    @Column(columnDefinition = "LONGTEXT")
     private String avatar;
 
     @CreationTimestamp

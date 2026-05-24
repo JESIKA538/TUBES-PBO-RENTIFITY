@@ -59,7 +59,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ─────────────────────────────────────────────────────────
-    // 4. GLOBAL PROFILE SYNC
+    // 4. GLOBAL THEME SYNC
+    //    Otomatis terapkan tema (gelap/terang) sesuai localStorage
+    // ─────────────────────────────────────────────────────────
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+    } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // 5. GLOBAL PROFILE SYNC
     //    Otomatis sinkronkan foto/nama user di semua halaman
     //    langsung dari localStorage — instan, tanpa request API.
     // ─────────────────────────────────────────────────────────
