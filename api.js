@@ -1,4 +1,4 @@
-const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname === '' || window.location.protocol === 'file:'
     ? 'http://127.0.0.1:8080/api'
     : 'https://rentify-backend-production.up.railway.app/api';
 
