@@ -17,4 +17,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("SELECT COALESCE(SUM(b.totalPrice), 0) FROM Booking b WHERE b.status IN ('confirmed', 'completed')")
     BigDecimal getTotalRevenue();
+
+    @Query("SELECT COALESCE(SUM(b.totalPrice), 0) FROM Booking b WHERE b.status IN ('confirmed', 'completed') AND YEAR(b.startDate) = :year AND MONTH(b.startDate) = :month")
+    BigDecimal getRevenueByMonth(int year, int month);
 }

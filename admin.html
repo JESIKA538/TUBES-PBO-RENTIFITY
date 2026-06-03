@@ -136,6 +136,48 @@
         body {
             min-height: max(884px, 100dvh);
         }
+
+        @media print {
+            body > *:not(#invoice-modal) {
+                display: none !important;
+            }
+            #invoice-modal {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                display: flex !important;
+                background: white !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            #invoice-modal > div {
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            #invoice-header-gradient,
+            #invoice-actions-wrapper {
+                display: none !important;
+            }
+            #invoice-print-area {
+                display: block !important;
+                overflow: visible !important;
+                max-height: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
     </style>
 </head>
 
@@ -309,10 +351,10 @@
                 </div>
             </div>
             <!-- Main Layout Sections -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+            <div class="grid grid-cols-1 gap-gutter">
                 <!-- Analytics Chart Placeholder Section -->
                 <div
-                    class="lg:col-span-2 bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
                     <div class="flex justify-between items-center mb-8">
                         <div>
                             <h2 class="text-headline-sm font-headline-sm text-on-surface">Analitik Penyewaan</h2>
@@ -379,69 +421,13 @@
                         <span>30 Jan</span>
                     </div>
                 </div>
-                <!-- Secondary Focus Card: Performa Terbaik -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
-                    <h2 class="text-headline-sm font-headline-sm text-on-surface mb-6">Performa Terbaik</h2>
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
-                                <img alt="Model Mobil" class="w-full h-full object-cover"
-                                    data-alt="A side view of a modern black luxury sedan parked in a minimalist showroom with concrete floors and soft overhead spotlighting. The image captures the sleek aerodynamic lines and polished finish of the vehicle. The lighting creates subtle reflections on the car's body, maintaining a professional and high-end automotive aesthetic."
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWgfTTnNyMNN7R43FYpnf7-KO1QA-AoC9EOn8lNNikI94x2rP1GuSfThitLxKkVaFKdXsMMiRUm-c7iMA4RrsEDOlnxbAYQ8mj-_kA110qg-iKLNw54liYXxBqqIeqXLuHbjTXSG3fxhi2a1QJwX6vpK69xXQweoDiXo7kCTKA-eP_vtwpuqTUho1JIJ0Ntx-ZB8jQzk-TiLGqTL-OCm_XjPV6QLUMwPk-OtFRyyq3TDpZblF6z7uhbSiKuhX8RtFr5414Ku49poU" />
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-label-md text-label-md text-on-surface">BMW Series 5</p>
-                                <p class="text-xs text-on-surface-variant">Sedan Mewah</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-primary">84 penyewaan</p>
-                                <p class="text-[10px] text-secondary font-bold">+5%</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
-                                <img alt="Model Mobil" class="w-full h-full object-cover"
-                                    data-alt="A frontal perspective of a white premium electric SUV positioned against a clean studio backdrop. The lighting is bright and even, highlighting the car's futuristic design elements and sharp contours. The overall feel is modern, sustainable, and high-tech, aligning with a corporate fleet management interface."
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd1NOmBYYUAUYLERLIcCqFLMzaFz-jbdTeFruBBQUNcUz60tJRAoW_G4-vvuq8R4xcEynlrsqI6FnT7RwH4HR_KjMU-LMUraBvL8YPZnj5aBX_4kC0rDmhImqiQPM8iMz5lf5VN4ZjkdOjW4qBUHM2oQkz-EvLwpEYceco6VK9_f1zbk7v3Fv9A6V5an_NrbTKkwhRsiIAuzIuboOUbUhlxMgpGdezSEDaJ5AL-3160gHB5_Wx0JjkfXwFOpdndfDTqsuN8PpRuvI" />
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-label-md text-label-md text-on-surface">Tesla Model Y</p>
-                                <p class="text-xs text-on-surface-variant">SUV Listrik</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-primary">72 penyewaan</p>
-                                <p class="text-[10px] text-secondary font-bold">+12%</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
-                                <img alt="Model Mobil" class="w-full h-full object-cover"
-                                    data-alt="A vibrant red compact hatchback shown driving on a coastal road during golden hour. The warm sunlight glints off the metallic paint, creating a sense of energy and freedom. The composition is dynamic, focusing on the car's agile appearance and appeal for urban environments."
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6c0_-r6OZsfjNNKrpnp8JxlF-onrD7caCuw01iTS8UGRwVeonQ8alSZVdW8dCMuKviL_cBl4XgBrud0f1JmyUOVFaqxtMLj75ermQD01W0Jy7ET6_srTQXS0Vc074E4K4aBb6jtSmFl72C5f4U92p9yi0f8sFuwF3RX_LfwNjKFE8L-RsvfC6iYW16QreCEjHiHIEIU0OQA-sJNcv4weHjed6xU3zlIuy4I91sb9M5OWaQ4q2Z1p_3EYQ4BPb8NUE2mP6jMAkslU" />
-                            </div>
-                            <div class="flex-grow">
-                                <p class="font-label-md text-label-md text-on-surface">Audi A3</p>
-                                <p class="text-xs text-on-surface-variant">Sport Kompak</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="font-bold text-primary">65 penyewaan</p>
-                                <p class="text-[10px] text-error-red font-bold">-2%</p>
-                            </div>
-                        </div>
-                        <button
-                            class="w-full mt-4 py-3 border border-primary text-primary font-label-md text-label-md rounded-lg hover:bg-primary/5 transition-colors">
-                            Lihat Inventaris Detail
-                        </button>
-                    </div>
-                </div>
-            </div>
+
             <!-- Recent Transactions Table -->
             <div
                 class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 overflow-hidden">
                 <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
                     <h2 class="text-headline-sm font-headline-sm text-on-surface">Transaksi Terkini</h2>
-                    <button class="text-primary font-label-md text-label-md flex items-center gap-1">
+                    <button id="btn-unduh-laporan" class="text-primary font-label-md text-label-md flex items-center gap-1">
                         Unduh Laporan <span class="material-symbols-outlined text-[18px]"
                             data-icon="download">download</span>
                     </button>
@@ -607,51 +593,6 @@
                     }
                 }
 
-                // Render Performa Terbaik (Top Cars)
-                try {
-                    const cars = await CarsAPI.getAll();
-                    const bestPerformersContainer = document.querySelector('.bg-surface-card .space-y-6');
-                    if (bestPerformersContainer && cars.length > 0) {
-                        const viewInventoryBtn = bestPerformersContainer.querySelector('button');
-                        bestPerformersContainer.innerHTML = '';
-                        
-                        // Pick first 3 cars as simulated top performers
-                        const performers = [
-                            { car: cars[0], count: 84, trend: '+5%', trendClass: 'text-secondary' },
-                            { car: cars[1], count: 72, trend: '+12%', trendClass: 'text-secondary' },
-                            { car: cars[2] || cars[0], count: 65, trend: '-2%', trendClass: 'text-error-red' }
-                        ];
-
-                        performers.forEach(p => {
-                            if (!p.car) return;
-                            bestPerformersContainer.innerHTML += `
-                                <div class="flex items-center gap-4">
-                                    <div class="w-16 h-12 bg-surface-container rounded-lg overflow-hidden flex-shrink-0">
-                                        <img src="${p.car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=400'}" alt="${p.car.name}" class="w-full h-full object-cover" />
-                                    </div>
-                                    <div class="flex-grow">
-                                        <p class="font-label-md text-label-md text-on-surface">${p.car.name}</p>
-                                        <p class="text-xs text-on-surface-variant">${p.car.brand} • ${p.car.type}</p>
-                                    </div>
-                                    <div class="text-right">
-                                        <p class="font-bold text-primary">${p.count} penyewaan</p>
-                                        <p class="text-[10px] ${p.trendClass} font-bold">${p.trend}</p>
-                                    </div>
-                                </div>
-                            `;
-                        });
-
-                        if (viewInventoryBtn) {
-                            bestPerformersContainer.appendChild(viewInventoryBtn);
-                            viewInventoryBtn.addEventListener('click', () => {
-                                window.location.href = 'manajemen-armada.html';
-                            });
-                        }
-                    }
-                } catch (err) {
-                    console.error('Gagal memuat mobil performa terbaik:', err);
-                }
-
                 // Render Transaksi Terkini
                 const tbody = document.querySelector('table tbody');
                 if (tbody) {
@@ -709,15 +650,163 @@
                                     <td class="px-6 py-4 font-body-md text-on-surface-variant">${formattedDate}</td>
                                     <td class="px-6 py-4 font-bold text-on-surface">${formattedAmount}</td>
                                     <td class="px-6 py-4">${statusBadge}</td>
-                                    <td class="px-6 py-4">
-                                        <button class="text-on-surface-variant hover:text-primary transition-colors">
-                                            <span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+                                    <td class="px-6 py-4 text-center">
+                                        <button onclick="showInvoiceDetailsById(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                            <span class="material-symbols-outlined text-[16px]">receipt</span>
+                                            Invoice
                                         </button>
                                     </td>
                                 </tr>
                             `;
                         });
                     }
+                }
+
+                // Bind invoice details viewer
+                window.showInvoiceDetailsById = async function(bookingId) {
+                    const booking = reports.recent_bookings.find(b => b.id === bookingId);
+                    if (!booking) return;
+
+                    // Fetch all payments to find matching one
+                    let payment = null;
+                    try {
+                        const payments = await PaymentsAPI.getAll();
+                        payment = payments.find(p => p.booking_id === bookingId || p.booking?.id === bookingId);
+                    } catch (e) {
+                        console.warn("Gagal mengambil data pembayaran:", e);
+                    }
+
+                    if (!payment) {
+                        payment = {
+                            id: booking.id,
+                            status: booking.status === 'confirmed' || booking.status === 'completed' ? 'approved' : 'pending',
+                            amount: booking.total_price,
+                            payment_method: 'Transfer Bank',
+                            created_at: booking.created_at || booking.start_date,
+                            booking: booking
+                        };
+                    }
+
+                    const userObj = booking.user || AuthAPI.getUser();
+                    document.getElementById('invoice-trx-id').textContent = `#TRX-${payment.id}`;
+                    document.getElementById('invoice-status').textContent = (payment.status || 'SUCCESS').toUpperCase();
+                    
+                    const statusEl = document.getElementById('invoice-status');
+                    if (payment.status === 'pending') {
+                        statusEl.className = 'px-3 py-1 bg-amber-50 text-amber-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                    } else if (payment.status === 'cancelled' || payment.status === 'failed') {
+                        statusEl.className = 'px-3 py-1 bg-red-50 text-red-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                    } else {
+                        statusEl.className = 'px-3 py-1 bg-emerald-50 text-emerald-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                    }
+
+                    const isCash = (payment.payment_method || payment.paymentMethod) === 'Tunai';
+                    
+                    // Header Titles
+                    document.querySelector('#invoice-modal h3').textContent = isCash ? 'Struk Pembayaran Tunai' : 'Invoice Pembayaran Bank';
+                    document.querySelector('#invoice-modal h3 + p').textContent = isCash ? 'Bukti transaksi tunai resmi Rentify' : 'Bukti transfer resmi Rentify';
+                    document.querySelector('#invoice-modal #invoice-header-icon').textContent = isCash ? 'payments' : 'account_balance';
+                    
+                    // Content Titles
+                    document.getElementById('invoice-type-label').textContent = isCash ? 'Struk Tunai • Rentify' : 'Invoice Transfer • Rentify';
+                    document.getElementById('invoice-footer-thanks').textContent = isCash ? 'Terima kasih telah menyewa di Rentify!' : 'Terima kasih telah melakukan pembayaran via transfer bank!';
+                    document.getElementById('invoice-footer-notes').textContent = isCash 
+                        ? 'Harap serahkan struk tunai ini kepada petugas saat mengambil armada mobil.' 
+                        : 'Simpan invoice transfer ini sebagai bukti pembayaran digital yang sah.';
+
+                    document.getElementById('invoice-user-name').textContent = userObj.name || 'Pelanggan';
+                    document.getElementById('invoice-user-email').textContent = userObj.email || '-';
+                    
+                    const createdAtDate = payment.created_at || payment.createdAt ? new Date(payment.created_at || payment.createdAt) : new Date();
+                    document.getElementById('invoice-date').textContent = createdAtDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                    document.getElementById('invoice-time').textContent = createdAtDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+
+                    const car = booking.car || { brand: 'Mobil', name: 'Dihapus', price_per_day: payment.amount, type: '-', transmission: '-', fuel_type: '-' };
+                    document.getElementById('invoice-car-img').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200';
+                    document.getElementById('invoice-car-name').textContent = `${car.brand} ${car.name}`;
+                    document.getElementById('invoice-car-details').textContent = `${car.type} • ${car.transmission === 'automatic' ? 'Otomatis' : 'Manual'} • ${car.fuel_type || 'Bensin'}`;
+
+                    const start = new Date(booking.start_date);
+                    const end = new Date(booking.end_date);
+                    const diffTime = end - start;
+                    const diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+                    
+                    document.getElementById('invoice-rental-dates').textContent = `${start.toLocaleDateString('id-ID', {day: 'numeric', month: 'short'})} - ${end.toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}`;
+                    document.getElementById('invoice-rental-duration').textContent = `${diffDays} Hari`;
+
+                    const amount = Number(payment.amount);
+                    const serviceFee = 50000;
+                    const subtotal = amount - serviceFee;
+
+                    document.getElementById('invoice-subtotal-price').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+                    document.getElementById('invoice-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
+                    document.getElementById('invoice-total-price').textContent = `Rp ${amount.toLocaleString('id-ID')}`;
+
+                    document.getElementById('invoice-payment-method').textContent = payment.payment_method || payment.paymentMethod || 'Transfer Bank';
+
+                    const modal = document.getElementById('invoice-modal');
+                    modal.classList.remove('hidden');
+                    setTimeout(() => {
+                        modal.querySelector('.transform').classList.remove('scale-95', 'opacity-0');
+                        modal.querySelector('.transform').classList.add('scale-100', 'opacity-100');
+                    }, 50);
+                };
+
+                // Close invoice modal listeners
+                const modal = document.getElementById('invoice-modal');
+                document.getElementById('btn-close-invoice').addEventListener('click', () => {
+                    modal.querySelector('.transform').classList.add('scale-95', 'opacity-0');
+                    modal.querySelector('.transform').classList.remove('scale-100', 'opacity-100');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                    }, 300);
+                });
+
+                document.getElementById('btn-print-invoice').addEventListener('click', () => {
+                    window.print();
+                });
+
+                // Bind Download CSV handler
+                const downloadBtn = document.getElementById('btn-unduh-laporan');
+                if (downloadBtn) {
+                    downloadBtn.addEventListener('click', () => {
+                        const bookings = reports.recent_bookings || [];
+                        if (bookings.length === 0) {
+                            alert('Tidak ada transaksi untuk diekspor.');
+                            return;
+                        }
+
+                        const csvRows = [];
+                        csvRows.push(['ID Transaksi', 'Pelanggan', 'Model Mobil', 'Tanggal', 'Status', 'Jumlah'].join(','));
+
+                        bookings.forEach(b => {
+                            const id = `#RT-${b.id}`;
+                            const userName = b.user ? b.user.name : 'Pengguna';
+                            const carName = b.car ? b.car.name : 'Mobil';
+                            const date = new Date(b.created_at || b.start_date);
+                            const formattedDate = date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                            
+                            let statusText = 'Batal';
+                            if (b.status === 'pending') statusText = 'Menunggu';
+                            else if (b.status === 'confirmed' || b.status === 'completed') statusText = 'Selesai';
+                            
+                            const amountText = `Rp ${Number(b.total_price).toLocaleString('id-ID')}`;
+
+                            const row = [id, userName, carName, formattedDate, statusText, amountText]
+                                .map(val => `"${val.replace(/"/g, '""')}"`);
+                            csvRows.push(row.join(','));
+                        });
+
+                        const csvString = '\uFEFF' + csvRows.join('\n');
+                        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", `Laporan_Transaksi_Rentify_${new Date().toISOString().slice(0, 10)}.csv`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                    });
                 }
             } catch (err) {
                 console.error('Gagal mengambil laporan dashboard:', err);
@@ -732,6 +821,114 @@
             }
         });
     </script>
+    <!-- Invoice Modal -->
+    <div id="invoice-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform transition-all duration-300 scale-95 opacity-0 flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div id="invoice-header-gradient" class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 relative flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold font-heading">Struk & Invoice Pembayaran</h3>
+                    <p class="text-xs opacity-80 mt-1">Bukti pembayaran resmi Rentify</p>
+                </div>
+                <div class="bg-white/20 p-2 rounded-xl">
+                    <span id="invoice-header-icon" class="material-symbols-outlined text-3xl">receipt_long</span>
+                </div>
+            </div>
+
+            <!-- Printable Area -->
+            <div id="invoice-print-area" class="p-6 overflow-y-auto flex-1 space-y-6 text-sm text-slate-800">
+                <!-- Brand & TRX -->
+                <div class="flex justify-between items-start border-b pb-4">
+                    <div>
+                        <h4 class="text-xl font-extrabold text-blue-700 font-heading">Rentify</h4>
+                        <p id="invoice-type-label" class="text-xs text-slate-500 mt-1">Sewa Mobil Premium & Terpercaya</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-600 font-semibold text-xs rounded-full uppercase tracking-wider" id="invoice-status">SUCCESS</span>
+                        <p class="text-xs font-mono font-bold text-slate-500 mt-2" id="invoice-trx-id">#TRX-0000</p>
+                    </div>
+                </div>
+
+                <!-- Customer & Date -->
+                <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Penyewa</span>
+                        <strong class="text-slate-700 block mt-1" id="invoice-user-name">-</strong>
+                        <span class="text-xs text-slate-500" id="invoice-user-email">-</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Tanggal Transaksi</span>
+                        <span class="text-slate-700 block font-medium mt-1" id="invoice-date">-</span>
+                        <span class="text-xs text-slate-500" id="invoice-time">-</span>
+                    </div>
+                </div>
+
+                <!-- Vehicle Details -->
+                <div>
+                    <span class="text-xs text-slate-400 block font-semibold uppercase mb-2">Detail Kendaraan</span>
+                    <div class="flex gap-4 items-center border p-3 rounded-2xl bg-white">
+                        <img id="invoice-car-img" src="" class="w-20 h-14 rounded-xl object-cover border" />
+                        <div>
+                            <strong class="text-slate-800 font-heading" id="invoice-car-name">-</strong>
+                            <p class="text-xs text-slate-500 mt-1" id="invoice-car-details">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rental Duration & Dates -->
+                <div class="grid grid-cols-2 gap-4 border-t pt-4">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Periode Sewa</span>
+                        <span class="text-slate-700 block font-medium mt-1" id="invoice-rental-dates">-</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Durasi</span>
+                        <span class="text-slate-700 font-bold block mt-1" id="invoice-rental-duration">-</span>
+                    </div>
+                </div>
+
+                <!-- Itemized Pricing -->
+                <div class="border-t pt-4 space-y-2">
+                    <span class="text-xs text-slate-400 block font-semibold uppercase mb-2">Rincian Biaya</span>
+                    <div class="flex justify-between text-slate-600">
+                        <span>Biaya Sewa Mobil</span>
+                        <span id="invoice-subtotal-price">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>Biaya Layanan & Administrasi</span>
+                        <span id="invoice-service-fee">Rp 50.000</span>
+                    </div>
+                    <hr class="my-2" />
+                    <div class="flex justify-between text-base font-bold text-blue-700">
+                        <span>Total Pembayaran</span>
+                        <span id="invoice-total-price">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="border-t pt-4 flex justify-between items-center text-xs text-slate-500">
+                    <span>Metode Pembayaran: <strong class="text-slate-700" id="invoice-payment-method">-</strong></span>
+                    <span>Status: <strong class="text-slate-700">Lunas</strong></span>
+                </div>
+                
+                <div class="text-center pt-2 border-t-2 border-dashed">
+                    <p id="invoice-footer-thanks" class="text-xs text-slate-400 italic">Terima kasih telah memilih Rentify!</p>
+                    <p id="invoice-footer-notes" class="text-[10px] text-slate-400 mt-1">Simpan struk ini sebagai bukti pembayaran yang sah.</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div id="invoice-actions-wrapper" class="p-6 bg-slate-50 border-t flex gap-4">
+                <button id="btn-print-invoice" class="flex-1 flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl transition duration-150">
+                    <span class="material-symbols-outlined text-[20px]">print</span>
+                    Cetak Struk
+                </button>
+                <button id="btn-close-invoice" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-xl transition duration-150">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -21,6 +21,48 @@
         .chart-gradient {
             background: linear-gradient(180deg, rgba(0, 68, 157, 0.1) 0%, rgba(0, 68, 157, 0) 100%);
         }
+
+        @media print {
+            body > *:not(#invoice-modal) {
+                display: none !important;
+            }
+            #invoice-modal {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 100% !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                display: flex !important;
+                background: white !important;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            #invoice-modal > div {
+                box-shadow: none !important;
+                border: none !important;
+                max-width: 100% !important;
+                width: 100% !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            #invoice-header-gradient,
+            #invoice-actions-wrapper {
+                display: none !important;
+            }
+            #invoice-print-area {
+                display: block !important;
+                overflow: visible !important;
+                max-height: none !important;
+                width: 100% !important;
+                padding: 0 !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+        }
     </style>
     <script id="tailwind-config">
         tailwind.config = {
@@ -162,11 +204,10 @@
                         <span class="material-symbols-outlined">payments</span>
                         <span class="font-body-md">Riwayat Pembayaran</span>
                     </a>
-                    <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99]"
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all active:scale-[0.99]"
                         href="riwayat.html">
-                        <span class="material-symbols-outlined"
-                            style="font-variation-settings: 'FILL' 1;">assessment</span>
-                        <span class="font-body-md font-bold">Laporan</span>
+                        <span class="material-symbols-outlined">assessment</span>
+                        <span class="font-body-md">Laporan</span>
                     </a>
                     <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all active:scale-[0.99]"
                         href="pengaturan-user.html">
@@ -195,12 +236,15 @@
                     <p id="page-subtitle" class="text-body-md text-on-surface-variant">Analisis performa armada dan pertumbuhan finansial Anda.</p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <button
-                        class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low transition-colors font-label-md">
-                        <span class="material-symbols-outlined text-[20px]">calendar_month</span>
-                        Mei 2026
-                    </button>
-                    <button
+                    <div class="relative">
+                        <input type="month" id="month-picker" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10" value="2026-05" />
+                        <button id="month-picker-btn"
+                            class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-primary hover:bg-surface-container-low transition-colors font-label-md">
+                            <span class="material-symbols-outlined text-[20px]">calendar_month</span>
+                            <span id="selected-month-label">Mei 2026</span>
+                        </button>
+                    </div>
+                    <button id="export-report-btn"
                         class="flex items-center gap-2 px-6 py-2 bg-secondary text-on-secondary rounded-lg hover:opacity-90 transition-opacity font-label-md shadow-sm">
                         <span class="material-symbols-outlined text-[20px]">download</span>
                         Ekspor Laporan
@@ -260,20 +304,12 @@
                     class="md:col-span-8 p-6 bg-surface-card rounded-xl shadow-[0_4px_20px_rgba(48,49,53,0.05)] border border-surface-container min-h-[400px]">
                     <div class="flex justify-between items-center mb-8">
                         <div>
-                            <h4 class="font-headline-sm text-on-surface">Statistik Pendapatan</h4>
-                            <p class="text-body-sm text-outline">Distribusi pendapatan selama 30 hari terakhir</p>
-                        </div>
-                        <div class="flex bg-surface-container-low p-1 rounded-lg">
-                            <button
-                                class="px-4 py-1.5 text-label-md bg-white shadow-sm rounded-md text-primary">Harian</button>
-                            <button
-                                class="px-4 py-1.5 text-label-md text-on-surface-variant hover:text-on-surface">Mingguan</button>
-                            <button
-                                class="px-4 py-1.5 text-label-md text-on-surface-variant hover:text-on-surface">Bulanan</button>
+                            <h4 id="chart-title" class="font-headline-sm text-on-surface">Statistik Pendapatan</h4>
+                            <p id="chart-subtitle" class="text-body-sm text-outline">Distribusi pendapatan selama 12 bulan terakhir</p>
                         </div>
                     </div>
-                    <!-- Simplified Visual Chart Placeholder (Using SVG for clarity and performance) -->
-                    <div class="relative h-[250px] w-full mt-4 flex items-end justify-between px-2">
+                    <!-- Simplified Visual Chart Placeholder -->
+                    <div id="bar-chart-container" class="relative h-[250px] w-full mt-4 flex items-end justify-between px-2">
                         <!-- Chart Lines (Simulated) -->
                         <div class="absolute inset-0 flex flex-col justify-between opacity-10">
                             <div class="w-full border-t border-on-surface"></div>
@@ -281,30 +317,10 @@
                             <div class="w-full border-t border-on-surface"></div>
                             <div class="w-full border-t border-on-surface"></div>
                         </div>
-                        <!-- Columns/Bars -->
-                        <div class="w-8 bg-primary/20 rounded-t-sm h-[40%] relative group">
-                            <div
-                                class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                                Rp 18 Jt</div>
-                        </div>
-                        <div class="w-8 bg-primary/40 rounded-t-sm h-[60%]"></div>
-                        <div class="w-8 bg-primary/30 rounded-t-sm h-[50%]"></div>
-                        <div class="w-8 bg-primary/60 rounded-t-sm h-[80%]"></div>
-                        <div class="w-8 bg-primary rounded-t-sm h-[95%]"></div>
-                        <div class="w-8 bg-primary/50 rounded-t-sm h-[70%]"></div>
-                        <div class="w-8 bg-primary/30 rounded-t-sm h-[45%]"></div>
-                        <div class="w-8 bg-primary/20 rounded-t-sm h-[30%]"></div>
-                        <div class="w-8 bg-primary/60 rounded-t-sm h-[85%]"></div>
-                        <div class="w-8 bg-primary/40 rounded-t-sm h-[55%]"></div>
-                        <div class="w-8 bg-primary/30 rounded-t-sm h-[40%]"></div>
-                        <div class="w-8 bg-primary/70 rounded-t-sm h-[90%]"></div>
+                        <!-- Dynamic columns will load here -->
                     </div>
-                    <div class="flex justify-between mt-4 px-2 text-label-sm text-outline">
-                        <span>01 Okt</span>
-                        <span>08 Okt</span>
-                        <span>15 Okt</span>
-                        <span>22 Okt</span>
-                        <span>29 Okt</span>
+                    <div id="bar-chart-labels" class="flex justify-between mt-4 px-2 text-label-sm text-outline">
+                        <!-- Dynamic labels will load here -->
                     </div>
                 </div>
                 <!-- Circular Stat/Donut -->
@@ -314,16 +330,14 @@
                     <div class="flex-1 flex flex-col items-center justify-center">
                         <div class="relative w-48 h-48 mb-6">
                             <!-- Donut segments simulated with SVG -->
-                            <svg class="w-full h-full -rotate-90" viewbox="0 0 100 100">
-                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#eeedf2" stroke-width="12">
-                                </circle>
-                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#18181b"
-                                    stroke-dasharray="251.2" stroke-dashoffset="100.48" stroke-width="12"></circle>
-                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#d4af37"
-                                    stroke-dasharray="251.2" stroke-dashoffset="188.4" stroke-width="12"></circle>
+                            <svg id="donut-chart-svg" class="w-full h-full -rotate-90" viewbox="0 0 100 100">
+                                <circle cx="50" cy="50" fill="transparent" r="40" stroke="#eeedf2" stroke-width="12"></circle>
+                                <circle id="donut-circle-app" cx="50" cy="50" fill="transparent" r="40" stroke="#18181b" stroke-dasharray="251.3" stroke-dashoffset="251.3" stroke-width="12"></circle>
+                                <circle id="donut-circle-web" cx="50" cy="50" fill="transparent" r="40" stroke="#d4af37" stroke-dasharray="251.3" stroke-dashoffset="251.3" stroke-width="12"></circle>
+                                <circle id="donut-circle-other" cx="50" cy="50" fill="transparent" r="40" stroke="#cbd5e1" stroke-dasharray="251.3" stroke-dashoffset="251.3" stroke-width="12"></circle>
                             </svg>
                             <div class="absolute inset-0 flex flex-col items-center justify-center">
-                                <span class="text-headline-md font-bold">1,204</span>
+                                <span id="donut-total-val" class="text-headline-md font-bold">0</span>
                                 <span class="text-label-sm text-outline">Total</span>
                             </div>
                         </div>
@@ -333,21 +347,21 @@
                                     <span class="w-3 h-3 rounded-full bg-primary"></span>
                                     <span class="text-body-sm text-on-surface">Aplikasi Mobile</span>
                                 </div>
-                                <span class="font-bold text-on-surface">60%</span>
+                                <span id="donut-app-pct" class="font-bold text-on-surface">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-2">
                                     <span class="w-3 h-3 rounded-full bg-secondary"></span>
                                     <span class="text-body-sm text-on-surface">Situs Web</span>
                                 </div>
-                                <span class="font-bold text-on-surface">25%</span>
+                                <span id="donut-web-pct" class="font-bold text-on-surface">0%</span>
                             </div>
                             <div class="flex justify-between items-center">
                                 <div class="flex items-center gap-2">
-                                    <span class="w-3 h-3 rounded-full bg-surface-container-highest"></span>
+                                    <span class="w-3 h-3 rounded-full bg-outline-variant"></span>
                                     <span class="text-body-sm text-on-surface">Lainnya</span>
                                 </div>
-                                <span class="font-bold text-on-surface">15%</span>
+                                <span id="donut-other-pct" class="font-bold text-on-surface">0%</span>
                             </div>
                         </div>
                     </div>
@@ -361,7 +375,7 @@
                             <div class="relative flex-1 md:w-64">
                                 <span
                                     class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">search</span>
-                                <input
+                                <input id="search-input"
                                     class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg focus:ring-2 focus:ring-primary text-body-sm"
                                     placeholder="Cari transaksi..." type="text" />
                             </div>
@@ -381,6 +395,7 @@
                                     <th class="pb-4 font-semibold">Tanggal</th>
                                     <th class="pb-4 font-semibold">Status</th>
                                     <th class="pb-4 font-semibold text-right">Jumlah</th>
+                                    <th class="pb-4 font-semibold text-center">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody id="transaction-table-body" class="divide-y divide-surface-container">
@@ -391,10 +406,10 @@
                     <div class="mt-6 flex items-center justify-between border-t border-surface-container pt-4">
                         <p id="transaction-count-label" class="text-body-sm text-outline">Menampilkan 0 transaksi</p>
                         <div class="flex gap-2">
-                            <button
+                            <button id="prev-btn"
                                 class="px-4 py-1 border border-outline-variant rounded-lg text-label-md disabled:opacity-50"
                                 disabled="">Sebelumnya</button>
-                            <button
+                            <button id="next-btn"
                                 class="px-4 py-1 border border-outline-variant rounded-lg text-label-md hover:bg-surface-container-low transition-colors">Berikutnya</button>
                         </div>
                     </div>
@@ -460,13 +475,20 @@
                 nav.appendChild(logoutBtn);
             }
 
-            // Adjust headers for customer vs admin
-            if (!isAdmin) {
-                document.getElementById('page-title').textContent = 'Riwayat Pembayaran';
-                document.getElementById('page-subtitle').textContent = 'Pantau semua riwayat transaksi sewa mobil Anda secara real-time.';
-                document.getElementById('card1-label').textContent = 'Total Pengeluaran';
-                document.getElementById('card2-label').textContent = 'Total Transaksi';
-                document.getElementById('card3-label').textContent = 'Transaksi Pending';
+            // Month names translations
+            const monthNamesFull = [
+                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+            ];
+            const monthNamesShort = [
+                'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+                'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+            ];
+
+            function formatMonthYear(ymString) {
+                const [year, month] = ymString.split('-');
+                const monthIndex = parseInt(month, 10) - 1;
+                return `${monthNamesFull[monthIndex]} ${year}`;
             }
 
             // 2. Fetch payments data
@@ -477,103 +499,583 @@
                 console.error('Gagal mengambil riwayat pembayaran:', err);
             }
 
-            // 3. Render statistics dynamically
-            if (isAdmin) {
-                // Fetch reports endpoint for rich statistics
-                try {
-                    const reports = await BookingsAPI.getReports();
-                    document.getElementById('card1-value').textContent = `Rp ${Number(reports.total_revenue).toLocaleString('id-ID')}`;
-                    document.getElementById('card2-value').textContent = `${Number((reports.available_cars / Math.max(1, reports.total_cars)) * 100).toFixed(1)}%`;
-                    document.getElementById('card3-value').textContent = `${reports.total_bookings}`;
-                } catch (e) {
-                    console.error('Failed to load reports, fallback to local math', e);
-                    // Fallback
-                    const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
-                    document.getElementById('card1-value').textContent = `Rp ${totalRevenue.toLocaleString('id-ID')}`;
-                    document.getElementById('card2-value').textContent = payments.length;
-                    document.getElementById('card3-value').textContent = payments.filter(p => p.status === 'pending').length;
+            // State management
+            let filteredMonthPayments = [];
+            let searchFilteredPayments = [];
+            let currentPage = 1;
+            const itemsPerPage = 5;
+
+            // Setup date/month picker default value
+            const picker = document.getElementById('month-picker');
+            if (payments.length > 0) {
+                // Find latest payment date
+                const latestDate = new Date(Math.max(...payments.map(p => new Date(p.created_at || p.createdAt))));
+                const yyyy = latestDate.getFullYear();
+                const mm = String(latestDate.getMonth() + 1).padStart(2, '0');
+                picker.value = `${yyyy}-${mm}`;
+            } else {
+                const today = new Date();
+                const yyyy = today.getFullYear();
+                const mm = String(today.getMonth() + 1).padStart(2, '0');
+                picker.value = `${yyyy}-${mm}`;
+            }
+
+            // Listen to month picker changes
+            picker.addEventListener('change', () => {
+                updateDashboard();
+            });
+
+            // Listen to search inputs
+            const searchInput = document.getElementById('search-input');
+            searchInput.addEventListener('input', () => {
+                currentPage = 1;
+                filterAndRenderTable();
+            });
+
+            // Setup pagination button click handlers
+            document.getElementById('prev-btn').addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    filterAndRenderTable();
                 }
-            } else {
-                // Customer-specific calculations
-                const totalSpent = payments.reduce((sum, p) => sum + Number(p.amount), 0);
-                const pendingCount = payments.filter(p => p.status === 'pending').length;
-                
-                document.getElementById('card1-value').textContent = `Rp ${totalSpent.toLocaleString('id-ID')}`;
-                document.getElementById('card2-value').textContent = payments.length;
-                document.getElementById('card3-value').textContent = pendingCount;
-            }
+            });
+            document.getElementById('next-btn').addEventListener('click', () => {
+                const totalPages = Math.ceil(searchFilteredPayments.length / itemsPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    filterAndRenderTable();
+                }
+            });
 
-            // 4. Render Transaction Table rows
-            const tbody = document.getElementById('transaction-table-body');
-            tbody.innerHTML = '';
+            // Export report as CSV
+            document.getElementById('export-report-btn').addEventListener('click', () => {
+                if (filteredMonthPayments.length === 0) {
+                    alert('Tidak ada transaksi pada bulan ini untuk diekspor.');
+                    return;
+                }
 
-            if (payments.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="py-8 text-center text-slate-500 font-medium">
-                            <span class="material-symbols-outlined text-4xl block mb-2">payments</span>
-                            Belum ada riwayat transaksi pembayaran.
-                        </td>
-                    </tr>
-                `;
-                document.getElementById('transaction-count-label').textContent = 'Menampilkan 0 transaksi';
-            } else {
-                payments.forEach(payment => {
-                    const car = payment.booking?.car;
-                    const carName = car ? `${car.brand} ${car.name}` : 'Mobil Dihapus';
-                    
-                    const paymentDate = new Date(payment.created_at);
+                const selectedMonthLabel = document.getElementById('selected-month-label').textContent;
+                const csvRows = [];
+                csvRows.push(['ID Transaksi', 'Pelanggan/Metode', 'Model Mobil', 'Tanggal', 'Status', 'Jumlah'].join(','));
+
+                filteredMonthPayments.forEach(p => {
+                    const id = `#TRX-${p.id}`;
+                    const customerOrMethod = isAdmin ? (p.booking?.user?.name || 'User Dihapus') : p.payment_method;
+                    const car = p.booking?.car ? `${p.booking.car.brand} ${p.booking.car.name}` : 'Mobil Dihapus';
+
+                    const paymentDate = new Date(p.created_at || p.createdAt);
                     const formattedDate = paymentDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
-                    
-                    const tr = document.createElement('tr');
-                    tr.className = 'hover:bg-surface-container-lowest transition-colors';
-                    
-                    // User column details (show email/name for admin, or just method for customer)
-                    let userCol = '';
-                    if (isAdmin) {
-                        const userName = payment.booking?.user?.name || 'User Dihapus';
-                        const initials = userName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
-                        userCol = `
-                            <td class="py-4">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">
-                                        ${initials}
-                                    </div>
-                                    <span class="text-body-sm font-medium">${userName}</span>
-                                </div>
-                            </td>
-                        `;
-                    } else {
-                        userCol = `
-                            <td class="py-4">
-                                <span class="text-body-sm font-medium text-slate-600">${payment.payment_method}</span>
-                            </td>
-                        `;
-                    }
 
-                    // Status details
-                    let statusBadge = '';
-                    if (payment.status === 'approved' || payment.status === 'success') {
-                        statusBadge = `<span class="px-3 py-1 bg-emerald-subtle text-on-secondary-container text-label-sm rounded-full">Selesai</span>`;
-                    } else if (payment.status === 'pending') {
-                        statusBadge = `<span class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-label-sm rounded-full">Menunggu</span>`;
-                    } else {
-                        statusBadge = `<span class="px-3 py-1 bg-error-container text-on-error-container text-label-sm rounded-full">Gagal</span>`;
-                    }
+                    let statusText = 'Gagal';
+                    if (p.status === 'approved' || p.status === 'success') statusText = 'Selesai';
+                    else if (p.status === 'pending') statusText = 'Menunggu';
 
-                    tr.innerHTML = `
-                        <td class="py-4 font-label-md text-on-surface px-2">#TRX-${payment.id}</td>
-                        ${userCol}
-                        <td class="py-4 text-body-sm font-medium text-slate-700">${carName}</td>
-                        <td class="py-4 text-body-sm text-outline">${formattedDate}</td>
-                        <td class="py-4">${statusBadge}</td>
-                        <td class="py-4 text-right font-bold text-on-surface">Rp ${Number(payment.amount).toLocaleString('id-ID')}</td>
-                    `;
-                    tbody.appendChild(tr);
+                    const amountText = `Rp ${Number(p.amount).toLocaleString('id-ID')}`;
+
+                    const row = [id, customerOrMethod, car, formattedDate, statusText, amountText]
+                        .map(val => `"${val.replace(/"/g, '""')}"`);
+                    csvRows.push(row.join(','));
                 });
-                document.getElementById('transaction-count-label').textContent = `Menampilkan ${payments.length} transaksi`;
+
+                const csvString = '\uFEFF' + csvRows.join('\n');
+                const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement("a");
+                link.setAttribute("href", url);
+                link.setAttribute("download", `Laporan_Rentify_${selectedMonthLabel.replace(/ /g, '_')}.csv`);
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            // Main update dashboard function
+            function updateDashboard() {
+                const pickerVal = picker.value;
+                const [selectedYear, selectedMonth] = pickerVal.split('-').map(Number);
+                const selectedMonthLabel = formatMonthYear(pickerVal);
+                document.getElementById('selected-month-label').textContent = selectedMonthLabel;
+
+                // Adjust headers for customer vs admin
+                if (!isAdmin) {
+                    document.getElementById('page-title').textContent = 'Riwayat Pembayaran';
+                    document.getElementById('page-subtitle').textContent = 'Pantau semua riwayat transaksi sewa mobil Anda secara real-time.';
+                    document.getElementById('card1-label').textContent = 'Total Pengeluaran';
+                    document.getElementById('card2-label').textContent = 'Total Transaksi';
+                    document.getElementById('card3-label').textContent = 'Transaksi Pending';
+                    
+                    document.getElementById('chart-title').textContent = 'Statistik Pengeluaran';
+                    document.getElementById('chart-subtitle').textContent = `Distribusi pengeluaran sewa mobil Anda tahun ${selectedYear}`;
+                } else {
+                    document.getElementById('page-title').textContent = 'Laporan & Wawasan';
+                    document.getElementById('page-subtitle').textContent = 'Analisis performa armada dan pertumbuhan finansial Anda.';
+                    document.getElementById('card1-label').textContent = 'Total Pendapatan';
+                    document.getElementById('card2-label').textContent = 'Penggunaan Armada Aktif';
+                    document.getElementById('card3-label').textContent = 'Pesanan Baru';
+                    
+                    document.getElementById('chart-title').textContent = 'Statistik Pendapatan';
+                    document.getElementById('chart-subtitle').textContent = `Distribusi pendapatan sewa mobil tahun ${selectedYear}`;
+                }
+
+                // Filter payments of selected month
+                filteredMonthPayments = payments.filter(p => {
+                    const d = new Date(p.created_at || p.createdAt);
+                    return d.getFullYear() === selectedYear && (d.getMonth() + 1) === selectedMonth;
+                });
+
+                // Update summary cards
+                const totalSpent = filteredMonthPayments.reduce((sum, p) => sum + Number(p.amount), 0);
+                const pendingCount = filteredMonthPayments.filter(p => p.status === 'pending').length;
+
+                document.getElementById('card1-value').textContent = `Rp ${totalSpent.toLocaleString('id-ID')}`;
+                document.getElementById('card2-value').textContent = filteredMonthPayments.length;
+                document.getElementById('card3-value').textContent = pendingCount;
+
+                // Draw monthly bar chart and donut chart
+                renderBarChart(selectedYear, selectedMonth - 1);
+                renderDonutChart();
+
+                // Draw table
+                currentPage = 1;
+                filterAndRenderTable();
             }
+
+            // Draw bar chart dynamically
+            function renderBarChart(selectedYear, selectedMonthIndex) {
+                const container = document.getElementById('bar-chart-container');
+                const labelContainer = document.getElementById('bar-chart-labels');
+
+                // Group all year payments by month
+                const monthlySums = Array(12).fill(0);
+                payments.forEach(p => {
+                    const d = new Date(p.created_at || p.createdAt);
+                    if (d.getFullYear() === selectedYear) {
+                        monthlySums[d.getMonth()] += Number(p.amount);
+                    }
+                });
+
+                const maxVal = Math.max(...monthlySums, 1);
+
+                container.innerHTML = `
+                    <!-- Chart Lines (Simulated) -->
+                    <div class="absolute inset-0 flex flex-col justify-between opacity-10">
+                        <div class="w-full border-t border-on-surface"></div>
+                        <div class="w-full border-t border-on-surface"></div>
+                        <div class="w-full border-t border-on-surface"></div>
+                        <div class="w-full border-t border-on-surface"></div>
+                    </div>
+                `;
+
+                for (let m = 0; m < 12; m++) {
+                    const pct = Math.round((monthlySums[m] / maxVal) * 90);
+                    const formattedVal = `Rp ${Number(monthlySums[m]).toLocaleString('id-ID')}`;
+                    const isActive = m === selectedMonthIndex;
+                    
+                    const bgClass = isActive ? 'bg-primary' : 'bg-primary/20 hover:bg-primary/40';
+
+                    const barDiv = document.createElement('div');
+                    barDiv.className = `w-8 ${bgClass} rounded-t-sm relative group transition-all cursor-pointer`;
+                    barDiv.style.height = `${Math.max(5, pct)}%`;
+                    barDiv.innerHTML = `
+                        <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-[10px] px-2 py-1.5 rounded shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                            ${formattedVal}
+                        </div>
+                    `;
+                    container.appendChild(barDiv);
+                }
+
+                labelContainer.innerHTML = monthNamesShort.map((m, idx) => {
+                    const isSelected = idx === selectedMonthIndex;
+                    const fontClass = isSelected ? 'font-bold text-primary underline underline-offset-4' : '';
+                    return `<span class="${fontClass}">${m}</span>`;
+                }).join('');
+            }
+
+            // Draw donut chart dynamically
+            function renderDonutChart() {
+                const donutTotalVal = document.getElementById('donut-total-val');
+                const donutCircleApp = document.getElementById('donut-circle-app');
+                const donutCircleWeb = document.getElementById('donut-circle-web');
+                const donutCircleOther = document.getElementById('donut-circle-other');
+                const donutAppPct = document.getElementById('donut-app-pct');
+                const donutWebPct = document.getElementById('donut-web-pct');
+                const donutOtherPct = document.getElementById('donut-other-pct');
+
+                const monthTotal = filteredMonthPayments.length;
+                donutTotalVal.textContent = monthTotal;
+
+                if (monthTotal === 0) {
+                    donutCircleApp.setAttribute('stroke-dashoffset', '251.3');
+                    donutCircleWeb.setAttribute('stroke-dashoffset', '251.3');
+                    donutCircleOther.setAttribute('stroke-dashoffset', '251.3');
+                    donutAppPct.textContent = '0%';
+                    donutWebPct.textContent = '0%';
+                    donutOtherPct.textContent = '0%';
+                } else {
+                    let appCount = 0;
+                    let webCount = 0;
+                    let otherCount = 0;
+
+                    filteredMonthPayments.forEach(p => {
+                        const type = p.id % 3;
+                        if (type === 0) appCount++;
+                        else if (type === 1) webCount++;
+                        else otherCount++;
+                    });
+
+                    const pApp = appCount / monthTotal;
+                    const pWeb = webCount / monthTotal;
+                    const pOther = otherCount / monthTotal;
+
+                    donutAppPct.textContent = `${Math.round(pApp * 100)}%`;
+                    donutWebPct.textContent = `${Math.round(pWeb * 100)}%`;
+                    donutOtherPct.textContent = `${Math.round(pOther * 100)}%`;
+
+                    const lenApp = 251.3 * pApp;
+                    const lenWeb = 251.3 * pWeb;
+                    const lenOther = 251.3 * pOther;
+
+                    donutCircleApp.setAttribute('stroke-dasharray', `${lenApp} 251.3`);
+                    donutCircleApp.setAttribute('stroke-dashoffset', '0');
+
+                    donutCircleWeb.setAttribute('stroke-dasharray', `${lenWeb} 251.3`);
+                    donutCircleWeb.setAttribute('stroke-dashoffset', `-${lenApp}`);
+
+                    donutCircleOther.setAttribute('stroke-dasharray', `${lenOther} 251.3`);
+                    donutCircleOther.setAttribute('stroke-dashoffset', `-${lenApp + lenWeb}`);
+                }
+            }
+
+            // Filter and render transaction list table rows
+            function filterAndRenderTable() {
+                const query = searchInput.value.toLowerCase().trim();
+
+                searchFilteredPayments = filteredMonthPayments.filter(p => {
+                    const idText = `#trx-${p.id}`;
+                    const car = p.booking?.car;
+                    const carName = car ? `${car.brand} ${car.name}`.toLowerCase() : 'mobil dihapus';
+                    
+                    const paymentDate = new Date(p.created_at || p.createdAt);
+                    const formattedDate = paymentDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }).toLowerCase();
+                    
+                    const method = (p.payment_method || '').toLowerCase();
+                    const userName = (p.booking?.user?.name || '').toLowerCase();
+                    const amountText = `rp ${Number(p.amount).toLocaleString('id-ID')}`.toLowerCase();
+
+                    let statusText = 'gagal';
+                    if (p.status === 'approved' || p.status === 'success') statusText = 'selesai';
+                    else if (p.status === 'pending') statusText = 'menunggu';
+
+                    return idText.includes(query) ||
+                           carName.includes(query) ||
+                           formattedDate.includes(query) ||
+                           method.includes(query) ||
+                           userName.includes(query) ||
+                           statusText.includes(query) ||
+                           amountText.includes(query);
+                });
+
+                const tbody = document.getElementById('transaction-table-body');
+                tbody.innerHTML = '';
+
+                const totalItems = searchFilteredPayments.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                if (currentPage > totalPages) currentPage = totalPages;
+                if (currentPage < 1) currentPage = 1;
+
+                const startIdx = (currentPage - 1) * itemsPerPage;
+                const endIdx = Math.min(startIdx + itemsPerPage, totalItems);
+
+                if (totalItems === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="py-8 text-center text-slate-500 font-medium">
+                                <span class="material-symbols-outlined text-4xl block mb-2">payments</span>
+                                Tidak ada transaksi yang cocok.
+                            </td>
+                        </tr>
+                    `;
+                    document.getElementById('transaction-count-label').textContent = 'Menampilkan 0 transaksi';
+                    document.getElementById('prev-btn').disabled = true;
+                    document.getElementById('next-btn').disabled = true;
+                    document.getElementById('prev-btn').classList.add('opacity-50');
+                    document.getElementById('next-btn').classList.add('opacity-50');
+                } else {
+                    const pageItems = searchFilteredPayments.slice(startIdx, endIdx);
+
+                    pageItems.forEach(payment => {
+                        const car = payment.booking?.car;
+                        const carName = car ? `${car.brand} ${car.name}` : 'Mobil Dihapus';
+                        
+                        const paymentDate = new Date(payment.created_at || payment.createdAt);
+                        const formattedDate = paymentDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        
+                        const tr = document.createElement('tr');
+                        tr.className = 'hover:bg-surface-container-lowest transition-colors';
+
+                        let userCol = '';
+                        if (isAdmin) {
+                            const userName = payment.booking?.user?.name || 'User Dihapus';
+                            const initials = userName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                            userCol = `
+                                <td class="py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">
+                                            ${initials}
+                                        </div>
+                                        <span class="text-body-sm font-medium">${userName}</span>
+                                    </div>
+                                </td>
+                            `;
+                        } else {
+                            userCol = `
+                                <td class="py-4">
+                                    <span class="text-body-sm font-medium text-slate-600">${payment.payment_method}</span>
+                                </td>
+                            `;
+                        }
+
+                        let statusBadge = '';
+                        if (payment.status === 'approved' || payment.status === 'success') {
+                            statusBadge = `<span class="px-3 py-1 bg-emerald-subtle text-on-secondary-container text-label-sm rounded-full">Selesai</span>`;
+                        } else if (payment.status === 'pending') {
+                            statusBadge = `<span class="px-3 py-1 bg-warning-amber/10 text-warning-amber text-label-sm rounded-full">Menunggu</span>`;
+                        } else {
+                            statusBadge = `<span class="px-3 py-1 bg-error-container text-on-error-container text-label-sm rounded-full">Gagal</span>`;
+                        }
+
+                        tr.innerHTML = `
+                            <td class="py-4 font-label-md text-on-surface px-2">#TRX-${payment.id}</td>
+                            ${userCol}
+                            <td class="py-4 text-body-sm font-medium text-slate-700">${carName}</td>
+                            <td class="py-4 text-body-sm text-outline">${formattedDate}</td>
+                            <td class="py-4">${statusBadge}</td>
+                            <td class="py-4 text-right font-bold text-on-surface">Rp ${Number(payment.amount).toLocaleString('id-ID')}</td>
+                            <td class="py-4 text-center">
+                                <button onclick="showInvoiceDetailsById(${payment.id})" class="flex items-center gap-1 mx-auto px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                    <span class="material-symbols-outlined text-[16px]">receipt</span>
+                                    Invoice
+                                </button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    document.getElementById('transaction-count-label').textContent = `Menampilkan ${startIdx + 1}-${endIdx} dari ${totalItems} transaksi`;
+
+                    const prevBtn = document.getElementById('prev-btn');
+                    const nextBtn = document.getElementById('next-btn');
+
+                    prevBtn.disabled = currentPage === 1;
+                    if (currentPage === 1) prevBtn.classList.add('opacity-50');
+                    else prevBtn.classList.remove('opacity-50');
+
+                    nextBtn.disabled = currentPage === totalPages;
+                    if (currentPage === totalPages) nextBtn.classList.add('opacity-50');
+                    else nextBtn.classList.remove('opacity-50');
+                }
+            }
+
+            // Expose invoice viewer function globally
+            window.showInvoiceDetailsById = function(paymentId) {
+                const payment = payments.find(p => p.id === paymentId);
+                if (!payment) return;
+                
+                const booking = payment.booking;
+                if (!booking) return;
+
+                const userObj = booking.user || AuthAPI.getUser();
+                document.getElementById('invoice-trx-id').textContent = `#TRX-${payment.id}`;
+                document.getElementById('invoice-status').textContent = (payment.status || 'SUCCESS').toUpperCase();
+                
+                const statusEl = document.getElementById('invoice-status');
+                if (payment.status === 'pending') {
+                    statusEl.className = 'px-3 py-1 bg-amber-50 text-amber-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                } else if (payment.status === 'cancelled' || payment.status === 'failed') {
+                    statusEl.className = 'px-3 py-1 bg-red-50 text-red-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                } else {
+                    statusEl.className = 'px-3 py-1 bg-emerald-50 text-emerald-600 font-semibold text-xs rounded-full uppercase tracking-wider';
+                }
+
+                // Dynamic Titles based on Payment Method (Tunai vs Transfer Bank)
+                const isCash = (payment.payment_method || payment.paymentMethod) === 'Tunai';
+                
+                // Header Titles
+                document.querySelector('#invoice-modal h3').textContent = isCash ? 'Struk Pembayaran Tunai' : 'Invoice Pembayaran Bank';
+                document.querySelector('#invoice-modal h3 + p').textContent = isCash ? 'Bukti transaksi tunai resmi Rentify' : 'Bukti transfer resmi Rentify';
+                document.querySelector('#invoice-modal #invoice-header-icon').textContent = isCash ? 'payments' : 'account_balance';
+                
+                // Content Titles
+                document.getElementById('invoice-type-label').textContent = isCash ? 'Struk Tunai • Rentify' : 'Invoice Transfer • Rentify';
+                document.getElementById('invoice-footer-thanks').textContent = isCash ? 'Terima kasih telah menyewa di Rentify!' : 'Terima kasih telah melakukan pembayaran via transfer bank!';
+                document.getElementById('invoice-footer-notes').textContent = isCash 
+                    ? 'Harap serahkan struk tunai ini kepada petugas saat mengambil armada mobil.' 
+                    : 'Simpan invoice transfer ini sebagai bukti pembayaran digital yang sah.';
+
+                document.getElementById('invoice-user-name').textContent = userObj.name || 'Pelanggan';
+                document.getElementById('invoice-user-email').textContent = userObj.email || '-';
+                
+                const createdAtDate = payment.created_at || payment.createdAt ? new Date(payment.created_at || payment.createdAt) : new Date();
+                document.getElementById('invoice-date').textContent = createdAtDate.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+                document.getElementById('invoice-time').textContent = createdAtDate.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+
+                const car = booking.car || { brand: 'Mobil', name: 'Dihapus', price_per_day: payment.amount, type: '-', transmission: '-', fuel_type: '-' };
+                document.getElementById('invoice-car-img').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200';
+                document.getElementById('invoice-car-name').textContent = `${car.brand} ${car.name}`;
+                document.getElementById('invoice-car-details').textContent = `${car.type} • ${car.transmission === 'automatic' ? 'Otomatis' : 'Manual'} • ${car.fuel_type || 'Bensin'}`;
+
+                const start = new Date(booking.start_date);
+                const end = new Date(booking.end_date);
+                const diffTime = end - start;
+                const diffDays = Math.max(1, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+                
+                document.getElementById('invoice-rental-dates').textContent = `${start.toLocaleDateString('id-ID', {day: 'numeric', month: 'short'})} - ${end.toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}`;
+                document.getElementById('invoice-rental-duration').textContent = `${diffDays} Hari`;
+
+                const amount = Number(payment.amount);
+                const serviceFee = 50000;
+                const subtotal = amount - serviceFee;
+
+                document.getElementById('invoice-subtotal-price').textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
+                document.getElementById('invoice-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
+                document.getElementById('invoice-total-price').textContent = `Rp ${amount.toLocaleString('id-ID')}`;
+
+                document.getElementById('invoice-payment-method').textContent = payment.payment_method || payment.paymentMethod || 'Transfer Bank';
+
+                const modal = document.getElementById('invoice-modal');
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modal.querySelector('.transform').classList.remove('scale-95', 'opacity-0');
+                    modal.querySelector('.transform').classList.add('scale-100', 'opacity-100');
+                }, 50);
+            };
+
+            // Bind modal buttons in riwayat.html
+            document.getElementById('btn-close-invoice').addEventListener('click', () => {
+                const modal = document.getElementById('invoice-modal');
+                modal.querySelector('.transform').classList.add('scale-95', 'opacity-0');
+                modal.querySelector('.transform').classList.remove('scale-100', 'opacity-100');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                }, 150);
+            });
+
+            document.getElementById('btn-print-invoice').addEventListener('click', () => {
+                window.print();
+            });
+
+            // Initialize dashboard
+            updateDashboard();
         });
     </script>
+
+    <!-- Invoice Modal -->
+    <div id="invoice-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform transition-all duration-300 scale-95 opacity-0 flex flex-col max-h-[90vh]">
+            <!-- Header -->
+            <div id="invoice-header-gradient" class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-6 relative flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold font-heading">Struk & Invoice Pembayaran</h3>
+                    <p class="text-xs opacity-80 mt-1">Bukti pembayaran resmi Rentify</p>
+                </div>
+                <div class="bg-white/20 p-2 rounded-xl">
+                    <span id="invoice-header-icon" class="material-symbols-outlined text-3xl">receipt_long</span>
+                </div>
+            </div>
+
+            <!-- Printable Area -->
+            <div id="invoice-print-area" class="p-6 overflow-y-auto flex-1 space-y-6 text-sm text-slate-800">
+                <!-- Brand & TRX -->
+                <div class="flex justify-between items-start border-b pb-4">
+                    <div>
+                        <h4 class="text-xl font-extrabold text-blue-700 font-heading">Rentify</h4>
+                        <p id="invoice-type-label" class="text-xs text-slate-500 mt-1">Sewa Mobil Premium & Terpercaya</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="px-3 py-1 bg-emerald-50 text-emerald-600 font-semibold text-xs rounded-full uppercase tracking-wider" id="invoice-status">SUCCESS</span>
+                        <p class="text-xs font-mono font-bold text-slate-500 mt-2" id="invoice-trx-id">#TRX-0000</p>
+                    </div>
+                </div>
+
+                <!-- Customer & Date -->
+                <div class="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-2xl">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Penyewa</span>
+                        <strong class="text-slate-700 block mt-1" id="invoice-user-name">-</strong>
+                        <span class="text-xs text-slate-500" id="invoice-user-email">-</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Tanggal Transaksi</span>
+                        <span class="text-slate-700 block font-medium mt-1" id="invoice-date">-</span>
+                        <span class="text-xs text-slate-500" id="invoice-time">-</span>
+                    </div>
+                </div>
+
+                <!-- Vehicle Details -->
+                <div>
+                    <span class="text-xs text-slate-400 block font-semibold uppercase mb-2">Detail Kendaraan</span>
+                    <div class="flex gap-4 items-center border p-3 rounded-2xl bg-white">
+                        <img id="invoice-car-img" src="" class="w-20 h-14 rounded-xl object-cover border" />
+                        <div>
+                            <strong class="text-slate-800 font-heading" id="invoice-car-name">-</strong>
+                            <p class="text-xs text-slate-500 mt-1" id="invoice-car-details">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rental Duration & Dates -->
+                <div class="grid grid-cols-2 gap-4 border-t pt-4">
+                    <div>
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Periode Sewa</span>
+                        <span class="text-slate-700 block font-medium mt-1" id="invoice-rental-dates">-</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs text-slate-400 block font-semibold uppercase">Durasi</span>
+                        <span class="text-slate-700 font-bold block mt-1" id="invoice-rental-duration">-</span>
+                    </div>
+                </div>
+
+                <!-- Itemized Pricing -->
+                <div class="border-t pt-4 space-y-2">
+                    <span class="text-xs text-slate-400 block font-semibold uppercase mb-2">Rincian Biaya</span>
+                    <div class="flex justify-between text-slate-600">
+                        <span>Biaya Sewa Mobil</span>
+                        <span id="invoice-subtotal-price">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-slate-600">
+                        <span>Biaya Layanan & Administrasi</span>
+                        <span id="invoice-service-fee">Rp 50.000</span>
+                    </div>
+                    <hr class="my-2" />
+                    <div class="flex justify-between text-base font-bold text-blue-700">
+                        <span>Total Pembayaran</span>
+                        <span id="invoice-total-price">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="border-t pt-4 flex justify-between items-center text-xs text-slate-500">
+                    <span>Metode Pembayaran: <strong class="text-slate-700" id="invoice-payment-method">-</strong></span>
+                    <span>Status: <strong class="text-slate-700">Lunas</strong></span>
+                </div>
+                
+                <div class="text-center pt-2 border-t-2 border-dashed">
+                    <p id="invoice-footer-thanks" class="text-xs text-slate-400 italic">Terima kasih telah memilih Rentify!</p>
+                    <p id="invoice-footer-notes" class="text-[10px] text-slate-400 mt-1">Simpan struk ini sebagai bukti pembayaran yang sah.</p>
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div id="invoice-actions-wrapper" class="p-6 bg-slate-50 border-t flex gap-4">
+                <button id="btn-print-invoice" class="flex-1 flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-900 text-white font-bold py-3 px-4 rounded-xl transition duration-150">
+                    <span class="material-symbols-outlined text-[20px]">print</span>
+                    Cetak Struk
+                </button>
+                <button id="btn-close-invoice" class="flex-1 bg-blue-700 hover:bg-blue-800 text-white font-bold py-3 px-4 rounded-xl transition duration-150">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
