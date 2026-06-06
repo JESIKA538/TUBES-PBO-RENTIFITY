@@ -134,4 +134,39 @@ public class BookingService {
                 .revenueStats(revenueStats)
                 .build();
     }
+
+    public Booking requestReturn(Long bookingId, User user) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking tidak ditemukan"));
+
+        if (!booking.getUser().getId().equals(user.getId()) && !user.getRole().equals("admin")) {
+            throw new RuntimeException("Unauthorized");
+        }
+
+        if (!"confirmed".equals(booking.getStatus())) {
+            throw new RuntimeException("Hanya pesanan aktif (dikonfirmasi) yang dapat dikembalikan");
+        }
+
+        booking.setStatus("returning");
+        return bookingRepository.save(booking);
+    }
+
+    public Booking confirmReturn(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Booking tidak ditemukan"));
+
+        if (!"returning".equals(booking.getStatus()) && !"confirmed".equals(booking.getStatus())) {
+            throw new RuntimeException("Pesanan harus berstatus aktif atau dalam proses pengembalian");
+        }
+
+        booking.setStatus("completed");
+
+        if (booking.getCar() != null) {
+            Car car = booking.getCar();
+            car.setStatus("available");
+            carRepository.save(car);
+        }
+
+        return bookingRepository.save(booking);
+    }
 }

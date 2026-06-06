@@ -44,7 +44,14 @@ public class UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User tidak ditemukan"));
 
         if (req.getName() != null) dbUser.setName(req.getName());
-        if (req.getEmail() != null) dbUser.setEmail(req.getEmail());
+        
+        if (req.getEmail() != null && !req.getEmail().equals(dbUser.getEmail())) {
+            if (userRepository.existsByEmail(req.getEmail())) {
+                throw new RuntimeException("Email sudah terdaftar");
+            }
+            dbUser.setEmail(req.getEmail());
+        }
+
         if (req.getPassword() != null && !req.getPassword().isBlank()) {
             dbUser.setPassword(passwordEncoder.encode(req.getPassword()));
         }

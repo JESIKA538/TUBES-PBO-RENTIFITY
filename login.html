@@ -144,6 +144,17 @@
             <h1 class="text-3xl font-heading font-bold text-gray-900 mb-2">Selamat Datang!</h1>
             <p class="text-gray-500 mb-8">Masuk ke akun Rentify Anda</p>
 
+            <!-- Saved Accounts Section -->
+            <div id="savedAccountsSection" class="hidden mb-6 bg-gray-50 p-4 border border-gray-150 rounded-2xl">
+                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-secondary">history</span>
+                    Akun Tersimpan (Login Cepat)
+                </h3>
+                <div id="savedAccountsList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
             <!-- Demo Login Buttons -->
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <button onclick="demoLogin('customer')"
@@ -265,6 +276,11 @@
                     localStorage.removeItem('rentify_remember');
                 }
 
+                // Save account to history if role is 'user'
+                if (data.user && data.user.role === 'user') {
+                    saveAccountToHistory(data.user, password);
+                }
+
                 setTimeout(() => {
                     window.location.href = data.user.role === 'admin' ? 'admin.html' : 'index.html';
                 }, 800);
@@ -274,6 +290,94 @@
                 btnText.textContent = 'Masuk';
                 btnIcon.textContent = 'login';
             }
+        }
+
+        function saveAccountToHistory(user, password) {
+            try {
+                let saved = localStorage.getItem('rentify_saved_accounts');
+                let accounts = saved ? JSON.parse(saved) : [];
+                
+                // Remove existing if duplicate, to put it at the front or update
+                accounts = accounts.filter(acc => acc.email !== user.email);
+                
+                // Add new to the beginning
+                accounts.unshift({
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    avatar: user.avatar,
+                    password: password
+                });
+                
+                // Limit to 4 saved accounts to keep UI clean
+                if (accounts.length > 4) {
+                    accounts = accounts.slice(0, 4);
+                }
+                
+                localStorage.setItem('rentify_saved_accounts', JSON.stringify(accounts));
+            } catch (e) {
+                console.error("Error saving account to history:", e);
+            }
+        }
+
+        function renderSavedAccounts() {
+            const section = document.getElementById('savedAccountsSection');
+            const list = document.getElementById('savedAccountsList');
+            if (!section || !list) return;
+
+            try {
+                const saved = localStorage.getItem('rentify_saved_accounts');
+                const accounts = saved ? JSON.parse(saved) : [];
+
+                if (accounts.length === 0) {
+                    section.classList.add('hidden');
+                    return;
+                }
+
+                section.classList.remove('hidden');
+                list.innerHTML = '';
+
+                accounts.forEach(acc => {
+                    const card = document.createElement('div');
+                    card.className = 'flex items-center justify-between p-3 bg-white border border-gray-200 hover:border-primary/45 rounded-xl transition-all shadow-sm cursor-pointer group';
+                    card.innerHTML = `
+                        <div class="flex items-center gap-3 flex-1 min-w-0" onclick="quickLogin('${acc.email}', '${acc.password}')">
+                            <img class="w-9 h-9 rounded-full object-cover border border-gray-150" 
+                                 src="${acc.avatar || 'jeje_profile.png'}" 
+                                 onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(acc.name)}'"/>
+                            <div class="text-left truncate">
+                                <h4 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors truncate">${acc.name}</h4>
+                                <p class="text-xs text-gray-500 truncate">${acc.email}</p>
+                            </div>
+                        </div>
+                        <button class="p-1 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50 transition-colors ml-2" onclick="deleteSavedAccount('${acc.email}', event)">
+                            <span class="material-symbols-outlined text-lg">delete</span>
+                        </button>
+                    `;
+                    list.appendChild(card);
+                });
+            } catch (e) {
+                console.error("Error rendering saved accounts:", e);
+            }
+        }
+
+        function deleteSavedAccount(email, event) {
+            if (event) event.stopPropagation();
+            try {
+                let saved = localStorage.getItem('rentify_saved_accounts');
+                if (saved) {
+                    let accounts = JSON.parse(saved);
+                    accounts = accounts.filter(acc => acc.email !== email);
+                    localStorage.setItem('rentify_saved_accounts', JSON.stringify(accounts));
+                    renderSavedAccounts();
+                }
+            } catch (e) {
+                console.error("Error deleting saved account:", e);
+            }
+        }
+
+        function quickLogin(email, password) {
+            doLogin(email, password);
         }
 
         function showError(msg) {
@@ -296,6 +400,9 @@
             document.getElementById('email').value = data.email;
             document.getElementById('remember').checked = true;
         }
+
+        // Render saved accounts
+        renderSavedAccounts();
 
         // If already logged in, redirect
         const currentUser = localStorage.getItem('rentify_user');

@@ -902,7 +902,8 @@
                         // Status badge
                         const statusMap = {
                             pending:   { label: 'Menunggu Pembayaran', cls: 'bg-amber-100 text-amber-800',   icon: 'hourglass_top' },
-                            confirmed: { label: 'Dikonfirmasi',         cls: 'bg-blue-100 text-blue-800',    icon: 'check_circle' },
+                            confirmed: { label: 'Dikonfirmasi (Aktif)', cls: 'bg-blue-100 text-blue-800',    icon: 'check_circle' },
+                            returning: { label: 'Menunggu Verifikasi Pengembalian', cls: 'bg-indigo-100 text-indigo-800', icon: 'restart_alt' },
                             completed: { label: 'Selesai',              cls: 'bg-emerald-100 text-emerald-800', icon: 'task_alt' },
                             cancelled: { label: 'Dibatalkan',           cls: 'bg-red-100 text-red-800',      icon: 'cancel' },
                         };
@@ -913,14 +914,21 @@
                             ? booking.notes.replace('Penjemputan:', '').trim()
                             : null;
 
-                        // Pay button if pending
-                        const payBtn = booking.status === 'pending'
-                            ? `<a href="pembayaran.html?booking_id=${booking.id}"
+                        // Pay button if pending, return button if confirmed
+                        let actionBtn = '';
+                        if (booking.status === 'pending') {
+                            actionBtn = `<a href="pembayaran.html?booking_id=${booking.id}"
                                 class="w-full flex items-center justify-center gap-2 py-2.5 bg-secondary text-on-secondary rounded-lg font-label-md font-bold hover:opacity-90 active:scale-[0.98] transition-all shadow-sm">
                                 <span class="material-symbols-outlined text-[18px]">payments</span>
                                 Bayar Sekarang
-                               </a>`
-                            : '';
+                               </a>`;
+                        } else if (booking.status === 'confirmed') {
+                            actionBtn = `<button onclick="requestCarReturn(${booking.id})"
+                                class="w-full flex items-center justify-center gap-2 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-label-md font-bold active:scale-[0.98] transition-all shadow-sm">
+                                <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                                Kembalikan Mobil
+                               </button>`;
+                        }
 
                         return `
                         <div class="bg-surface-card rounded-xl border border-outline-variant/30 overflow-hidden shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col group hover:shadow-md transition-shadow">
@@ -966,8 +974,8 @@
                                     <span class="font-headline-sm text-headline-sm text-primary font-bold">${totalFmt}</span>
                                 </div>
 
-                                <!-- Pay button -->
-                                ${payBtn}
+                                <!-- Action button -->
+                                ${actionBtn}
                             </div>
                         </div>`;
                     }).join('');
@@ -984,6 +992,17 @@
                     }
                 }
             }
+
+            window.requestCarReturn = async function(bookingId) {
+                if (!confirm('Apakah Anda yakin ingin mengajukan pengembalian armada mobil ini?')) return;
+                try {
+                    await BookingsAPI.requestReturn(bookingId);
+                    alert('Pengajuan pengembalian berhasil! Silakan serahkan mobil dan kunci kepada petugas Rentify untuk verifikasi.');
+                    await loadMyBookings();
+                } catch (e) {
+                    alert('Gagal mengajukan pengembalian: ' + e.message);
+                }
+            };
 
             // Jalankan saat halaman siap
             loadMyBookings();

@@ -47,4 +47,21 @@ public class BookingController {
     public ResponseEntity<ReportResponse> reports() {
         return ResponseEntity.ok(bookingService.getReports());
     }
+
+    @PutMapping("/bookings/{id}/return")
+    public ResponseEntity<Map<String, Object>> requestReturn(@PathVariable Long id, Authentication auth) {
+        User user = getCurrentUser(auth);
+        Booking booking = bookingService.requestReturn(id, user);
+        return ResponseEntity.ok(Map.of("message", "Pengajuan pengembalian berhasil", "booking", booking));
+    }
+
+    @PutMapping("/bookings/{id}/confirm-return")
+    public ResponseEntity<Map<String, Object>> confirmReturn(@PathVariable Long id, Authentication auth) {
+        User user = getCurrentUser(auth);
+        if (!"admin".equals(user.getRole())) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message", "Akses ditolak"));
+        }
+        Booking booking = bookingService.confirmReturn(id);
+        return ResponseEntity.ok(Map.of("message", "Pengembalian mobil berhasil dikonfirmasi", "booking", booking));
+    }
 }

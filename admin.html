@@ -617,20 +617,32 @@
                             let statusBadge = '';
                             if (booking.status === 'pending') {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-warning-amber/10 text-warning-amber text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span> Menunggu
+                                    <span class="inline-flex items-center gap-1 bg-amber-50 text-amber-600 text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Menunggu
                                     </span>
                                 `;
-                            } else if (booking.status === 'confirmed' || booking.status === 'completed') {
+                            } else if (booking.status === 'confirmed') {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai
+                                    <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Disewa
+                                    </span>
+                                `;
+                            } else if (booking.status === 'returning') {
+                                statusBadge = `
+                                    <span class="inline-flex items-center gap-1 bg-indigo-50 text-indigo-600 text-[12px] font-bold px-3 py-1 rounded-full animate-pulse">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span> Pengembalian
+                                    </span>
+                                `;
+                            } else if (booking.status === 'completed') {
+                                statusBadge = `
+                                    <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Selesai
                                     </span>
                                 `;
                             } else {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-error-container/30 text-error-red text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span> Batal
+                                    <span class="inline-flex items-center gap-1 bg-red-50 text-red-600 text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Batal
                                     </span>
                                 `;
                             }
@@ -651,10 +663,24 @@
                                     <td class="px-6 py-4 font-bold text-on-surface">${formattedAmount}</td>
                                     <td class="px-6 py-4">${statusBadge}</td>
                                     <td class="px-6 py-4 text-center">
-                                        <button onclick="showInvoiceDetailsById(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
-                                            <span class="material-symbols-outlined text-[16px]">receipt</span>
-                                            Invoice
-                                        </button>
+                                        <div class="flex items-center justify-center gap-1.5">
+                                            <button onclick="showInvoiceDetailsById(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                                <span class="material-symbols-outlined text-[16px]">receipt</span>
+                                                Invoice
+                                            </button>
+                                            ${booking.status === 'returning' ? `
+                                                <button onclick="confirmCarReturn(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                                    <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+                                                    Terima Mobil
+                                                </button>
+                                            ` : ''}
+                                            ${booking.status === 'confirmed' ? `
+                                                <button onclick="confirmCarReturn(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                                    <span class="material-symbols-outlined text-[16px]">check</span>
+                                                    Selesai Sewa
+                                                </button>
+                                            ` : ''}
+                                        </div>
                                     </td>
                                 </tr>
                             `;
@@ -820,6 +846,17 @@
                 });
             }
         });
+
+        window.confirmCarReturn = async function(bookingId) {
+            if (!confirm('Apakah Anda yakin ingin mengonfirmasi pengembalian armada mobil ini?')) return;
+            try {
+                await BookingsAPI.confirmReturn(bookingId);
+                alert('Pengembalian armada mobil berhasil dikonfirmasi! Status armada kembali menjadi tersedia.');
+                location.reload();
+            } catch (e) {
+                alert('Gagal mengonfirmasi pengembalian: ' + e.message);
+            }
+        };
     </script>
     <!-- Invoice Modal -->
     <div id="invoice-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">

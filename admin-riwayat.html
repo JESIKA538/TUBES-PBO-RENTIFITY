@@ -358,7 +358,20 @@
                             </div>
                         `;
                     } else if (payment.status === 'approved' || payment.status === 'success') {
-                        statusBadge = `<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai</span>`;
+                        const bookingStatus = payment.booking?.status;
+                        if (bookingStatus === 'confirmed') {
+                            statusBadge = `<span class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Disewa</span>`;
+                            actionButtons = `<button onclick="confirmCarReturn(${payment.booking.id})" class="px-3 py-1 bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded transition">Selesaikan Sewa</button>`;
+                        } else if (bookingStatus === 'returning') {
+                            statusBadge = `<span class="inline-flex items-center gap-1 bg-indigo-50 text-indigo-600 text-[12px] font-bold px-3 py-1 rounded-full animate-pulse"><span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span> Pengembalian</span>`;
+                            actionButtons = `<button onclick="confirmCarReturn(${payment.booking.id})" class="px-3 py-1 bg-indigo-600 text-white hover:bg-indigo-700 text-xs font-bold rounded transition">Terima Mobil</button>`;
+                        } else if (bookingStatus === 'completed') {
+                            statusBadge = `<span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Selesai</span>`;
+                            actionButtons = '';
+                        } else {
+                            statusBadge = `<span class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai</span>`;
+                            actionButtons = '';
+                        }
                     } else {
                         statusBadge = `<span class="inline-flex items-center gap-1 bg-error-container/30 text-error-red text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-error"></span> Batal</span>`;
                     }
@@ -392,6 +405,17 @@
                 window.location.reload();
             } catch (e) {
                 alert('Gagal memperbarui status: ' + e.message);
+            }
+        };
+
+        window.confirmCarReturn = async function(bookingId) {
+            if (!confirm('Apakah Anda yakin ingin mengonfirmasi pengembalian armada mobil ini?')) return;
+            try {
+                await BookingsAPI.confirmReturn(bookingId);
+                alert('Pengembalian armada mobil berhasil dikonfirmasi! Status armada kembali menjadi tersedia.');
+                location.reload();
+            } catch (e) {
+                alert('Gagal mengonfirmasi pengembalian: ' + e.message);
             }
         };
     </script>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api")
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private com.rentifity.security.JwtUtil jwtUtil;
 
     private User getCurrentUser(Authentication authentication) {
         return customUserDetailsService.getUserByEmail(authentication.getName());
@@ -34,9 +38,22 @@ public class UserController {
     }
 
     @PutMapping("/users/profile")
-    public ResponseEntity<User> updateProfile(@Valid @RequestBody com.rentifity.dto.request.UpdateProfileRequest request, Authentication auth) {
+    public ResponseEntity<Map<String, Object>> updateProfile(@Valid @RequestBody com.rentifity.dto.request.UpdateProfileRequest request, Authentication auth) {
         User user = getCurrentUser(auth);
-        return ResponseEntity.ok(userService.updateProfile(user, request));
+        String oldEmail = user.getEmail();
+
+        User updatedUser = userService.updateProfile(user, request);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Profil berhasil diperbarui");
+        response.put("user", updatedUser);
+
+        if (!updatedUser.getEmail().equals(oldEmail)) {
+            String newToken = jwtUtil.generateToken(updatedUser.getEmail());
+            response.put("token", newToken);
+        }
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/users/password")

@@ -38,10 +38,18 @@ async function apiFetch(endpoint, options = {}) {
             throw new Error('Sesi Anda telah berakhir. Silakan login kembali.');
         }
 
-        const data = await response.json();
+        let data = {};
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            try {
+                data = await response.json();
+            } catch (e) {
+                console.error("Failed to parse JSON response", e);
+            }
+        }
         
         if (!response.ok) {
-            throw new Error(data.message || 'Terjadi kesalahan pada server.');
+            throw new Error(data.message || `Terjadi kesalahan pada server (Status: ${response.status}).`);
         }
         
         return data;
@@ -163,6 +171,18 @@ const BookingsAPI = {
 
     async getReports() {
         return await apiFetch('/reports');
+    },
+
+    async requestReturn(bookingId) {
+        return await apiFetch(`/bookings/${bookingId}/return`, {
+            method: 'PUT'
+        });
+    },
+
+    async confirmReturn(bookingId) {
+        return await apiFetch(`/bookings/${bookingId}/confirm-return`, {
+            method: 'PUT'
+        });
     }
 };
 
@@ -205,20 +225,62 @@ const UserAPI = {
             method: 'PUT',
             body: JSON.stringify(profileData),
         });
-        if (result && result.id) { // spring boot returns the updated user object directly
-            localStorage.setItem('rentify_user', JSON.stringify(result));
+        
+        const user = result.user || result;
+        if (user && user.id) {
+            localStorage.setItem('rentify_user', JSON.stringify(user));
+            
+            // Sync with rentify_saved_accounts if exists
+            let savedAccounts = localStorage.getItem('rentify_saved_accounts');
+            if (savedAccounts) {
+                try {
+                    let accounts = JSON.parse(savedAccounts);
+                    const idx = accounts.findIndex(acc => acc.id === user.id || acc.email === user.email);
+                    if (idx !== -1) {
+                        accounts[idx].email = user.email;
+                        accounts[idx].name = user.name;
+                        accounts[idx].avatar = user.avatar;
+                        localStorage.setItem('rentify_saved_accounts', JSON.stringify(accounts));
+                    }
+                } catch (e) {
+                    console.error("Failed to sync saved accounts", e);
+                }
+            }
+        }
+        if (result.token) {
+            localStorage.setItem('rentify_token', result.token);
         }
         return result;
     },
 
     async changePassword(passwordData) {
-        return await apiFetch('/users/password', {
+        const result = await apiFetch('/users/password', {
             method: 'PUT',
             body: JSON.stringify({
                 old_password: passwordData.oldPassword,
                 new_password: passwordData.newPassword
             }) // sending as snake_case per spring boot Jackson configuration
         });
+
+        // Sync new password with rentify_saved_accounts
+        const currentUser = AuthAPI.getUser();
+        if (currentUser) {
+            let savedAccounts = localStorage.getItem('rentify_saved_accounts');
+            if (savedAccounts) {
+                try {
+                    let accounts = JSON.parse(savedAccounts);
+                    const idx = accounts.findIndex(acc => acc.email === currentUser.email);
+                    if (idx !== -1) {
+                        accounts[idx].password = passwordData.newPassword;
+                        localStorage.setItem('rentify_saved_accounts', JSON.stringify(accounts));
+                    }
+                } catch (e) {
+                    console.error("Failed to sync new password", e);
+                }
+            }
+        }
+
+        return result;
     },
 
     async getAll() {

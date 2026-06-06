@@ -3,9 +3,11 @@ package com.rentifity.service;
 import com.rentifity.dto.request.PaymentRequest;
 import com.rentifity.exception.ResourceNotFoundException;
 import com.rentifity.model.Booking;
+import com.rentifity.model.Car;
 import com.rentifity.model.Payment;
 import com.rentifity.model.User;
 import com.rentifity.repository.BookingRepository;
+import com.rentifity.repository.CarRepository;
 import com.rentifity.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,9 @@ public class PaymentService {
 
     @Autowired
     private BookingRepository bookingRepository;
+
+    @Autowired
+    private CarRepository carRepository;
 
     public List<Payment> getAllPayments(User user) {
         if (user.getRole().equals("admin")) {
@@ -62,7 +67,13 @@ public class PaymentService {
             }
         } else if ("failed".equalsIgnoreCase(status) || "rejected".equalsIgnoreCase(status)) {
             if (payment.getBooking() != null) {
-                payment.getBooking().setStatus("cancelled");
+                Booking booking = payment.getBooking();
+                booking.setStatus("cancelled");
+                if (booking.getCar() != null) {
+                    Car car = booking.getCar();
+                    car.setStatus("available");
+                    carRepository.save(car);
+                }
             }
         }
         
