@@ -533,9 +533,28 @@
             await loadCars();
 
             // 5. Setup Search and Filters
-            document.getElementById('filter-btn').addEventListener('click', loadCars);
-            document.getElementById('search-input').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') loadCars();
+            const filterBtn = document.getElementById('filter-btn');
+            const searchInput = document.getElementById('search-input');
+            const typeSelect = document.getElementById('type-select');
+
+            filterBtn.addEventListener('click', loadCars);
+
+            // Dynamic filter: trigger load when vehicle type selection changes
+            typeSelect.addEventListener('change', loadCars);
+
+            // Dynamic filter: trigger load when typing in search input (debounced by 300ms)
+            let searchDebounce;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(searchDebounce);
+                searchDebounce = setTimeout(loadCars, 300);
+            });
+
+            // Fallback for Enter keypress
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    clearTimeout(searchDebounce);
+                    loadCars();
+                }
             });
 
             async function loadCars() {

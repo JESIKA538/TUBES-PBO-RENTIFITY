@@ -84,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //    Otomatis set tab aktif pada sidebar berdasarkan URL
     // ─────────────────────────────────────────────────────────
     syncActiveSidebarTab();
+    initGlobalSupportModal();
 });
 
 /**
@@ -358,4 +359,139 @@ function adjustNavigationForRole() {
     } catch (errOuter) {
         console.error("Error in adjustNavigationForRole:", errOuter);
     }
+}
+
+/**
+ * Inisialisasi Modal Dukungan Pelanggan (Concierge Support 24/7) secara global.
+ * Membuat elemen modal secara dinamis dan menempelkannya ke body,
+ * lalu menghubungkan semua tombol/link dukungan di halaman.
+ */
+function initGlobalSupportModal() {
+    // 1. Cek jika modal sudah ada
+    if (document.getElementById('global-support-modal')) return;
+
+    // 2. Buat elemen modal HTML
+    const modalContainer = document.createElement('div');
+    modalContainer.id = 'global-support-modal';
+    modalContainer.className = 'fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 backdrop-blur-sm transition-all duration-300 opacity-0';
+    
+    modalContainer.innerHTML = `
+        <div class="bg-white dark:bg-zinc-900 rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl transform scale-95 transition-all duration-300 border border-outline-variant/30 flex flex-col gap-5 text-left">
+            <div class="flex justify-between items-center">
+                <h3 class="font-headline-sm text-headline-sm text-zinc-900 dark:text-white font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1">support_agent</span>
+                    Dukungan Concierge
+                </h3>
+                <button id="close-support-modal" class="text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+            
+            <p class="text-body-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                Layanan concierge 24/7 kami siap membantu segala kebutuhan sewa, konfirmasi pembayaran, hingga bantuan darurat di jalan.
+            </p>
+            
+            <div class="flex flex-col gap-3">
+                <!-- WhatsApp Option -->
+                <a href="https://wa.me/6281234567890?text=Halo%20Rentify%20Concierge,%20saya%20butuh%20bantuan%20terkait%20layanan%20sewa%20mobil." target="_blank" class="flex items-center gap-4 p-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/20 dark:hover:bg-emerald-950/40 transition-colors border border-emerald-500/20 group">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center text-white shadow-sm flex-shrink-0">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">chat</span>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-xs text-emerald-950 dark:text-emerald-300">WhatsApp Concierge</p>
+                        <p class="text-[10px] text-emerald-600 dark:text-emerald-400/80 truncate">Respon instan • 24 Jam Aktif</p>
+                    </div>
+                    <span class="material-symbols-outlined text-emerald-500 group-hover:translate-x-1 transition-transform flex-shrink-0">arrow_forward</span>
+                </a>
+                
+                <!-- Hotline Call Option -->
+                <a href="tel:+6221500888" class="flex items-center gap-4 p-3 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/20 dark:hover:bg-blue-950/40 transition-colors border border-blue-500/20 group">
+                    <div class="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-sm flex-shrink-0">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">call</span>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-xs text-blue-950 dark:text-blue-300">Hotline Panggilan Darurat</p>
+                        <p class="text-[10px] text-blue-600 dark:text-blue-400/80 truncate">+62 21 500 888</p>
+                    </div>
+                    <span class="material-symbols-outlined text-blue-500 group-hover:translate-x-1 transition-transform flex-shrink-0">arrow_forward</span>
+                </a>
+                
+                <!-- Email Option -->
+                <a href="mailto:support@rentify.id?subject=Bantuan%20Pelanggan%20Rentify" class="flex items-center gap-4 p-3 rounded-xl bg-zinc-50 hover:bg-zinc-100 dark:bg-zinc-800/40 dark:hover:bg-zinc-800/70 transition-colors border border-outline-variant/30 group">
+                    <div class="w-10 h-10 rounded-full bg-zinc-500 flex items-center justify-center text-white shadow-sm flex-shrink-0">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">mail</span>
+                    </div>
+                    <div class="flex-grow min-w-0">
+                        <p class="font-bold text-xs text-zinc-800 dark:text-zinc-200">Email Hubungan Pelanggan</p>
+                        <p class="text-[10px] text-zinc-500 dark:text-zinc-400 truncate">support@rentify.id</p>
+                    </div>
+                    <span class="material-symbols-outlined text-zinc-400 group-hover:translate-x-1 transition-transform flex-shrink-0">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(modalContainer);
+
+    // 3. Fungsi Buka & Tutup Modal dengan animasi
+    function openModal() {
+        modalContainer.classList.remove('hidden');
+        modalContainer.classList.add('flex');
+        // Trigger reflow untuk animasi transition
+        setTimeout(() => {
+            modalContainer.classList.remove('opacity-0');
+            modalContainer.classList.add('opacity-100');
+            modalContainer.querySelector('div').classList.remove('scale-95');
+            modalContainer.querySelector('div').classList.add('scale-100');
+        }, 10);
+    }
+
+    function closeModal() {
+        modalContainer.classList.remove('opacity-100');
+        modalContainer.classList.add('opacity-0');
+        modalContainer.querySelector('div').classList.remove('scale-100');
+        modalContainer.querySelector('div').classList.add('scale-95');
+        setTimeout(() => {
+            modalContainer.classList.remove('flex');
+            modalContainer.classList.add('hidden');
+        }, 300);
+    }
+
+    // Bind event penutup modal
+    const closeBtn = modalContainer.querySelector('#close-support-modal');
+    closeBtn.addEventListener('click', closeModal);
+
+    // Klik di area luar modal untuk menutup
+    modalContainer.addEventListener('click', (e) => {
+        if (e.target === modalContainer) closeModal();
+    });
+
+    // 4. Cari dan hubungkan semua tombol/link bertuliskan "Hubungi Dukungan" atau "Hubungi Agen"
+    function bindSupportButtons() {
+        const elements = document.querySelectorAll('button, a, div');
+        elements.forEach(el => {
+            if (el.tagName === 'BUTTON' || el.tagName === 'A' || el.classList.contains('cursor-pointer')) {
+                const text = el.textContent.replace(/\s+/g, ' ').trim().toLowerCase();
+                if (text.includes('hubungi dukungan') || text.includes('hubungi agen') || text.includes('contact support')) {
+                    // Cek jika listener sudah dipasang (menggunakan dataset flag untuk menghindari multiple listener)
+                    if (el.dataset.supportBound) return;
+                    el.dataset.supportBound = "true";
+
+                    el.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        openModal();
+                    });
+                    el.style.cursor = 'pointer';
+                }
+            }
+        });
+    }
+
+    // Jalankan binding awal
+    bindSupportButtons();
+
+    // Jalankan ulang binding jika ada penambahan elemen dinamis
+    const observer = new MutationObserver(bindSupportButtons);
+    observer.observe(document.body, { childList: true, subtree: true });
 }
