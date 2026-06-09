@@ -19,6 +19,8 @@ public class PaymentRequest {
     @NotBlank
     private String paymentMethod;
 
+    private String paymentChannel;
+
     @NotNull
     private BigDecimal amount;
 

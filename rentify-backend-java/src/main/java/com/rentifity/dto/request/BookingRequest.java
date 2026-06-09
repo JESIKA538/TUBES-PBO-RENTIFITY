@@ -21,4 +21,12 @@ public class BookingRequest {
     private String endDate;
 
     private String notes;
+
+    private String deliveryOption;
+    private String deliveryAddress;
+    public String getDeliveryOption() { return deliveryOption; }
+    public void setDeliveryOption(String deliveryOption) { this.deliveryOption = deliveryOption; }
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+
 }

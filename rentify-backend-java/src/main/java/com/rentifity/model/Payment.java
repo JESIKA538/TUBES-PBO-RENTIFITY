@@ -24,6 +24,12 @@ public class Payment {
     @Column(name = "payment_method")
     private String paymentMethod;
 
+    @Column(name = "payment_channel")
+    private String paymentChannel;
+
+    @Column(name = "billing_code")
+    private String billingCode;
+
     @Column(precision = 15, scale = 2)
     private BigDecimal amount;
 

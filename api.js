@@ -162,7 +162,7 @@ const BookingsAPI = {
         return await apiFetch('/bookings');
     },
 
-    async create(carId, startDate, endDate, notes = '') {
+    async create(carId, startDate, endDate, notes = '', deliveryOption = 'pickup', deliveryAddress = '') {
         return await apiFetch('/bookings', {
             method: 'POST',
             body: JSON.stringify({ car_id: carId, start_date: startDate, end_date: endDate, notes }),
@@ -204,12 +204,13 @@ const PaymentsAPI = {
         return await apiFetch('/payments');
     },
 
-    async create(bookingId, paymentMethod, amount, proofOfPayment = '') {
+    async create(bookingId, paymentMethod, amount, proofOfPayment = '', paymentChannel = '') {
         return await apiFetch('/payments', {
             method: 'POST',
             body: JSON.stringify({
                 booking_id: bookingId,
                 payment_method: paymentMethod,
+                payment_channel: paymentChannel,
                 amount: amount,
                 proof_of_payment: proofOfPayment
             }),
@@ -303,5 +304,24 @@ const UserAPI = {
         return await apiFetch(`/users/${id}`, {
             method: 'DELETE',
         });
+    }
+};
+
+
+const ReviewsAPI = {
+    async create(bookingId, rating, comment) {
+        return await apiFetch('/reviews', {
+            method: 'POST',
+            body: JSON.stringify({ booking_id: bookingId, rating, comment })
+        });
+    },
+    async getByCar(carId) {
+        return await apiFetch(`/cars/${carId}/reviews`);
+    }
+};
+
+const PromosAPI = {
+    async validate(code) {
+        return await apiFetch(`/promos/validate?code=${encodeURIComponent(code)}`);
     }
 };

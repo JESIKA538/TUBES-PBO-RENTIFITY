@@ -219,6 +219,17 @@
 
 
 
+    
+                    <!-- Reviews Section -->
+                    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8 fade-up" style="animation-delay: 0.2s;">
+                        <h2 class="text-xl font-heading font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">star</span> Ulasan Pengguna
+                        </h2>
+                        <div id="reviewsList" class="space-y-6">
+                            <div class="text-center py-6 text-gray-500">Memuat ulasan...</div>
+                        </div>
+                    </div>
+
     </main>
 
     <!-- MOBILE BOTTOM NAV -->
@@ -253,6 +264,45 @@
     <script src="api.js"></script>
     <script src="main.js"></script>
     <script>
+        async function loadReviews(carId) {
+            try {
+                const reviews = await ReviewsAPI.getByCar(carId);
+                const list = document.getElementById('reviewsList');
+                if(!reviews || reviews.length === 0) {
+                    list.innerHTML = '<div class="text-center py-6 text-gray-500">Belum ada ulasan untuk mobil ini.</div>';
+                    return;
+                }
+                
+                list.innerHTML = reviews.map(r => {
+                    let stars = '';
+                    for(let i=0; i<5; i++) {
+                        stars += `<span class="material-symbols-outlined text-sm ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}">star</span>`;
+                    }
+                    const date = new Date(r.createdAt || r.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
+                    const userAvatar = (r.user && r.user.avatar) ? r.user.avatar : 'jeje_profile.png';
+                    const userName = (r.user && r.user.name) ? r.user.name : 'Pengguna';
+                    
+                    return `
+                        <div class="border-b border-gray-100 last:border-0 pb-6 last:pb-0">
+                            <div class="flex items-center gap-3 mb-2">
+                                <img src="${userAvatar}" class="w-10 h-10 rounded-full object-cover" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed='+userName" />
+                                <div>
+                                    <p class="font-bold text-sm text-gray-900">${userName}</p>
+                                    <p class="text-xs text-gray-500">${date}</p>
+                                </div>
+                            </div>
+                            <div class="flex mb-2">${stars}</div>
+                            <p class="text-gray-700 text-sm leading-relaxed">${r.comment || ''}</p>
+                        </div>
+                    `;
+                }).join('');
+            } catch(e) {
+                console.error('Gagal memuat ulasan:', e);
+                const list = document.getElementById('reviewsList');
+                if(list) list.innerHTML = '<div class="text-center py-6 text-gray-500">Gagal memuat ulasan.</div>';
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', async () => {
             // 1. Enforce authentication
             if (!AuthAPI.checkAuth()) return;
@@ -294,6 +344,9 @@
                 document.getElementById('car-type').textContent = car.type;
                 document.getElementById('car-price').textContent = `Rp ${Number(car.price_per_day).toLocaleString('id-ID')}`;
                 document.getElementById('car-description').textContent = car.description || 'Tidak ada deskripsi tersedia.';
+
+                // Call loadReviews
+                loadReviews(carId);
 
                 // Check if car status is not available
                 if (car.status !== 'available') {

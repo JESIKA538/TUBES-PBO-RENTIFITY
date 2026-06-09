@@ -26,6 +26,9 @@ public class PaymentService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<Payment> getAllPayments(User user) {
         if (user.getRole().equals("admin")) {
             return paymentRepository.findAllByOrderByCreatedAtDesc();
@@ -41,16 +44,27 @@ public class PaymentService {
             throw new RuntimeException("Unauthorized");
         }
 
+        String billingCode = "";
+        if ("Transfer Bank".equalsIgnoreCase(req.getPaymentMethod())) {
+            // Generate 16 digit VA
+            billingCode = String.format("%04d%04d%04d%04d", 
+                (int)(Math.random() * 10000), (int)(Math.random() * 10000), 
+                (int)(Math.random() * 10000), (int)(Math.random() * 10000));
+        } else if ("E-Wallet".equalsIgnoreCase(req.getPaymentMethod())) {
+            // Generate E-Wallet Ref
+            String prefix = req.getPaymentChannel() != null ? req.getPaymentChannel().toUpperCase() : "PAY";
+            billingCode = prefix + "-" + (long)(Math.random() * 10000000000L);
+        }
+
         Payment payment = Payment.builder()
                 .booking(booking)
                 .paymentMethod(req.getPaymentMethod())
+                .paymentChannel(req.getPaymentChannel())
+                .billingCode(billingCode)
                 .amount(req.getAmount())
-                .status("approved")
+                .status("pending")
                 .proofOfPayment(req.getProofOfPayment())
                 .build();
-
-        booking.setStatus("confirmed");
-        bookingRepository.save(booking);
 
         return paymentRepository.save(payment);
     }
@@ -64,6 +78,8 @@ public class PaymentService {
         if ("approved".equalsIgnoreCase(status) || "success".equalsIgnoreCase(status)) {
             if (payment.getBooking() != null && "pending".equalsIgnoreCase(payment.getBooking().getStatus())) {
                 payment.getBooking().setStatus("confirmed");
+                notificationService.createNotificationForRole("admin", "Pembayaran untuk pesanan #RT-" + payment.getBooking().getId() + " telah berhasil. Mobil siap disewakan.");
+                notificationService.createNotificationForUser(payment.getBooking().getUser(), "Pembayaran Anda untuk pesanan #RT-" + payment.getBooking().getId() + " berhasil! Mobil " + payment.getBooking().getCar().getName() + " siap diambil.");
             }
         } else if ("failed".equalsIgnoreCase(status) || "rejected".equalsIgnoreCase(status)) {
             if (payment.getBooking() != null) {
@@ -74,6 +90,7 @@ public class PaymentService {
                     car.setStatus("available");
                     carRepository.save(car);
                 }
+                notificationService.createNotificationForUser(booking.getUser(), "Maaf, pembayaran untuk pesanan #RT-" + booking.getId() + " gagal atau ditolak. Pesanan dibatalkan.");
             }
         }
         

@@ -59,4 +59,21 @@ public class Booking {
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @com.fasterxml.jackson.annotation.JsonIgnore
     private List<Payment> payments;
+
+    @Column(name = "delivery_option")
+    private String deliveryOption; // e.g., 'pickup', 'delivery'
+
+    @Column(name = "delivery_address", columnDefinition = "TEXT")
+    private String deliveryAddress;
+
+    @Column(name = "late_fee")
+    private BigDecimal lateFee;
+    
+    public String getDeliveryOption() { return deliveryOption; }
+    public void setDeliveryOption(String deliveryOption) { this.deliveryOption = deliveryOption; }
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+    public BigDecimal getLateFee() { return lateFee; }
+    public void setLateFee(BigDecimal lateFee) { this.lateFee = lateFee; }
+
 }

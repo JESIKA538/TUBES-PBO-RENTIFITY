@@ -18,7 +18,7 @@ public class Notification {
     // Let's add targetRole to make global admin notifications easy without looping.
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = true)
+    @JoinColumn(name = "user_id", nullable = true, foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private User user; // Specific user receiver. If null, use targetRole.
 
     @Column(name = "target_role")

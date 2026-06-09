@@ -29,6 +29,9 @@ public class BookingService {
     @Autowired
     private CarRepository carRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public List<Booking> getAllBookings(User user) {
         if (user.getRole().equals("admin")) {
             return bookingRepository.findAllByOrderByCreatedAtDesc();
@@ -67,12 +70,18 @@ public class BookingService {
                 .totalPrice(totalPrice)
                 .status("pending")
                 .notes(req.getNotes())
+                .deliveryOption(req.getDeliveryOption())
+                .deliveryAddress(req.getDeliveryAddress())
+                .lateFee(BigDecimal.ZERO)
                 .build();
 
         car.setStatus("rented");
         carRepository.save(car);
 
-        return bookingRepository.save(booking);
+        Booking savedBooking = bookingRepository.save(booking);
+        notificationService.createNotificationForRole("admin", "Pesanan baru (#RT-" + savedBooking.getId() + ") diajukan oleh " + user.getName() + " untuk mobil " + car.getName());
+        
+        return savedBooking;
     }
 
     public ReportResponse getReports() {
@@ -147,8 +156,22 @@ public class BookingService {
             throw new RuntimeException("Hanya pesanan aktif (dikonfirmasi) yang dapat dikembalikan");
         }
 
+        
+        // Calculate late fee if returned after endDate
+        LocalDate today = LocalDate.now(ZoneId.of("Asia/Jakarta"));
+        if (today.isAfter(booking.getEndDate())) {
+            long daysLate = java.time.temporal.ChronoUnit.DAYS.between(booking.getEndDate(), today);
+            // Example: 10% of total price per day late
+            BigDecimal penalty = booking.getTotalPrice().multiply(BigDecimal.valueOf(0.1)).multiply(BigDecimal.valueOf(daysLate));
+            booking.setLateFee(penalty);
+        } else {
+            booking.setLateFee(BigDecimal.ZERO);
+        }
         booking.setStatus("returning");
-        return bookingRepository.save(booking);
+        Booking savedBooking = bookingRepository.save(booking);
+        notificationService.createNotificationForRole("admin", "Pengguna " + user.getName() + " telah meminta pengembalian mobil untuk pesanan #RT-" + savedBooking.getId());
+        
+        return savedBooking;
     }
 
     public Booking confirmReturn(Long bookingId) {
@@ -167,6 +190,9 @@ public class BookingService {
             carRepository.save(car);
         }
 
-        return bookingRepository.save(booking);
+        Booking savedBooking = bookingRepository.save(booking);
+        notificationService.createNotificationForUser(booking.getUser(), "Mobil untuk pesanan #RT-" + savedBooking.getId() + " telah berhasil dikembalikan. Terima kasih!");
+        
+        return savedBooking;
     }
 }

@@ -565,6 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const notifDropdown = document.getElementById('notif-dropdown');
     const notifList = document.getElementById('notif-list');
     const notifBadge = document.getElementById('notif-badge');
+    const notifUnreadCount = document.getElementById('notif-unread-count');
     
     if (btnOpenNotif && notifDropdown && notifList) {
         let isNotifOpen = false;
@@ -574,15 +575,18 @@ document.addEventListener('DOMContentLoaded', () => {
             isNotifOpen = !isNotifOpen;
             if (isNotifOpen) {
                 notifDropdown.classList.remove('hidden');
+                setTimeout(() => notifDropdown.classList.remove('scale-95', 'opacity-0'), 10);
                 await fetchAndRenderNotifications();
             } else {
-                notifDropdown.classList.add('hidden');
+                notifDropdown.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => notifDropdown.classList.add('hidden'), 200);
             }
         });
         
         document.addEventListener('click', (e) => {
             if (isNotifOpen && !notifDropdown.contains(e.target) && !btnOpenNotif.contains(e.target)) {
-                notifDropdown.classList.add('hidden');
+                notifDropdown.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => notifDropdown.classList.add('hidden'), 200);
                 isNotifOpen = false;
             }
         });
@@ -602,26 +606,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 let unreadCount = 0;
                 
                 data.forEach(notif => {
-                    if (!notif.isRead) unreadCount++;
+                    const isRead = notif.is_read || notif.isRead;
+                    if (!isRead) unreadCount++;
                     
                     const item = document.createElement('div');
-                    item.className = `p-3 rounded-lg text-sm border-b border-outline-variant/20 last:border-0 cursor-pointer hover:bg-surface-container transition-colors ${notif.isRead ? 'opacity-70' : 'bg-primary-container/20 dark:bg-primary-container/10 font-medium'}`;
+                    item.className = `p-3 rounded-lg text-sm border-b border-outline-variant/20 last:border-0 cursor-pointer hover:bg-surface-container transition-colors ${isRead ? 'opacity-70' : 'bg-primary-container/20 dark:bg-primary-container/10 font-medium'}`;
                     item.innerHTML = `
                         <div class="flex gap-3 items-start">
                             <span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
                             <div class="flex-1">
                                 <p class="text-on-surface dark:text-inverse-on-surface">${notif.message}</p>
-                                <span class="text-[10px] text-on-surface-variant mt-1 block">${new Date(notif.createdAt).toLocaleString()}</span>
+                                <span class="text-[10px] text-on-surface-variant mt-1 block">${new Date((notif.created_at || notif.createdAt)).toLocaleString()}</span>
                             </div>
                         </div>
                     `;
                     
                     item.addEventListener('click', async () => {
-                        if (!notif.isRead) {
+                        if (!isRead) {
                             await window.NotificationsAPI.markAsRead(notif.id);
                             item.classList.remove('bg-primary-container/20', 'dark:bg-primary-container/10', 'font-medium');
                             item.classList.add('opacity-70');
                             notif.isRead = true;
+                            notif.is_read = true;
                             unreadCount--;
                             updateBadge(unreadCount);
                         }
@@ -638,10 +644,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         function updateBadge(count) {
             if (count > 0) {
-                notifBadge.textContent = count > 9 ? '9+' : count;
-                notifBadge.classList.remove('hidden');
+                if (notifBadge) {
+                    notifBadge.textContent = '';
+                    notifBadge.classList.remove('hidden');
+                }
+                if (notifUnreadCount) {
+                    notifUnreadCount.textContent = count > 9 ? '9+ Baru' : count + ' Baru';
+                    notifUnreadCount.classList.remove('hidden');
+                }
             } else {
-                notifBadge.classList.add('hidden');
+                if (notifBadge) notifBadge.classList.add('hidden');
+                if (notifUnreadCount) notifUnreadCount.classList.add('hidden');
             }
         }
 

@@ -461,7 +461,8 @@
                     </div>
                 </div>
             </section>
-        </main>
+        </div></div>
+    </main>
     </div>
     <!-- BottomNavBar (Mobile) -->
     <nav
@@ -557,7 +558,32 @@
                 }
             });
 
-            async function loadCars() {
+            
+        async function applyFilters() {
+            const minP = document.getElementById('fMinPrice').value;
+            const maxP = document.getElementById('fMaxPrice').value;
+            const trans = document.getElementById('fTransmission').value;
+            const fuel = document.getElementById('fFuelType').value;
+            
+            let query = '?';
+            if(minP) query += `minPrice=${minP}&`;
+            if(maxP) query += `maxPrice=${maxP}&`;
+            if(trans) query += `transmission=${trans}&`;
+            if(fuel) query += `fuelType=${fuel}`;
+            
+            try {
+                const cars = await apiFetch(`/cars${query}`);
+                renderCars(cars);
+            } catch(e) {
+                console.error(e);
+            }
+        }
+        function resetFilters() {
+            document.getElementById('filterForm').reset();
+            applyFilters();
+        }
+
+        async function loadCars() {
                 const grid = document.getElementById('cars-grid');
                 grid.innerHTML = '<div class="col-span-full py-8 text-center text-on-surface-variant font-semibold">Memuat armada...</div>';
 
