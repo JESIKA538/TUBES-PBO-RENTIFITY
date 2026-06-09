@@ -6,6 +6,7 @@ import com.rentifity.model.Booking;
 import com.rentifity.model.User;
 import com.rentifity.security.CustomUserDetailsService;
 import com.rentifity.service.BookingService;
+import com.rentifity.service.NotificationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,9 @@ public class BookingController {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     private User getCurrentUser(Authentication authentication) {
         return customUserDetailsService.getUserByEmail(authentication.getName());
     }
@@ -40,6 +44,7 @@ public class BookingController {
     public ResponseEntity<Map<String, Object>> store(@Valid @RequestBody BookingRequest request, Authentication auth) {
         User user = getCurrentUser(auth);
         Booking booking = bookingService.createBooking(request, user);
+        notificationService.createNotificationForRole("admin", "Ada pesanan baru dari " + user.getName() + " untuk mobil ID: " + booking.getCar().getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("message", "Booking created successfully", "booking", booking));
     }
 
@@ -52,6 +57,7 @@ public class BookingController {
     public ResponseEntity<Map<String, Object>> requestReturn(@PathVariable Long id, Authentication auth) {
         User user = getCurrentUser(auth);
         Booking booking = bookingService.requestReturn(id, user);
+        notificationService.createNotificationForRole("admin", "Pengguna " + user.getName() + " mengajukan pengembalian untuk mobil ID: " + booking.getCar().getId());
         return ResponseEntity.ok(Map.of("message", "Pengajuan pengembalian berhasil", "booking", booking));
     }
 
@@ -62,6 +68,7 @@ public class BookingController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("message", "Akses ditolak"));
         }
         Booking booking = bookingService.confirmReturn(id);
+        notificationService.createNotificationForUser(booking.getUser(), "Pengembalian pesanan untuk mobil ID: " + booking.getCar().getId() + " telah dikonfirmasi.");
         return ResponseEntity.ok(Map.of("message", "Pengembalian mobil berhasil dikonfirmasi", "booking", booking));
     }
 }

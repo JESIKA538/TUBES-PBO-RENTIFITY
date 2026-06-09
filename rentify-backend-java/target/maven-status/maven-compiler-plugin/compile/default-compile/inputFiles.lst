@@ -3,8 +3,10 @@ C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\config\S
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\AuthController.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\BookingController.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\CarController.java
+C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\NotificationController.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\PaymentController.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\controller\UserController.java
+C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\dto\NotificationDto.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\dto\request\BookingRequest.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\dto\request\CarRequest.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\dto\request\ChangePasswordRequest.java
@@ -19,11 +21,13 @@ C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\exceptio
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\exception\ResourceNotFoundException.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\model\Booking.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\model\Car.java
+C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\model\Notification.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\model\Payment.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\model\User.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\RentifityApplication.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\repository\BookingRepository.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\repository\CarRepository.java
+C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\repository\NotificationRepository.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\repository\PaymentRepository.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\repository\UserRepository.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\security\CustomUserDetailsService.java
@@ -32,5 +36,6 @@ C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\security
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\AuthService.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\BookingService.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\CarService.java
+C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\NotificationService.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\PaymentService.java
 C:\TUBES PBO RENTIFITY\rentify-backend-java\src\main\java\com\rentifity\service\UserService.java

@@ -186,6 +186,18 @@ const BookingsAPI = {
     }
 };
 
+// Notifications Helpers
+const NotificationsAPI = {
+    async getAll() {
+        return await apiFetch('/notifications');
+    },
+    async markAsRead(id) {
+        return await apiFetch(`/notifications/${id}/read`, {
+            method: 'PUT'
+        });
+    }
+};
+
 // Payments Helpers
 const PaymentsAPI = {
     async getAll() {

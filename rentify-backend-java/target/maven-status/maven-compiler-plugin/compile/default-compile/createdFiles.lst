@@ -7,11 +7,13 @@ com\rentifity\model\Booking$BookingBuilder.class
 com\rentifity\dto\response\ReportResponse$ReportResponseBuilder.class
 com\rentifity\exception\ResourceNotFoundException.class
 com\rentifity\repository\CarRepository.class
+com\rentifity\model\Notification.class
 com\rentifity\security\CustomUserDetailsService.class
 com\rentifity\config\SecurityConfig.class
 com\rentifity\dto\request\CarRequest.class
 com\rentifity\controller\CarController.class
 com\rentifity\dto\request\UpdateProfileRequest.class
+com\rentifity\controller\NotificationController.class
 com\rentifity\model\Car.class
 com\rentifity\exception\GlobalExceptionHandler.class
 com\rentifity\repository\PaymentRepository.class
@@ -25,6 +27,8 @@ com\rentifity\model\Payment.class
 com\rentifity\model\Booking.class
 com\rentifity\repository\BookingRepository.class
 com\rentifity\service\UserService.class
+com\rentifity\service\NotificationService.class
+com\rentifity\dto\NotificationDto.class
 com\rentifity\dto\request\PaymentRequest.class
 com\rentifity\service\CarService.class
 com\rentifity\controller\UserController.class
@@ -38,4 +42,5 @@ com\rentifity\repository\UserRepository.class
 com\rentifity\dto\response\ApiResponse.class
 com\rentifity\dto\request\RegisterRequest.class
 com\rentifity\model\Car$CarBuilder.class
+com\rentifity\repository\NotificationRepository.class
 com\rentifity\service\BookingService.class

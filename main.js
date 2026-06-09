@@ -556,3 +556,103 @@ function applyLanguage() {
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(applyLanguage, 100); // slight delay to let other DOM scripts finish
 });
+
+// ─────────────────────────────────────────────────────────
+// 8. NOTIFICATION BELL SYNC
+// ─────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const btnOpenNotif = document.getElementById('btn-open-notifications');
+    const notifDropdown = document.getElementById('notif-dropdown');
+    const notifList = document.getElementById('notif-list');
+    const notifBadge = document.getElementById('notif-badge');
+    
+    if (btnOpenNotif && notifDropdown && notifList) {
+        let isNotifOpen = false;
+        
+        btnOpenNotif.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            isNotifOpen = !isNotifOpen;
+            if (isNotifOpen) {
+                notifDropdown.classList.remove('hidden');
+                await fetchAndRenderNotifications();
+            } else {
+                notifDropdown.classList.add('hidden');
+            }
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (isNotifOpen && !notifDropdown.contains(e.target) && !btnOpenNotif.contains(e.target)) {
+                notifDropdown.classList.add('hidden');
+                isNotifOpen = false;
+            }
+        });
+
+        async function fetchAndRenderNotifications() {
+            try {
+                if (!window.NotificationsAPI) return; // Wait for API
+                const data = await window.NotificationsAPI.getAll();
+                notifList.innerHTML = '';
+                
+                if (!data || data.length === 0) {
+                    notifList.innerHTML = '<div class="p-4 text-center text-sm text-on-surface-variant">Belum ada notifikasi</div>';
+                    updateBadge(0);
+                    return;
+                }
+                
+                let unreadCount = 0;
+                
+                data.forEach(notif => {
+                    if (!notif.isRead) unreadCount++;
+                    
+                    const item = document.createElement('div');
+                    item.className = `p-3 rounded-lg text-sm border-b border-outline-variant/20 last:border-0 cursor-pointer hover:bg-surface-container transition-colors ${notif.isRead ? 'opacity-70' : 'bg-primary-container/20 dark:bg-primary-container/10 font-medium'}`;
+                    item.innerHTML = `
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-primary text-xl mt-0.5">info</span>
+                            <div class="flex-1">
+                                <p class="text-on-surface dark:text-inverse-on-surface">${notif.message}</p>
+                                <span class="text-[10px] text-on-surface-variant mt-1 block">${new Date(notif.createdAt).toLocaleString()}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    item.addEventListener('click', async () => {
+                        if (!notif.isRead) {
+                            await window.NotificationsAPI.markAsRead(notif.id);
+                            item.classList.remove('bg-primary-container/20', 'dark:bg-primary-container/10', 'font-medium');
+                            item.classList.add('opacity-70');
+                            notif.isRead = true;
+                            unreadCount--;
+                            updateBadge(unreadCount);
+                        }
+                    });
+                    
+                    notifList.appendChild(item);
+                });
+                
+                updateBadge(unreadCount);
+            } catch (err) {
+                notifList.innerHTML = '<div class="p-4 text-center text-sm text-error">Gagal memuat notifikasi</div>';
+            }
+        }
+        
+        function updateBadge(count) {
+            if (count > 0) {
+                notifBadge.textContent = count > 9 ? '9+' : count;
+                notifBadge.classList.remove('hidden');
+            } else {
+                notifBadge.classList.add('hidden');
+            }
+        }
+
+        // Fetch unread count on initial load
+        if (window.NotificationsAPI) {
+            window.NotificationsAPI.getAll().then(data => {
+                if (data) {
+                    const unread = data.filter(n => !n.isRead).length;
+                    updateBadge(unread);
+                }
+            }).catch(e => {});
+        }
+    }
+});
