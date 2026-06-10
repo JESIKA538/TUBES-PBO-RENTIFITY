@@ -121,9 +121,9 @@
                         </p>
                     </div>
 
-                    <button
+                    <button id="btn-favorite"
                         class="w-12 h-12 rounded-xl border border-outline flex items-center justify-center hover:bg-gray-100 transition">
-                        <span class="material-symbols-outlined">
+                        <span id="icon-favorite" class="material-symbols-outlined text-gray-400 transition-colors">
                             favorite
                         </span>
                     </button>
@@ -373,6 +373,34 @@
                         window.location.href = redirectUrl;
                     });
                 }
+
+                // 6. Handle Favorite Button
+                const btnFav = document.getElementById('btn-favorite');
+                const iconFav = document.getElementById('icon-favorite');
+                
+                let favs = JSON.parse(localStorage.getItem('rentify_favorites') || '[]');
+                if (favs.includes(carId)) {
+                    iconFav.classList.remove('text-gray-400');
+                    iconFav.classList.add('text-red-500');
+                    iconFav.style.fontVariationSettings = "'FILL' 1";
+                }
+                
+                btnFav.addEventListener('click', () => {
+                    favs = JSON.parse(localStorage.getItem('rentify_favorites') || '[]');
+                    if (favs.includes(carId)) {
+                        favs = favs.filter(id => id !== carId);
+                        iconFav.classList.remove('text-red-500');
+                        iconFav.classList.add('text-gray-400');
+                        iconFav.style.fontVariationSettings = "'FILL' 0";
+                    } else {
+                        favs.push(carId);
+                        iconFav.classList.remove('text-gray-400');
+                        iconFav.classList.add('text-red-500');
+                        iconFav.style.fontVariationSettings = "'FILL' 1";
+                    }
+                    localStorage.setItem('rentify_favorites', JSON.stringify(favs));
+                });
+
             } catch (err) {
                 console.error('Gagal memuat detail mobil:', err);
                 alert('Gagal memuat informasi mobil. Silakan coba lagi nanti.');

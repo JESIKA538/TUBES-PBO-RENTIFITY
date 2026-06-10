@@ -20,10 +20,6 @@ public class CarService {
         if (search != null && search.isBlank()) search = null;
         if (type != null && type.isBlank()) type = null;
 
-        if (status == null && search == null && type == null) {
-            return carRepository.findAll();
-        }
-
         return carRepository.findWithFilters(status, type, search);
     }
 

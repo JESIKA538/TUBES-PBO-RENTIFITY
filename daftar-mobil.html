@@ -224,6 +224,11 @@
                                 class="w-full lg:w-auto bg-primary text-white font-label-md px-8 py-3 rounded-lg hover:bg-primary-container transition-colors active:opacity-80">
                                 Terapkan Filter
                             </button>
+                            <button id="favorite-btn"
+                                class="w-full lg:w-auto bg-surface text-primary border border-primary font-label-md px-6 py-3 rounded-lg hover:bg-primary-container hover:text-white transition-colors active:opacity-80 flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined text-red-500" style="font-variation-settings: 'FILL' 1; font-size: 18px;">favorite</span>
+                                Favorit
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -530,15 +535,29 @@
                 }
             }
 
-            // 4. Initial Cars Load
-            await loadCars();
-
-            // 5. Setup Search and Filters
+            // 4. Setup Search and Filters
             const filterBtn = document.getElementById('filter-btn');
+            const favoriteBtn = document.getElementById('favorite-btn');
             const searchInput = document.getElementById('search-input');
             const typeSelect = document.getElementById('type-select');
+            
+            let showFavoritesOnly = false;
+
+            // 5. Initial Cars Load
+            await loadCars();
 
             filterBtn.addEventListener('click', loadCars);
+            favoriteBtn.addEventListener('click', () => {
+                showFavoritesOnly = !showFavoritesOnly;
+                if(showFavoritesOnly) {
+                    favoriteBtn.classList.remove('bg-surface', 'text-primary');
+                    favoriteBtn.classList.add('bg-primary', 'text-white');
+                } else {
+                    favoriteBtn.classList.remove('bg-primary', 'text-white');
+                    favoriteBtn.classList.add('bg-surface', 'text-primary');
+                }
+                loadCars();
+            });
 
             // Dynamic filter: trigger load when vehicle type selection changes
             typeSelect.addEventListener('change', loadCars);
@@ -595,7 +614,13 @@
                 if (typeVal) filters.type = typeVal;
 
                 try {
-                    const cars = await CarsAPI.getAll(filters);
+                    let cars = await CarsAPI.getAll(filters);
+                    
+                    if (showFavoritesOnly) {
+                        const favs = JSON.parse(localStorage.getItem('rentify_favorites') || '[]');
+                        cars = cars.filter(c => favs.includes(String(c.id)));
+                    }
+                    
                     grid.innerHTML = ''; // Clear loading spinner
 
                     if (cars.length === 0) {
@@ -653,7 +678,7 @@
                     });
                 } catch (err) {
                     console.error('Gagal mengambil daftar mobil:', err);
-                    grid.innerHTML = '<div class="col-span-full py-8 text-center text-error font-medium">Gagal memuat katalog armada mobil.</div>';
+                    grid.innerHTML = '<div class="col-span-full py-8 text-center text-error font-medium">Gagal memuat katalog armada mobil: ' + err.message + ' ' + (err.stack || '') + '</div>';
                 }
             }
         });
