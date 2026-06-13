@@ -276,7 +276,7 @@
                 list.innerHTML = reviews.map(r => {
                     let stars = '';
                     for(let i=0; i<5; i++) {
-                        stars += `<span class="material-symbols-outlined text-sm ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}">star</span>`;
+                        stars += `<span class="material-symbols-outlined text-sm ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}" style="font-variation-settings: 'FILL' ${i < r.rating ? 1 : 0}">star</span>`;
                     }
                     const date = new Date(r.createdAt || r.created_at).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'});
                     const userAvatar = (r.user && r.user.avatar) ? r.user.avatar : 'jeje_profile.png';
