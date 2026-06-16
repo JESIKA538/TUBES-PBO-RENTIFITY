@@ -233,32 +233,30 @@
     </main>
 
     <!-- MOBILE BOTTOM NAV -->
-    <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-outline lg:hidden">
-
-        <div class="grid grid-cols-4 py-3">
-
-            <a href="index.html" class="flex flex-col items-center text-muted">
-                <span class="material-symbols-outlined">home</span>
-                <span class="text-xs">Beranda</span>
-            </a>
-
-            <a href="daftar-mobil.html" class="flex flex-col items-center text-primary">
-                <span class="material-symbols-outlined">directions_car</span>
-                <span class="text-xs">Mobil</span>
-            </a>
-
-            <a href="booking-mobil.html" class="flex flex-col items-center text-muted">
-                <span class="material-symbols-outlined">calendar_today</span>
-                <span class="text-xs">Pesanan</span>
-            </a>
-
-            <a href="pengaturan-user.html" class="flex flex-col items-center text-muted">
-                <span class="material-symbols-outlined">person</span>
-                <span class="text-xs">Profil</span>
-            </a>
-
-        </div>
-
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="index.html">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-95 duration-100"
+            href="daftar-mobil.html">
+            <span class="material-symbols-outlined" data-icon="directions_car"
+                style="font-variation-settings: 'FILL' 1;">directions_car</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="booking-mobil.html">
+            <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="pengaturan-user.html">
+            <span class="material-symbols-outlined" data-icon="person">person</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
+        </a>
     </nav>
 
     <script src="api.js"></script>

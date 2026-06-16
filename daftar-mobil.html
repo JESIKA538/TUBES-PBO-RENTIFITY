@@ -130,64 +130,77 @@
             <span class="material-symbols-outlined text-primary lg:hidden" data-icon="menu">menu</span>
             <h1 class="text-headline-md font-headline-md font-bold text-primary">Rentify</h1>
         </div>
-        <nav class="hidden md:flex gap-8 items-center h-full">
-            <a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-2 py-1"
-                href="index.html">Dasbor</a>
-            <a class="text-primary font-bold border-b-2 border-primary px-2 py-1" href="daftar-mobil.html">Armada
-                Mobil</a>
-            <a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-2 py-1"
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="index.html">Dashboard</a>
+            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
+                href="daftar-mobil.html">Armada Mobil</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
                 href="booking-mobil.html">Pesanan Saya</a>
-            <a class="text-on-surface-variant hover:bg-surface-container-low transition-colors px-2 py-1"
-                href="riwayat.html">Riwayat Pembayaran</a>
-        </nav>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="riwayat.html">Riwayat &amp; Laporan</a>
+        </div>
         <div class="flex items-center gap-4">
             <div class="hidden md:block text-right">
                 <p id="top-bar-name" class="font-label-md text-on-surface">Alex Walker</p>
                 <p id="top-bar-role" class="text-[10px] text-on-surface-variant">Pelanggan Rentify</p>
             </div>
-            <img id="top-bar-avatar" alt="User Avatar" class="w-10 h-10 rounded-full object-cover"
+            <img id="nav-profile-img-top" alt="User Avatar" class="w-10 h-10 rounded-full object-cover"
                 src="jeje_profile.png" />
         </div>
     </header>
     <div class="flex min-h-[calc(100vh-64px)]">
-        <!-- NavigationDrawer (Desktop) -->
-        <aside
-            class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 hidden lg:flex flex-col w-72 bg-surface-container-lowest border-r border-outline-variant py-6">
-            <div class="flex-1">
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all group"
-                    href="index.html">
-                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                    <span class="font-body-md">Dasbor</span>
-                </a>
-                <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]"
-                    href="daftar-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-                    <span class="font-body-md font-bold">Armada Mobil</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="booking-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
-                    <span class="font-body-md">Pesanan Saya</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="riwayat.html">
-                    <span class="material-symbols-outlined" data-icon="payments">payments</span>
-                    <span class="font-body-md">Riwayat Pembayaran</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="riwayat.html">
-                    <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
-                    <span class="font-body-md">Laporan</span>
-                </a>
+    <!-- Sidebar Navigation -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg h-full w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-8 flex flex-col items-start gap-1">
+            <h2 id="profile-name-aside" class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Alex Walker</h2>
+            <p id="profile-occupation-aside" class="text-on-surface-variant text-body-sm">Anggota Premium</p>
+            <span id="profile-role-badge" class="mt-2 px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Peran User</span>
+        </div>
+        <nav class="flex-1 flex flex-col gap-1 px-2">
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="index.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+            </a>
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99] transition-transform duration-150"
+                href="daftar-mobil.html">
+                <span class="material-symbols-outlined" data-icon="directions_car" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="pengaturan-user.html">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
+            </a>
+        </nav>
+        <div class="p-6">
+            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
+                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
+                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
+                    Anda.</p>
+                <button
+                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
+                    Dukungan</button>
             </div>
-            <div class="pt-4 border-t border-outline-variant mt-auto">
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="pengaturan-user.html">
-                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
-                    <span class="font-body-md">Pengaturan</span>
-                </a>
-            </div>
-        </aside>
+        </div>
+    </aside>
         <!-- Main Content Area -->
         <main class="flex-1 lg:ml-72 pb-24 lg:pb-12">
             <!-- Hero & Search Section -->
@@ -469,29 +482,29 @@
         </div></div>
     </main>
     </div>
-    <!-- BottomNavBar (Mobile) -->
+    <!-- BottomNavBar (Mobile Only) -->
     <nav
-        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="index.html">
             <span class="material-symbols-outlined" data-icon="home">home</span>
-            <span class="font-label-sm text-label-sm">Beranda</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-95 duration-100"
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-95 duration-100"
             href="daftar-mobil.html">
             <span class="material-symbols-outlined" data-icon="directions_car"
                 style="font-variation-settings: 'FILL' 1;">directions_car</span>
-            <span class="font-label-sm text-label-sm">Mobil</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="booking-mobil.html">
             <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
-            <span class="font-label-sm text-label-sm">Pesanan</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="pengaturan-user.html">
             <span class="material-symbols-outlined" data-icon="person">person</span>
-            <span class="font-label-sm text-label-sm">Profil</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
         </a>
     </nav>
     <script src="api.js"></script>
@@ -509,30 +522,33 @@
                 return;
             }
 
-            // 2. Update Header Profile Info
-            document.getElementById('top-bar-name').textContent = user.name;
-            document.getElementById('top-bar-role').textContent = user.occupation || 'Pelanggan Rentify';
+            // 2. Update Header & Sidebar Profile Info
             if (user.avatar) {
-                if(user.avatar) document.getElementById('top-bar-avatar').src = user.avatar;
+                document.getElementById('nav-profile-img-top').src = user.avatar;
+            }
+            document.getElementById('profile-name-aside').textContent = user.name;
+            document.getElementById('profile-occupation-aside').textContent = user.occupation || 'Pelanggan Rentify';
+            
+            const roleBadge = document.getElementById('profile-role-badge');
+            if (roleBadge) {
+                roleBadge.textContent = 'Pelanggan';
+                roleBadge.className = 'mt-2 px-2 py-1 bg-blue-100 text-blue-700 text-[10px] font-bold rounded uppercase tracking-wider';
             }
 
             // 3. Inject dynamic Logout button to sidebar navigation
-            const nav = document.querySelector('aside');
+            const nav = document.querySelector('aside nav');
             if (nav) {
-                const navLinks = nav.querySelector('div');
-                if (navLinks) {
-                    const logoutBtn = document.createElement('a');
-                    logoutBtn.className = "text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer mt-auto";
-                    logoutBtn.innerHTML = `
-                        <span class="material-symbols-outlined text-error-red">logout</span>
-                        <span class="font-body-md font-semibold">Keluar</span>
-                    `;
-                    logoutBtn.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        AuthAPI.logout();
-                    });
-                    nav.appendChild(logoutBtn);
-                }
+                const logoutBtn = document.createElement('a');
+                logoutBtn.className = "text-error-red mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg transition-all cursor-pointer mt-auto";
+                logoutBtn.innerHTML = `
+                    <span class="material-symbols-outlined text-error-red">logout</span>
+                    <span class="font-body-md text-body-md font-manrope font-semibold">Keluar</span>
+                `;
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    AuthAPI.logout();
+                });
+                nav.appendChild(logoutBtn);
             }
 
             // 4. Setup Search and Filters
@@ -631,7 +647,7 @@
                     cars.forEach(car => {
                         const isAvailable = car.status === 'available';
                         grid.innerHTML += `
-                        <div class="bg-white rounded-xl custom-shadow overflow-hidden group flex flex-col ${!isAvailable ? 'opacity-90' : ''}">
+                        <div ${isAvailable ? `onclick="window.location.href='detail-mobil.html?id=${car.id}'"` : ''} class="bg-white rounded-xl custom-shadow overflow-hidden group flex flex-col transition-all duration-300 ${isAvailable ? 'cursor-pointer hover:shadow-lg' : 'opacity-90'}">
                             <div class="relative h-64 overflow-hidden">
                                 <img alt="${car.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${!isAvailable ? 'grayscale-[20%]' : ''}" src="${car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400'}" />
                                 <div class="absolute top-4 right-4 ${isAvailable ? 'bg-emerald-subtle text-secondary' : 'bg-surface-container-highest text-on-surface-variant'} px-3 py-1 rounded-full text-label-sm flex items-center gap-1">
@@ -669,7 +685,7 @@
                                     </div>
                                 </div>
                                 ${isAvailable 
-                                    ? `<a href="detail-mobil.html?id=${car.id}" class="mt-auto w-full border border-primary text-primary text-center font-label-md py-3 rounded-lg hover:bg-primary hover:text-white transition-all block">Lihat Detail & Sewa</a>`
+                                    ? `<a href="detail-mobil.html?id=${car.id}" class="mt-auto w-full border border-primary text-primary text-center font-label-md py-3 rounded-lg hover:bg-primary hover:text-white transition-all block" onclick="event.stopPropagation();">Lihat Detail & Sewa</a>`
                                     : `<button class="mt-auto w-full bg-surface-container-highest text-outline font-label-md py-3 rounded-lg cursor-not-allowed" disabled>Sedang Disewa</button>`
                                 }
                             </div>

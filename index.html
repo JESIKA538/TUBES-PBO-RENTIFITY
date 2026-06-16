@@ -143,6 +143,8 @@
                 href="daftar-mobil.html">Armada Mobil</a>
             <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
                 href="booking-mobil.html">Pesanan Saya</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="riwayat.html">Riwayat &amp; Laporan</a>
         </div>
         <div class="flex items-center gap-4">
             <button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
@@ -245,8 +247,8 @@
             <!-- Bento Stats Grid -->
             <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
                 <!-- Total Bookings -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30">
+                <a href="booking-mobil.html"
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-start">
                         <div
                             class="w-12 h-12 bg-primary-fixed flex items-center justify-center rounded-lg text-primary">
@@ -257,10 +259,10 @@
                         <p class="text-on-surface-variant font-label-md uppercase tracking-wide">TOTAL PESANAN</p>
                         <h3 id="stat-total-bookings" class="text-headline-md font-headline-md mt-1">0</h3>
                     </div>
-                </div>
+                </a>
                 <!-- Available Cars -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30">
+                <a href="daftar-mobil.html"
+                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-start">
                         <div
                             class="w-12 h-12 bg-secondary-container flex items-center justify-center rounded-lg text-secondary">
@@ -272,10 +274,10 @@
                         <p class="text-on-surface-variant font-label-md uppercase tracking-wide">MOBIL TERSEDIA</p>
                         <h3 id="stat-available-cars" class="text-headline-md font-headline-md mt-1">0</h3>
                     </div>
-                </div>
+                </a>
                 <!-- Transaction History - Featured Bento Card -->
-                <div
-                    class="bg-inverse-surface text-inverse-on-surface p-6 rounded-xl shadow-xl flex flex-col gap-4 md:row-span-1">
+                <a href="riwayat.html"
+                    class="bg-inverse-surface text-inverse-on-surface p-6 rounded-xl shadow-xl flex flex-col gap-4 md:row-span-1 hover:shadow-2xl active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-center">
                         <p class="font-label-md uppercase tracking-wide opacity-80">TRANSAKSI TERAKHIR</p>
                         <span class="material-symbols-outlined" data-icon="history">history</span>
@@ -284,9 +286,9 @@
                         <h3 id="stat-latest-transaction" class="text-headline-md font-headline-md">Rp 0</h3>
                         <p id="stat-latest-date" class="text-body-sm opacity-70">Belum ada transaksi</p>
                     </div>
-                    <a href="riwayat.html"
-                        class="bg-surface-container-highest/20 hover:bg-surface-container-highest/30 transition-colors text-white py-2 rounded-lg font-label-md text-center block">Lihat Riwayat Lengkap</a>
-                </div>
+                    <div
+                        class="bg-surface-container-highest/20 hover:bg-surface-container-highest/30 transition-colors text-white py-2 rounded-lg font-label-md text-center block">Lihat Riwayat Lengkap</div>
+                </a>
             </section>
             <!-- Popular Cars Section -->
             <section>
@@ -300,8 +302,8 @@
                 </div>
                 <div id="popular-cars-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
                     <!-- Car Card 1 -->
-                    <div
-                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                    <div onclick="window.location.href='detail-mobil.html?id=1'"
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="Porsche 911"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -329,8 +331,8 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="window.location.href='detail-mobil.html?id=1'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
-                                <button
+                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=1'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
                                 </button>
@@ -338,8 +340,8 @@
                         </div>
                     </div>
                     <!-- Car Card 2 -->
-                    <div
-                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                    <div onclick="window.location.href='detail-mobil.html?id=2'"
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="BMW M4"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -367,8 +369,8 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="window.location.href='detail-mobil.html?id=2'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
-                                <button
+                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=2'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
                                 </button>
@@ -376,8 +378,8 @@
                         </div>
                     </div>
                     <!-- Car Card 3 -->
-                    <div
-                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                    <div onclick="window.location.href='detail-mobil.html?id=3'"
+                        class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="Tesla Model S"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -404,8 +406,8 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="window.location.href='detail-mobil.html?id=3'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
-                                <button
+                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=3'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
                                 </button>

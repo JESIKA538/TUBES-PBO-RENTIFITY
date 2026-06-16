@@ -225,6 +225,13 @@
                             <span>Biaya Layanan</span>
                             <span id="summary-service-fee" class="font-bold">Rp 50.000</span>
                         </div>
+                        <div id="summary-delivery-row" class="hidden justify-between">
+                            <span class="flex items-center gap-1 text-slate-600">
+                                <span class="material-symbols-outlined text-[15px]">local_shipping</span>
+                                <span id="summary-delivery-label">Biaya Antar</span>
+                            </span>
+                            <span id="summary-delivery-fee" class="font-bold text-blue-700">Rp 0</span>
+                        </div>
                         <hr />
                         <div class="flex justify-between text-xl font-bold text-blue-700">
                             <span>Total</span>
@@ -291,14 +298,42 @@
             const formattedStart = start.toLocaleDateString('id-ID', dateOptions);
             const formattedEnd = end.toLocaleDateString('id-ID', dateOptions);
             
+            // Baca delivery fee dari sessionStorage (dikirim oleh booking-mobil.html)
+            const savedDeliveryFee     = parseInt(sessionStorage.getItem('rentify_delivery_fee') || '0');
+            const savedDeliveryBlocked = sessionStorage.getItem('rentify_delivery_blocked') === 'true';
+            const grandTotal = totalPrice + savedDeliveryFee;
+
             // Fill UI details
-            document.getElementById('payment-amount').value = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+            document.getElementById('payment-amount').value = `Rp ${grandTotal.toLocaleString('id-ID')}`;
             
+            // Summary Side Card
+            document.getElementById('summary-dates').textContent = `Dipesan untuk ${formattedStart} - ${formattedEnd}`;
+            document.getElementById('summary-car-img').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop';
+            document.getElementById('summary-car-name').textContent = `${car.brand} ${car.name}`;
+            document.getElementById('summary-car-desc').textContent = `${car.brand} ${car.type} • ${car.transmission === 'automatic' ? 'Otomatis' : 'Manual'}`;
+            
+            const dailyRate = Number(car.price_per_day);
+            document.getElementById('summary-daily-rate').textContent = `Rp ${dailyRate.toLocaleString('id-ID')}`;
+            document.getElementById('summary-duration').textContent = `${diffDays} Hari`;
+            document.getElementById('summary-service-fee').textContent = `Rp 50.000`;
+
+            // Tampilkan baris biaya antar jika ada
+            if (savedDeliveryFee > 0 && !savedDeliveryBlocked) {
+                const delivRow = document.getElementById('summary-delivery-row');
+                if (delivRow) {
+                    delivRow.classList.remove('hidden');
+                    delivRow.classList.add('flex');
+                    document.getElementById('summary-delivery-fee').textContent = `Rp ${savedDeliveryFee.toLocaleString('id-ID')}`;
+                }
+            }
+
+            document.getElementById('summary-total').textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+
+            // Status badge
             const badge = document.getElementById('payment-status-badge');
             badge.textContent = targetBooking.status;
             if (targetBooking.status === 'confirmed' || targetBooking.status === 'completed') {
                 badge.className = 'mt-2 px-4 py-3 rounded-xl border bg-emerald-50 text-emerald-600 font-semibold uppercase';
-                // Disable payment processing if already paid
                 const btnPay = document.getElementById('btn-process-payment');
                 btnPay.disabled = true;
                 btnPay.textContent = 'Pemesanan Sudah Lunas';
@@ -312,21 +347,6 @@
             } else {
                 badge.className = 'mt-2 px-4 py-3 rounded-xl border bg-amber-50 text-amber-600 font-semibold uppercase';
             }
-
-            // Summary Side Card
-            document.getElementById('summary-dates').textContent = `Dipesan untuk ${formattedStart} - ${formattedEnd}`;
-            document.getElementById('summary-car-img').src = car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop';
-            document.getElementById('summary-car-name').textContent = `${car.brand} ${car.name}`;
-            document.getElementById('summary-car-desc').textContent = `${car.brand} ${car.type} • ${car.transmission === 'automatic' ? 'Otomatis' : 'Manual'}`;
-            
-            const dailyRate = Number(car.price_per_day);
-            document.getElementById('summary-daily-rate').textContent = `Rp ${dailyRate.toLocaleString('id-ID')}`;
-            document.getElementById('summary-duration').textContent = `${diffDays} Hari`;
-            
-            // Assume 50k service fee included in total or keep it dynamic
-            const serviceFee = 50000;
-            document.getElementById('summary-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
-            document.getElementById('summary-total').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
 
             
             // 4. Toggle payment method UI interaction
@@ -429,12 +449,12 @@
                     btnPay.innerHTML = '<span class="material-symbols-outlined animate-spin align-middle mr-2">refresh</span> Memproses...';
                     
                     // Create payment in backend (status pending, gets billing code)
-                    createdPayment = await PaymentsAPI.create(bookingId, category, totalPrice, '', channel);
+                    createdPayment = await PaymentsAPI.create(bookingId, category, grandTotal, '', channel);
                     
                     // Show Billing Modal
                     document.getElementById('billing-channel-name').textContent = `${channel} ${category === 'Transfer Bank' ? 'Virtual Account' : ''}`;
                     document.getElementById('billing-code-display').textContent = createdPayment.billing_code || createdPayment.billingCode || 'XXXX';
-                    document.getElementById('billing-amount-display').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+                    document.getElementById('billing-amount-display').textContent = `Rp ${grandTotal.toLocaleString('id-ID')}`;
                     
                     const tomorrow = new Date();
                     tomorrow.setDate(tomorrow.getDate() + 1);

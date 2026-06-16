@@ -131,27 +131,29 @@
     </style>
 </head>
 
-<<body class="bg-surface-bg text-on-surface dark:bg-inverse-surface dark:text-inverse-on-surface">
+<body class="bg-surface-bg text-on-surface dark:bg-inverse-surface dark:text-inverse-on-surface">
     <!-- TopAppBar -->
     <header
         class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm">
         <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-on-surface cursor-pointer">menu</span>
+            <span class="material-symbols-outlined text-primary lg:hidden cursor-pointer" data-icon="menu">menu</span>
             <span
                 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Rentify</span>
         </div>
-        <nav class="hidden md:flex gap-8">
-            <a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded"
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
                 href="index.html">Dashboard</a>
-            <a class="text-on-surface-variant dark:text-surface-variant font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-1 rounded"
-                href="daftar-mobil.html">Mobil</a>
-            <a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary font-label-md text-label-md px-3 py-1"
-                href="booking-mobil.html">Pesanan</a>
-        </nav>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="daftar-mobil.html">Armada Mobil</a>
+            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
+                href="booking-mobil.html">Pesanan Saya</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="riwayat.html">Riwayat &amp; Laporan</a>
+        </div>
         <div class="flex items-center gap-2">
             <div
                 class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border-2 border-primary-container">
-                <img alt="Profil Pengguna" class="w-full h-full object-cover" id="nav-profile-img"
+                <img alt="Profil Pengguna" class="w-full h-full object-cover" id="nav-profile-img-top"
                     src="jeje_profile.png" />
             </div>
         </div>
@@ -201,25 +203,77 @@
                             <div class="flex flex-col gap-2 mt-2">
                                 <label class="font-label-md text-label-md text-on-surface-variant">Opsi Pengambilan</label>
                                 <div class="grid grid-cols-2 gap-3">
-                                    <label class="flex items-center gap-2 p-3 border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
-                                        <input type="radio" name="deliveryOption" value="pickup" checked class="text-primary focus:ring-primary" onchange="document.getElementById('addressContainer').classList.add('hidden')" />
+                                    <label id="label-pickup" class="flex items-center gap-2 p-3 border-2 border-primary bg-primary/5 rounded-lg cursor-pointer transition-all">
+                                        <input type="radio" name="deliveryOption" value="pickup" checked class="text-primary focus:ring-primary" />
                                         <div class="flex flex-col">
-                                            <span class="font-label-sm text-on-surface">Ambil Sendiri</span>
-                                            <span class="text-[10px] text-on-surface-variant">Gratis</span>
+                                            <span class="font-label-sm text-on-surface font-bold">Ambil Sendiri</span>
+                                            <span class="text-[10px] text-secondary font-bold">Gratis</span>
                                         </div>
                                     </label>
-                                    <label class="flex items-center gap-2 p-3 border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
-                                        <input type="radio" name="deliveryOption" value="delivery" class="text-primary focus:ring-primary" onchange="document.getElementById('addressContainer').classList.remove('hidden')" />
+                                    <label id="label-delivery" class="flex items-center gap-2 p-3 border border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-all">
+                                        <input type="radio" name="deliveryOption" value="delivery" class="text-primary focus:ring-primary" />
                                         <div class="flex flex-col">
                                             <span class="font-label-sm text-on-surface">Diantar</span>
-                                            <span class="text-[10px] text-on-surface-variant">+ Biaya Kurir</span>
+                                            <span id="delivery-option-hint" class="text-[10px] text-on-surface-variant">Tarif berdasar jarak</span>
                                         </div>
                                     </label>
                                 </div>
                             </div>
-                            <div id="addressContainer" class="hidden flex flex-col gap-2">
-                                <label class="font-label-md text-label-md text-on-surface-variant">Alamat Pengiriman</label>
-                                <textarea id="deliveryAddress" rows="2" class="w-full p-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-sm text-on-surface focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Ketik alamat lengkap Anda..."></textarea>
+                            <!-- Panel Info Tarif Antar -->
+                            <div id="deliveryInfoPanel" class="hidden flex-col gap-2 mt-1">
+                                <div class="rounded-xl border border-outline-variant overflow-hidden">
+                                    <div class="bg-primary px-4 py-2 flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-white text-[16px]" style="font-variation-settings:'FILL' 1">local_shipping</span>
+                                        <span class="font-label-md text-white text-[12px] font-bold">Pilih Tarif Antar</span>
+                                    </div>
+                                    <!-- Baris tarif = tombol selectable -->
+                                    <button type="button" data-fee="50000" data-label="0-10 km" data-blocked="false"
+                                        class="tariff-row w-full flex justify-between items-center px-4 py-2.5 text-[12px] hover:bg-secondary/10 transition-colors cursor-pointer border-b border-outline-variant/40">
+                                        <span class="flex items-center gap-2">
+                                            <span class="tariff-check w-4 h-4 rounded-full border-2 border-outline-variant flex-shrink-0"></span>
+                                            <span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>
+                                            0 – 10 km
+                                        </span>
+                                        <span class="font-bold text-secondary">Rp 50.000</span>
+                                    </button>
+                                    <button type="button" data-fee="100000" data-label="10-20 km" data-blocked="false"
+                                        class="tariff-row w-full flex justify-between items-center px-4 py-2.5 text-[12px] hover:bg-primary/10 transition-colors cursor-pointer border-b border-outline-variant/40">
+                                        <span class="flex items-center gap-2">
+                                            <span class="tariff-check w-4 h-4 rounded-full border-2 border-outline-variant flex-shrink-0"></span>
+                                            <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+                                            10 – 20 km
+                                        </span>
+                                        <span class="font-bold text-primary">Rp 100.000</span>
+                                    </button>
+                                    <button type="button" data-fee="150000" data-label="20-30 km" data-blocked="false"
+                                        class="tariff-row w-full flex justify-between items-center px-4 py-2.5 text-[12px] hover:bg-surface-container transition-colors cursor-pointer border-b border-outline-variant/40">
+                                        <span class="flex items-center gap-2">
+                                            <span class="tariff-check w-4 h-4 rounded-full border-2 border-outline-variant flex-shrink-0"></span>
+                                            <span class="w-2 h-2 rounded-full bg-outline inline-block"></span>
+                                            20 – 30 km
+                                        </span>
+                                        <span class="font-bold text-on-surface">Rp 150.000</span>
+                                    </button>
+                                    <button type="button" data-fee="0" data-label=">30 km" data-blocked="true"
+                                        class="tariff-row w-full flex justify-between items-center px-4 py-2.5 text-[12px] hover:bg-error/10 transition-colors cursor-pointer bg-error-container/10">
+                                        <span class="flex items-center gap-2 text-error">
+                                            <span class="tariff-check w-4 h-4 rounded-full border-2 border-error flex-shrink-0"></span>
+                                            <span class="w-2 h-2 rounded-full bg-error inline-block"></span>
+                                            &gt; 30 km
+                                        </span>
+                                        <span class="font-bold text-error">Hubungi Penyedia</span>
+                                    </button>
+                                </div>
+                                <!-- Status jarak realtime (dari GPS/peta) -->
+                                <div id="delivery-distance-status" class="hidden items-center gap-2 px-3 py-2 bg-surface-container-low rounded-lg border border-outline-variant/50">
+                                    <span class="material-symbols-outlined text-primary text-[18px]" style="font-variation-settings:'FILL' 1">straighten</span>
+                                    <div class="flex-1">
+                                        <p class="text-[11px] text-on-surface-variant">Estimasi jarak dari garasi (otomatis)</p>
+                                        <p id="delivery-distance-text" class="font-bold text-[13px] text-on-surface">–</p>
+                                    </div>
+                                    <span id="delivery-fee-badge" class="px-2 py-1 rounded-full text-[11px] font-bold bg-secondary text-on-secondary">–</span>
+                                </div>
+                                <p class="text-[10px] text-on-surface-variant text-center">Klik tarif sesuai jarak lokasi Anda, atau tandai di peta untuk otomatis.</p>
                             </div>
 
                         </div>
@@ -358,6 +412,13 @@
                                 <span class="text-on-surface-variant">Biaya Layanan</span>
                                 <span id="val-service-fee">Rp 50.000</span>
                             </div>
+                            <div id="delivery-fee-row" class="hidden flex justify-between font-body-md text-body-md border-t border-outline-variant pt-2">
+                                <span class="text-on-surface-variant flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">local_shipping</span>
+                                    <span id="delivery-fee-label">Biaya Antar</span>
+                                </span>
+                                <span id="val-delivery-fee" class="font-bold text-primary">Rp 0</span>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-8 pt-4 border-t border-outline-variant">
@@ -421,78 +482,80 @@
             </div>
         </section>
     </main>
-    <!-- NavigationDrawer (Desktop Only Hidden LG) -->
+    <!-- Sidebar Navigation -->
     <aside
-        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg w-72 rounded-r-xl pt-20">
-        <div class="px-6 py-4 flex items-center gap-4 mb-6">
-            <div
-                class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
-                <span class="material-symbols-outlined">person</span>
-            </div>
-            <div>
-                <p class="font-headline-sm text-headline-sm text-on-surface" id="profile-name-aside">Alex Walker</p>
-                <p class="font-body-sm text-body-sm text-on-surface-variant" id="profile-occupation-aside">Anggota Premium</p>
-            </div>
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg h-full w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-8 flex flex-col items-start gap-1">
+            <h2 id="profile-name-aside" class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Alex Walker</h2>
+            <p id="profile-occupation-aside" class="text-on-surface-variant text-body-sm">Anggota Premium</p>
+            <span id="profile-role-badge" class="mt-2 px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Peran User</span>
         </div>
-        <nav class="flex-1 px-2 space-y-1">
+        <nav class="flex-1 flex flex-col gap-1 px-2">
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="index.html">
-                <span class="material-symbols-outlined">dashboard</span> Dashboard
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="daftar-mobil.html">
-                <span class="material-symbols-outlined">directions_car</span>
-                Armada Mobil
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
             </a>
-            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3"
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99] transition-transform duration-150"
                 href="booking-mobil.html">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
-                Pesanan Saya
+                <span class="material-symbols-outlined" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="riwayat.html">
-                <span class="material-symbols-outlined">payments</span> Riwayat Pembayaran
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="riwayat.html">
-                <span class="material-symbols-outlined">assessment</span> Laporan
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="pengaturan-user.html">
-                <span class="material-symbols-outlined">settings</span> Pengaturan
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
             </a>
         </nav>
-        <div class="p-6 border-t border-outline-variant">
-            <div class="bg-primary-container/10 p-4 rounded-xl">
-                <p class="text-label-sm font-label-sm text-primary mb-2">Dukungan 24/7</p>
-                <button class="text-primary font-bold text-body-sm flex items-center gap-1">
-                    Hubungi Agen <span class="material-symbols-outlined text-sm">open_in_new</span>
-                </button>
+        <div class="p-6">
+            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
+                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
+                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
+                    Anda.</p>
+                <button
+                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
+                    Dukungan</button>
             </div>
         </div>
     </aside>
     <!-- BottomNavBar (Mobile Only) -->
     <nav
         class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="index.html">
-            <span class="material-symbols-outlined">home</span>
-            <span class="font-label-sm text-label-sm">Beranda</span>
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="daftar-mobil.html">
-            <span class="material-symbols-outlined">directions_car</span>
-            <span class="font-label-sm text-label-sm">Mobil</span>
+            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold"
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-95 duration-100"
             href="booking-mobil.html">
-            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_note</span>
-            <span class="font-label-sm text-label-sm">Pesanan</span>
+            <span class="material-symbols-outlined" data-icon="event_note"
+                style="font-variation-settings: 'FILL' 1;">event_note</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant"
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
             href="pengaturan-user.html">
-            <span class="material-symbols-outlined">person</span>
-            <span class="font-label-sm text-label-sm">Profil</span>
+            <span class="material-symbols-outlined" data-icon="person">person</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
         </a>
     </nav>
     <script src="api.js"></script>
@@ -512,7 +575,8 @@
 
             // Update profile info
             if (user.avatar) {
-                document.getElementById('nav-profile-img').src = user.avatar;
+                const navImgTop = document.getElementById('nav-profile-img-top');
+                if (navImgTop) navImgTop.src = user.avatar;
             }
             document.getElementById('profile-name-aside').textContent = user.name;
             document.getElementById('profile-occupation-aside').textContent = user.occupation || 'Pelanggan Rentify';
@@ -617,35 +681,112 @@
                 }
             }
 
+            // ── Koordinat Garasi Rentify (default: Jakarta Pusat) ──
+            const GARAGE_LAT = -6.2088;
+            const GARAGE_LNG = 106.8456;
+            let deliveryFee = 0;      // biaya antar aktif saat ini
+            let deliveryBlocked = false; // true jika >30km
+
+            // Haversine — jarak dua titik koordinat dalam km
+            function haversineKm(lat1, lng1, lat2, lng2) {
+                const R = 6371;
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLng = (lng2 - lng1) * Math.PI / 180;
+                const a = Math.sin(dLat/2)**2 +
+                    Math.cos(lat1*Math.PI/180) * Math.cos(lat2*Math.PI/180) * Math.sin(dLng/2)**2;
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            }
+
+            // Tentukan biaya antar berdasarkan jarak
+            function getDeliveryFeeByDistance(km) {
+                if (km <= 10)  return { fee: 50000,  label: `Rp 50.000`, blocked: false };
+                if (km <= 20)  return { fee: 100000, label: `Rp 100.000`, blocked: false };
+                if (km <= 30)  return { fee: 150000, label: `Rp 150.000`, blocked: false };
+                return { fee: 0, label: 'Hubungi Penyedia', blocked: true };
+            }
+
+            // Update UI biaya antar dan rekalkukasi total
+            function updateDeliveryFeeUI(lat, lng) {
+                const isDelivery = document.querySelector('input[name="deliveryOption"]:checked')?.value === 'delivery';
+                if (!isDelivery) return;
+
+                const km = haversineKm(GARAGE_LAT, GARAGE_LNG, lat, lng);
+                const { fee, label, blocked } = getDeliveryFeeByDistance(km);
+
+                deliveryFee = fee;
+                deliveryBlocked = blocked;
+
+                // Status card
+                const statusEl = document.getElementById('delivery-distance-status');
+                const distText = document.getElementById('delivery-distance-text');
+                const feeBadge = document.getElementById('delivery-fee-badge');
+                if (statusEl) {
+                    statusEl.classList.remove('hidden');
+                    statusEl.classList.add('flex');
+                    distText.textContent = `${km.toFixed(1)} km dari garasi`;
+                    feeBadge.textContent = label;
+                    feeBadge.className = blocked
+                        ? 'px-2 py-1 rounded-full text-[11px] font-bold bg-error text-white'
+                        : 'px-2 py-1 rounded-full text-[11px] font-bold bg-secondary text-on-secondary';
+                }
+
+                // Row di rincian harga
+                const feeRow = document.getElementById('delivery-fee-row');
+                const feeVal = document.getElementById('val-delivery-fee');
+                const feeLabel = document.getElementById('delivery-fee-label');
+                if (feeRow) {
+                    feeRow.classList.remove('hidden');
+                    feeRow.classList.add('flex');
+                    if (blocked) {
+                        feeLabel.textContent = `Antar (${km.toFixed(1)} km — hubungi)`;
+                        feeVal.textContent = '–';
+                        feeVal.className = 'font-bold text-error';
+                    } else {
+                        feeLabel.textContent = `Antar (${km.toFixed(1)} km)`;
+                        feeVal.textContent = `Rp ${fee.toLocaleString('id-ID')}`;
+                        feeVal.className = 'font-bold text-primary';
+                    }
+                }
+
+                calculatePrice();
+            }
+
             function calculatePrice() {
                 if (!selectedCarObj) return;
 
                 const startVal = startDateInput.value;
                 const endVal = endDateInput.value;
+                const isDelivery = document.querySelector('input[name="deliveryOption"]:checked')?.value === 'delivery';
 
                 if (startVal && endVal) {
                     const start = new Date(startVal);
                     const end = new Date(endVal);
-                    
-                    const diffTime = end - start;
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                    const diffDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
 
                     if (diffDays > 0) {
                         document.getElementById('rental-duration').textContent = `${diffDays} Hari`;
                         document.getElementById('label-base-rate').textContent = `Tarif Dasar (${diffDays} hari)`;
-                        
-                        const price = Number(selectedCarObj.price_per_day);
-                        const basePrice = price * diffDays;
+
+                        const basePrice = Number(selectedCarObj.price_per_day) * diffDays;
                         const serviceFee = 50000;
-                        const total = basePrice + serviceFee;
+                        const currentDeliveryFee = isDelivery ? deliveryFee : 0;
+                        const total = basePrice + serviceFee + currentDeliveryFee;
 
                         document.getElementById('val-base-rate').textContent = `Rp ${basePrice.toLocaleString('id-ID')}`;
                         document.getElementById('val-service-fee').textContent = `Rp ${serviceFee.toLocaleString('id-ID')}`;
                         document.getElementById('val-total-price').textContent = `Rp ${total.toLocaleString('id-ID')}`;
 
                         const btn = document.getElementById('btn-confirm-booking');
-                        btn.disabled = false;
-                        btn.className = "w-full py-4 bg-secondary text-on-secondary rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all cursor-pointer hover:opacity-90";
+                        // Block konfirmasi jika >30km
+                        if (isDelivery && deliveryBlocked) {
+                            btn.disabled = true;
+                            btn.className = "w-full py-4 bg-error/80 text-white rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg cursor-not-allowed";
+                            btn.innerHTML = `<span class="material-symbols-outlined">phone</span> Hubungi Penyedia Dulu`;
+                        } else {
+                            btn.disabled = false;
+                            btn.className = "w-full py-4 bg-secondary text-on-secondary rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg active:scale-[0.98] transition-all cursor-pointer hover:opacity-90";
+                            btn.innerHTML = `Konfirmasi Pesanan <span class="material-symbols-outlined">payments</span>`;
+                        }
                         return;
                     }
                 }
@@ -655,10 +796,10 @@
                 document.getElementById('label-base-rate').textContent = 'Tarif Dasar (0 hari)';
                 document.getElementById('val-base-rate').textContent = 'Rp 0';
                 document.getElementById('val-total-price').textContent = 'Rp 0';
-                
                 const btn = document.getElementById('btn-confirm-booking');
                 btn.disabled = true;
                 btn.className = "w-full py-4 bg-gray-400 text-white rounded-xl font-headline-sm text-headline-sm flex items-center justify-center gap-3 shadow-lg cursor-not-allowed";
+                btn.innerHTML = `Konfirmasi Pesanan <span class="material-symbols-outlined">payments</span>`;
             }
 
             selectCar.addEventListener('change', updateCarDetails);
@@ -673,6 +814,105 @@
                 calculatePrice();
             });
             endDateInput.addEventListener('change', calculatePrice);
+
+            // Toggle panel tarif antar saat opsi berubah
+            document.querySelectorAll('input[name="deliveryOption"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    const isDelivery = radio.value === 'delivery';
+                    const panel = document.getElementById('deliveryInfoPanel');
+                    const labelPickup = document.getElementById('label-pickup');
+                    const labelDelivery = document.getElementById('label-delivery');
+                    const feeRow = document.getElementById('delivery-fee-row');
+                    const statusEl = document.getElementById('delivery-distance-status');
+
+                    if (isDelivery) {
+                        panel.classList.remove('hidden'); panel.classList.add('flex');
+                        labelDelivery.classList.add('border-2', 'border-primary', 'bg-primary/5');
+                        labelDelivery.classList.remove('border', 'border-outline-variant');
+                        labelPickup.classList.remove('border-2', 'border-primary', 'bg-primary/5');
+                        labelPickup.classList.add('border', 'border-outline-variant');
+                    } else {
+                        panel.classList.add('hidden'); panel.classList.remove('flex');
+                        labelPickup.classList.add('border-2', 'border-primary', 'bg-primary/5');
+                        labelPickup.classList.remove('border', 'border-outline-variant');
+                        labelDelivery.classList.remove('border-2', 'border-primary', 'bg-primary/5');
+                        labelDelivery.classList.add('border', 'border-outline-variant');
+                        // Reset delivery state
+                        deliveryFee = 0;
+                        deliveryBlocked = false;
+                        if (feeRow) { feeRow.classList.add('hidden'); feeRow.classList.remove('flex'); }
+                        if (statusEl) { statusEl.classList.add('hidden'); statusEl.classList.remove('flex'); }
+                    }
+                    calculatePrice();
+                });
+            });
+
+            // ── Tariff row: klik untuk pilih tier biaya antar ──
+            document.querySelectorAll('.tariff-row').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const fee     = parseInt(btn.dataset.fee)  || 0;
+                    const blocked = btn.dataset.blocked === 'true';
+                    const label   = btn.dataset.label || '';
+
+                    deliveryFee     = fee;
+                    deliveryBlocked = blocked;
+
+                    // Reset semua visual
+                    document.querySelectorAll('.tariff-row').forEach(b => {
+                        b.classList.remove(
+                            'bg-secondary/20', 'bg-primary/20', 'bg-outline/20',
+                            'bg-amber-100', 'bg-error/20'
+                        );
+                        const chk = b.querySelector('.tariff-check');
+                        if (chk) {
+                            chk.classList.remove(
+                                'bg-secondary', 'bg-primary', 'bg-outline', 'bg-amber-500', 'bg-error',
+                                'border-secondary', 'border-primary', 'border-outline', 'border-amber-500', 'border-error'
+                            );
+                            chk.innerHTML = '';
+                        }
+                    });
+
+                    // Aktifkan visual pada yang dipilih
+                    // Tier: 0-10km=secondary(hijau), 10-20km=primary(biru), 20-30km=amber, >30km=error(merah)
+                    let color, bgClass;
+                    if (blocked) {
+                        color = 'error'; bgClass = 'bg-error/20';
+                    } else if (fee === 50000) {
+                        color = 'secondary'; bgClass = 'bg-secondary/20';
+                    } else if (fee === 100000) {
+                        color = 'primary'; bgClass = 'bg-primary/20';
+                    } else {
+                        color = 'amber-500'; bgClass = 'bg-amber-100';
+                    }
+                    btn.classList.add(bgClass);
+                    const chk = btn.querySelector('.tariff-check');
+                    if (chk) {
+                        chk.classList.add(`bg-${color}`, `border-${color}`);
+                        chk.innerHTML = `<svg class="w-full h-full p-0.5" viewBox="0 0 16 16" fill="white"><path d="M13 4L6.5 11 3 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>`;
+                    }
+
+                    // Update fee row di rincian harga
+                    const feeRow = document.getElementById('delivery-fee-row');
+                    const feeVal = document.getElementById('val-delivery-fee');
+                    const feeLabel = document.getElementById('delivery-fee-label');
+                    if (feeRow) {
+                        feeRow.classList.remove('hidden');
+                        feeRow.classList.add('flex');
+                        if (blocked) {
+                            feeLabel.textContent = `Antar (${label} — hubungi)`;
+                            feeVal.textContent = '–';
+                            feeVal.className = 'font-bold text-error';
+                        } else {
+                            feeLabel.textContent = `Antar (${label})`;
+                            feeVal.textContent = `Rp ${fee.toLocaleString('id-ID')}`;
+                            feeVal.className = 'font-bold text-primary';
+                        }
+                    }
+
+                    calculatePrice();
+                });
+            });
 
             // Populate initially
             if (carsList.length > 0) {
@@ -708,8 +948,13 @@
                     const deliveryAddress = document.getElementById('deliveryAddress') ? document.getElementById('deliveryAddress').value : '';
                         
                     const result = await BookingsAPI.create(carId, startDate, endDate, pickupNote, deliveryOption, deliveryAddress);
+
+                    // Simpan delivery fee ke sessionStorage supaya pembayaran.html bisa membacanya
+                    const isDelivery = deliveryOption === 'delivery';
+                    sessionStorage.setItem('rentify_delivery_fee', isDelivery ? String(deliveryFee) : '0');
+                    sessionStorage.setItem('rentify_delivery_blocked', isDelivery && deliveryBlocked ? 'true' : 'false');
+
                     alert('Sewa mobil berhasil dipesan!');
-                    
                     // Redirect to payment page
                     window.location.href = `pembayaran.html?booking_id=${result.booking.id}`;
                 } catch (err) {
@@ -735,12 +980,13 @@
                     maxZoom: 19
                 }).addTo(pickupMap);
 
-                // Klik pada peta → reverse geocode → isi input
+                // Klik pada peta → reverse geocode → isi input + hitung jarak antar
                 pickupMap.on('click', async (e) => {
                     const { lat, lng } = e.latlng;
                     setPickupMarker(lat, lng);
                     const addr = await reverseGeocode(lat, lng);
                     if (addr) setPickupInputValue(addr);
+                    updateDeliveryFeeUI(lat, lng);
                 });
             }
 
@@ -825,6 +1071,7 @@
                                     setPickupInputValue(el.dataset.name);
                                     initPickupMap();
                                     setPickupMarker(lat, lon);
+                                    updateDeliveryFeeUI(lat, lon);
                                 });
                             });
                             locSugBox.classList.remove('hidden');
@@ -872,6 +1119,7 @@
                             setPickupMarker(lat, lng);
                             const addr = await reverseGeocode(lat, lng);
                             if (addr) setPickupInputValue(addr);
+                            updateDeliveryFeeUI(lat, lng);
                             self.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px">my_location</span><span>Gunakan Lokasi Saya</span>`;
                             self.disabled = false;
                         },
