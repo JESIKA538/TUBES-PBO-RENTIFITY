@@ -136,16 +136,7 @@
             <span
                 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">Rentify</span>
         </div>
-        <div class="hidden md:flex items-center gap-8">
-            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
-                href="index.html">Dashboard</a>
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="views/user/daftar-mobil.html">Armada Mobil</a>
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="views/user/booking-mobil.html">Pesanan Saya</a>
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="views/user/riwayat.html">Riwayat &amp; Laporan</a>
-        </div>
+
         <div class="flex items-center gap-4">
             <button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
                 <span class="material-symbols-outlined" data-icon="search">search</span>
@@ -204,27 +195,14 @@
                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
-            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="views/user/riwayat.html">
-                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
-                <span class="font-body-md text-body-md font-manrope">Laporan</span>
-            </a>
+
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="views/user/pengaturan-user.html">
                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                 <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
             </a>
         </nav>
-        <div class="p-6">
-            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
-                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
-                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
-                    Anda.</p>
-                <button
-                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
-                    Dukungan</button>
-            </div>
-        </div>
+
     </aside>
     <!-- Main Content Area -->
     <main class="lg:ml-72 min-h-screen pb-24 md:pb-8">
@@ -302,7 +280,7 @@
                 </div>
                 <div id="popular-cars-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-gutter">
                     <!-- Car Card 1 -->
-                    <div onclick="window.location.href='detail-mobil.html?id=1'"
+                    <div onclick="window.location.href='views/user/detail-mobil.html?id=1'"
                         class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="Porsche 911"
@@ -331,7 +309,7 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=1'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation(); window.location.href='views/user/detail-mobil.html?id=1'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
                                 <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
@@ -340,7 +318,7 @@
                         </div>
                     </div>
                     <!-- Car Card 2 -->
-                    <div onclick="window.location.href='detail-mobil.html?id=2'"
+                    <div onclick="window.location.href='views/user/detail-mobil.html?id=2'"
                         class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="BMW M4"
@@ -369,7 +347,7 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=2'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation(); window.location.href='views/user/detail-mobil.html?id=2'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
                                 <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
@@ -378,7 +356,7 @@
                         </div>
                     </div>
                     <!-- Car Card 3 -->
-                    <div onclick="window.location.href='detail-mobil.html?id=3'"
+                    <div onclick="window.location.href='views/user/detail-mobil.html?id=3'"
                         class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group cursor-pointer">
                         <div class="relative h-56 overflow-hidden">
                             <img alt="Tesla Model S"
@@ -406,7 +384,7 @@
                                 </div>
                             </div>
                             <div class="mt-6 flex gap-3">
-                                <button onclick="event.stopPropagation(); window.location.href='detail-mobil.html?id=3'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
+                                <button onclick="event.stopPropagation(); window.location.href='views/user/detail-mobil.html?id=3'" class="flex-1 bg-primary text-on-primary py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity">Lihat Detail</button>
                                 <button onclick="event.stopPropagation();"
                                     class="w-12 h-12 border border-outline-variant rounded-lg flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
                                     <span class="material-symbols-outlined" data-icon="favorite">favorite</span>
@@ -502,6 +480,48 @@
                     document.getElementById('stat-latest-transaction').textContent = 'Rp 0';
                     document.getElementById('stat-latest-date').textContent = 'Belum ada transaksi';
                 }
+            } catch (err) {
+                console.error('Gagal memuat data statistik pemesanan:', err);
+                document.getElementById('stat-latest-transaction').textContent = '-';
+                document.getElementById('stat-latest-date').textContent = 'Gagal memuat data';
+            }
+
+            // Global Favorite Toggle
+            window.toggleFavorite = function(carId, event) {
+                if (event) event.stopPropagation();
+                const favs = JSON.parse(localStorage.getItem('rentify_favorites') || '[]');
+                const strId = String(carId);
+                const index = favs.indexOf(strId);
+                
+                if (index > -1) {
+                    favs.splice(index, 1);
+                } else {
+                    favs.push(strId);
+                }
+                
+                localStorage.setItem('rentify_favorites', JSON.stringify(favs));
+                
+                // Re-render only the heart icon in the clicked button
+                const btn = event.currentTarget;
+                const icon = btn.querySelector('span');
+                if (index > -1) {
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                } else {
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                }
+            };
+
+            try {
+                // Tampilkan loading state di dashboard armada
+                const popularGrid = document.getElementById('popular-cars-grid');
+                if (popularGrid) {
+                    popularGrid.innerHTML = `
+                    <div class="col-span-full py-16 flex flex-col items-center justify-center">
+                        <span class="material-symbols-outlined animate-spin text-primary text-4xl mb-4">autorenew</span>
+                        <p class="text-on-surface-variant font-medium animate-pulse">Sedang memuat data dari database...</p>
+                        <p class="text-sm text-on-surface-variant/70 mt-2 text-center max-w-md">Harap tunggu sebentar, server (Railway) mungkin sedang melakukan cold-start...</p>
+                    </div>`;
+                }
 
                 // Fetch cars
                 const cars = await CarsAPI.getAll();
@@ -509,24 +529,32 @@
                 document.getElementById('stat-available-cars').textContent = availableCars.length;
 
                 // 5. Render popular cars dynamically
-                const popularGrid = document.getElementById('popular-cars-grid');
                 if (popularGrid) {
                     popularGrid.innerHTML = ''; // Clear fallback mockup cards
                     
                     const displayCars = availableCars.length > 0 ? availableCars.slice(0, 3) : cars.slice(0, 3);
+                    const favs = JSON.parse(localStorage.getItem('rentify_favorites') || '[]');
                     
                     if (displayCars.length === 0) {
                         popularGrid.innerHTML = `<div class="col-span-full py-8 text-center text-on-surface-variant">Belum ada armada mobil terdaftar.</div>`;
                     } else {
                         displayCars.forEach(car => {
+                            const isFav = favs.includes(String(car.id));
+                            const simulatedRating = (4.5 + Math.random() * 0.5).toFixed(1);
+                            const simulatedReviewCount = Math.floor(Math.random() * 50) + 15;
+                            const isAvailable = car.status === 'available';
+
                             popularGrid.innerHTML += `
-                            <div class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group">
+                            <div onclick="${isAvailable ? `window.location.href='views/user/detail-mobil.html?id=${car.id}'` : ''}" class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] overflow-hidden border border-outline-variant/20 hover:shadow-lg transition-shadow group ${isAvailable ? 'cursor-pointer' : 'opacity-90'}">
                                 <div class="relative h-56 overflow-hidden">
                                     <img alt="${car.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${car.image_url || 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=400'}" />
-                                    <div class="absolute top-4 right-4 ${car.status === 'available' ? 'bg-white/90 text-secondary' : 'bg-orange-50 text-warning-amber'} backdrop-blur px-3 py-1 rounded-full font-label-sm flex items-center gap-1">
-                                        <span class="material-symbols-outlined text-sm" data-icon="${car.status === 'available' ? 'bolt' : 'schedule'}">${car.status === 'available' ? 'bolt' : 'schedule'}</span>
-                                        ${car.status === 'available' ? 'Tersedia' : 'Disewa'}
+                                    <div class="absolute top-4 right-4 ${isAvailable ? 'bg-white/90 text-secondary' : 'bg-orange-50 text-warning-amber'} backdrop-blur px-3 py-1 rounded-full font-label-sm flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-sm" data-icon="${isAvailable ? 'bolt' : 'schedule'}">${isAvailable ? 'bolt' : 'schedule'}</span>
+                                        ${isAvailable ? 'Tersedia' : 'Disewa'}
                                     </div>
+                                    <button onclick="toggleFavorite(${car.id}, event)" class="absolute top-4 left-4 w-10 h-10 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-primary shadow-sm hover:bg-white transition-colors">
+                                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' ${isFav ? '1' : '0'}">favorite</span>
+                                    </button>
                                 </div>
                                 <div class="p-6">
                                     <div class="flex justify-between items-start mb-2">
@@ -541,8 +569,12 @@
                                             <p class="text-body-sm text-on-surface-variant">/ hari</p>
                                         </div>
                                     </div>
+                                    <div class="flex items-center gap-1 text-warning-amber mb-4">
+                                        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1">star</span>
+                                        <span class="font-label-sm text-label-sm">${simulatedRating} <span class="text-on-surface-variant font-body-sm font-normal">(${simulatedReviewCount} ulasan)</span></span>
+                                    </div>
                                     <div class="mt-6 flex gap-3">
-                                        <a href="detail-mobil.html?id=${car.id}" class="flex-1 bg-primary text-on-primary text-center py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity block">Lihat Detail</a>
+                                        ${isAvailable ? `<button onclick="event.stopPropagation(); window.location.href='views/user/detail-mobil.html?id=${car.id}'" class="flex-1 bg-primary text-on-primary text-center py-3 rounded-lg font-label-md hover:opacity-90 transition-opacity block">Lihat Detail</button>` : `<button class="flex-1 bg-surface-container-highest text-outline text-center py-3 rounded-lg font-label-md cursor-not-allowed block" disabled>Sedang Disewa</button>`}
                                     </div>
                                 </div>
                             </div>
@@ -551,7 +583,7 @@
                     }
                 }
             } catch (err) {
-                console.error('Gagal memuat data dashboard:', err);
+                console.error('Gagal memuat data armada dashboard:', err);
             }
         });
     </script>

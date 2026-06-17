@@ -59,16 +59,7 @@
             <span class="material-symbols-outlined text-primary lg:hidden" data-icon="menu">menu</span>
             <h1 class="text-headline-md font-headline-md font-bold text-primary">Rentify</h1>
         </div>
-        <div class="hidden md:flex items-center gap-8">
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="../../index.html">Dashboard</a>
-            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
-                href="../user/daftar-mobil.html">Armada Mobil</a>
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="../user/booking-mobil.html">Pesanan Saya</a>
-            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="../user/riwayat.html">Riwayat &amp; Laporan</a>
-        </div>
+
         <div class="flex items-center gap-4">
             <div class="hidden md:block text-right">
                 <p id="top-bar-name" class="font-label-md text-on-surface">Alex Walker</p>
@@ -110,27 +101,14 @@
                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
-            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="../user/riwayat.html">
-                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
-                <span class="font-body-md text-body-md font-manrope">Laporan</span>
-            </a>
+
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
                 href="../user/pengaturan-user.html">
                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                 <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
             </a>
         </nav>
-        <div class="p-6">
-            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
-                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
-                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
-                    Anda.</p>
-                <button
-                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
-                    Dukungan</button>
-            </div>
-        </div>
+
     </aside>
     <main class="flex-1 lg:ml-72 px-4 md:px-margin-desktop py-8 pb-24 lg:pb-12">
 
@@ -145,19 +123,7 @@
                         src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1600" />
                 </div>
 
-                <!-- THUMBNAILS -->
-                <div class="grid grid-cols-3 gap-4 mt-4">
 
-                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
-                        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=800" />
-
-                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
-                        src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=800" />
-
-                    <img class="rounded-2xl h-28 object-cover cursor-pointer hover:opacity-80 transition"
-                        src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=800" />
-
-                </div>
 
             </div>
 
@@ -372,7 +338,8 @@
 
             // Update profile image
             if (user.avatar) {
-                document.getElementById('nav-profile-img').src = user.avatar;
+                const navImgTop = document.getElementById('nav-profile-img-top');
+                if (navImgTop) navImgTop.src = user.avatar;
             }
 
             // 2. Extract id from URL params
@@ -386,6 +353,12 @@
             }
 
             try {
+                // Tampilkan loading state di halaman detail untuk mencegah kerancuan saat cold-start
+                document.getElementById('car-image').src = 'https://placehold.co/800x420/eeeeee/999999?text=Sedang+Memuat+Data...';
+                document.getElementById('car-name').textContent = 'Memuat Data...';
+                document.getElementById('car-subtitle').textContent = 'Mohon tunggu, sedang mengambil data dari server...';
+                document.getElementById('car-price').textContent = '...';
+
                 // 3. Fetch car details
                 const car = await CarsAPI.getById(carId);
                 

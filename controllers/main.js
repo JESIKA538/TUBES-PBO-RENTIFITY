@@ -199,6 +199,7 @@ function syncActiveSidebarTab() {
         if (!href) return;
 
         let isActive = false;
+        const hrefFilename = href.split('/').pop();
         
         // Aturan khusus pencocokan untuk riwayat.html / admin-riwayat.html
         if (currentPath === 'riwayat.html') {
@@ -207,14 +208,14 @@ function syncActiveSidebarTab() {
             
             if (isAdmin) {
                 // Admin di riwayat.html -> menu Laporan yang aktif
-                isActive = (href === 'riwayat.html' || href === 'admin-laporan.html') && iconName === 'assessment';
+                isActive = (hrefFilename === 'riwayat.html' || hrefFilename === 'admin-laporan.html') && iconName === 'assessment';
             } else {
                 // Customer di riwayat.html -> menu Riwayat Pembayaran yang aktif
-                isActive = href === 'riwayat.html' && iconName === 'payments';
+                isActive = hrefFilename === 'riwayat.html' && iconName === 'payments';
             }
         } else {
             // Pencocokan umum berdasarkan nama berkas href
-            isActive = href === currentPath;
+            isActive = hrefFilename === currentPath;
         }
 
         // Daftar class Tailwind untuk status Aktif dan Tidak Aktif
