@@ -150,34 +150,34 @@
         </div>
         <div class="px-4 py-6 flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-grow">
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="admin.html">
+                href="../admin/admin.html">
                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 <span class="font-body-md text-body-md font-manrope">Dashboard</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="manajemen-armada.html">
+                href="../admin/manajemen-armada.html">
                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                 <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
             </a>
             <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-bold"
-                href="manajemen-user.html">
+                href="../admin/manajemen-user.html">
                 <span class="material-symbols-outlined" data-icon="group">group</span>
                 <span class="font-body-md text-body-md font-manrope">Manajemen Pengguna</span>
             </a>
 
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="admin-riwayat.html">
+                href="../admin/admin-riwayat.html">
                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="admin-laporan.html">
+                href="../admin/admin-laporan.html">
                 <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
                 <span class="font-body-md text-body-md font-manrope">Laporan</span>
             </a>
             <div class="mt-auto border-t border-outline-variant pt-4">
                 <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-body-md"
-                    href="pengaturan.html">
+                    href="../admin/pengaturan.html">
                     <span class="material-symbols-outlined" data-icon="settings">settings</span>
                     <span>Pengaturan</span>
                 </a>
@@ -191,7 +191,7 @@
         <div class="p-6 border-t border-outline-variant">
             <div class="flex items-center gap-3">
                 <img id="aside-admin-img" alt="User Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm"
-                    src="jeje_profile.png" />
+                    src="../../assets/jeje_profile.png" />
                 <div class="flex flex-col">
                     <span id="aside-admin-name" class="font-label-md text-label-md text-on-surface">Alex Walker</span>
                     <span class="text-xs text-on-surface-variant">Peran Admin</span>
@@ -368,28 +368,28 @@
     <nav
         class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="admin.html">
+            href="../admin/admin.html">
             <span class="material-symbols-outlined" data-icon="home">home</span>
             <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="manajemen-armada.html">
+            href="../admin/manajemen-armada.html">
             <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
             <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="manajemen-user.html">
+            href="../admin/manajemen-user.html">
             <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
             <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="pengaturan.html">
+            href="../admin/pengaturan.html">
             <span class="material-symbols-outlined" data-icon="person">person</span>
             <span class="font-label-sm text-label-sm font-manrope">Profil</span>
         </a>
     </nav>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <script src="../../controllers/api.js"></script>
+    <script src="../../controllers/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // 1. Authenticate user
@@ -398,7 +398,7 @@
             const currentUser = AuthAPI.getUser();
             if (currentUser.role !== 'admin') {
                 alert('Akses ditolak! Halaman ini hanya untuk Administrator.');
-                window.location.href = 'index.html';
+                window.location.href = '../../index.html';
                 return;
             }
 

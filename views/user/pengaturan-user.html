@@ -173,7 +173,7 @@
     <header
         class="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-margin-desktop w-full h-16 bg-surface shadow-sm transition-colors">
         <div class="flex items-center gap-4">
-            <a href="index.html"
+            <a href="../../index.html"
                 class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors">
                 <span class="material-symbols-outlined text-primary">arrow_back</span>
             </a>
@@ -185,51 +185,60 @@
             </button>
         </div>
     </header>
-    <main class="max-w-[1440px] mx-auto px-4 lg:px-margin-desktop py-6 lg:flex lg:gap-gutter">
-        <!-- Sidebar Navigation (Hidden on Mobile) -->
-        <nav
-            class="hidden lg:flex flex-col w-72 h-[calc(100vh-100px)] sticky top-24 bg-surface-container-lowest rounded-r-xl border-r border-outline-variant p-4">
-            <div class="flex items-center gap-3 px-4 py-6 mb-6">
-                <div
-                    class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
-                    <img id="aside-profile-img" alt="Profil Pengguna" class="w-full h-full object-cover"
-                        src="jeje_profile.png" />
-                </div>
-                <div>
-                    <h2 id="aside-profile-name" class="font-headline-sm text-headline-sm text-primary">Memuat...</h2>
-                    <p id="aside-profile-role" class="font-body-sm text-body-sm text-on-surface-variant">Pelanggan Rentify</p>
-                </div>
-            </div>
-            <div id="sidebar-nav" class="space-y-1">
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="index.html">
-                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                    <span class="font-label-md">Dasbor</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="daftar-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-                    <span class="font-label-md">Armada Mobil</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="booking-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
-                    <span class="font-label-md">Pesanan Saya</span>
-                </a>
-                <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]"
-                    href="pengaturan.html">
-                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
-                    <span class="font-label-md font-bold">Pengaturan</span>
-                </a>
-            </div>
-            <div class="mt-auto p-4">
-                <button id="btn-logout-sidebar"
-                    class="w-full flex items-center gap-3 px-4 py-3 text-error-red hover:bg-error-container/20 rounded-lg transition-colors">
-                    <span class="material-symbols-outlined">logout</span>
-                    <span class="font-label-md font-bold">Keluar</span>
-                </button>
-            </div>
+    <div class="flex min-h-[calc(100vh-64px)]">
+    <!-- Sidebar Navigation -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg h-full w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-8 flex flex-col items-start gap-1">
+            <h2 id="profile-name-aside" class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Alex Walker</h2>
+            <p id="profile-occupation-aside" class="text-on-surface-variant text-body-sm">Anggota Premium</p>
+            <span id="profile-role-badge" class="mt-2 px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Peran User</span>
+        </div>
+        <nav class="flex-1 flex flex-col gap-1 px-2">
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../../index.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/daftar-mobil.html">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/riwayat.html">
+                <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
+            </a>
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99] transition-transform duration-150"
+                href="../user/pengaturan-user.html">
+                <span class="material-symbols-outlined" data-icon="settings" style="font-variation-settings: \'FILL\' 1;">settings</span>
+                <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
+            </a>
         </nav>
+        <div class="p-6">
+            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
+                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
+                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
+                    Anda.</p>
+                <button
+                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
+                    Dukungan</button>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 lg:ml-72 px-4 md:px-margin-desktop py-8 pb-24 lg:pb-12 flex flex-col md:flex-row gap-8">
+        
         <!-- Main Content Area -->
         <div class="flex-1 space-y-gutter">
 
@@ -242,7 +251,7 @@
                         <div
                             class="w-24 h-24 rounded-full overflow-hidden border-2 border-primary-container relative group cursor-pointer shadow-sm">
                             <img id="form-profile-img" alt="Profil Pengguna" class="w-full h-full object-cover"
-                                src="jeje_profile.png" />
+                                src="../../assets/jeje_profile.png" />
                             <div id="btn-change-photo-overlay"
                                 class="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center transition-all">
                                 <span class="material-symbols-outlined text-white">photo_camera</span>
@@ -319,6 +328,29 @@
 
             <!-- Settings Groups Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+                <!-- Account Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Akun</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        
+                        <li>
+                            <button id="btn-saved-addresses"
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">map</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Alamat Tersimpan</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
                 <!-- Application Section -->
                 <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
                     <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
@@ -374,6 +406,44 @@
                                     <span id="text-theme" class="font-body-sm text-on-surface-variant">Terang</span>
                                     <span
                                         class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                                </div>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Security Section -->
+                <div class="bg-surface-card rounded-xl shadow-sm overflow-hidden border border-outline-variant/30">
+                    <div class="px-6 py-4 border-b border-outline-variant bg-surface-container-low">
+                        <h3 class="font-label-md text-primary-fixed-dim uppercase tracking-widest text-xs">Keamanan</h3>
+                    </div>
+                    <ul class="divide-y divide-outline-variant">
+                        <li>
+                            <button id="btn-change-password"
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Ganti Kata Sandi</span>
+                                </div>
+                                <span
+                                    class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button id="btn-toggle-biometric"
+                                class="w-full flex items-center justify-between px-6 py-4 hover:bg-surface-container-lowest transition-colors group">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-10 h-10 rounded-lg bg-primary/5 flex items-center justify-center text-primary">
+                                        <span class="material-symbols-outlined">fingerprint</span>
+                                    </div>
+                                    <span class="font-body-md text-on-surface">Keamanan Biometrik</span>
+                                </div>
+                                <div id="toggle-bio-track" class="w-10 h-5 bg-surface-container-highest rounded-full relative shadow-inner transition-colors">
+                                    <div id="toggle-bio-thumb" class="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-all">
+                                    </div>
                                 </div>
                             </button>
                         </li>
@@ -474,83 +544,12 @@
             </div>
         </div>
 
-        <!-- Payment Methods Modal -->
-        <div id="payment-methods-modal" class="fixed inset-0 z-[60] hidden">
-            <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="payment-methods-modal-bg"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
-                <div class="bg-surface dark:bg-inverse-surface rounded-2xl shadow-xl overflow-hidden">
-                    <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
-                        <h3 class="font-headline-sm text-on-surface">Metode Pembayaran</h3>
-                        <button id="btn-close-payment-methods" class="text-on-surface-variant hover:text-error-red transition-colors">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <div class="p-6 space-y-4">
-                        <div id="payment-methods-list" class="space-y-3">
-                            <!-- Injected via JS -->
-                        </div>
-                        <div class="pt-4 border-t border-outline-variant/30">
-                            <h4 class="font-label-md text-on-surface mb-3">Tambah Metode Baru</h4>
-                            <div class="grid grid-cols-2 gap-2">
-                                <button id="btn-add-card" class="py-2.5 bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-xl text-primary font-bold text-xs flex items-center justify-center gap-1">
-                                    <span class="material-symbols-outlined text-sm">credit_card</span> Kartu Kredit
-                                </button>
-                                <button id="btn-add-gopay" class="py-2.5 bg-primary/5 hover:bg-primary/10 border border-primary/20 rounded-xl text-primary font-bold text-xs flex items-center justify-center gap-1">
-                                    <span class="material-symbols-outlined text-sm">account_balance_wallet</span> GoPay / OVO
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+        
                 </div>
             </div>
         </div>
 
-        <!-- Add Payment Method Modal (Sub-modal) -->
-        <div id="add-payment-modal" class="fixed inset-0 z-[70] hidden">
-            <div class="absolute inset-0 bg-black/60 backdrop-blur-xs" id="add-payment-modal-bg"></div>
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
-                <div class="bg-surface dark:bg-inverse-surface rounded-2xl shadow-xl overflow-hidden">
-                    <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center">
-                        <h3 id="add-payment-title" class="font-headline-sm text-on-surface">Tambah Kartu Kredit</h3>
-                        <button id="btn-close-add-payment" class="text-on-surface-variant hover:text-error-red transition-colors">
-                            <span class="material-symbols-outlined">close</span>
-                        </button>
-                    </div>
-                    <form id="add-payment-form" class="p-6 space-y-4">
-                        <input type="hidden" id="input-payment-type" value="card" />
-                        <div id="form-card-inputs" class="space-y-4">
-                            <div class="flex flex-col gap-2">
-                                <label class="font-label-md text-on-surface">Nomor Kartu</label>
-                                <input type="text" id="input-card-number" placeholder="4111 2222 3333 4444" required
-                                    class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
-                            </div>
-                            <div class="grid grid-cols-2 gap-4">
-                                <div class="flex flex-col gap-2">
-                                    <label class="font-label-md text-on-surface">Masa Berlaku</label>
-                                    <input type="text" id="input-card-expiry" placeholder="MM/YY" required
-                                        class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
-                                </div>
-                                <div class="flex flex-col gap-2">
-                                    <label class="font-label-md text-on-surface">CVV</label>
-                                    <input type="password" id="input-card-cvv" placeholder="123" required maxLength="3"
-                                        class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
-                                </div>
-                            </div>
-                        </div>
-                        <div id="form-wallet-inputs" class="space-y-4 hidden">
-                            <div class="flex flex-col gap-2">
-                                <label class="font-label-md text-on-surface">Nomor HP E-Wallet (GoPay/OVO)</label>
-                                <input type="tel" id="input-wallet-phone" placeholder="08123456789"
-                                    class="w-full px-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none" />
-                            </div>
-                        </div>
-                        <div class="pt-4 flex justify-end">
-                            <button type="submit" class="px-6 py-3 bg-primary text-on-primary rounded-lg font-label-md font-bold hover:bg-primary/90 transition-colors shadow-sm w-full">Simpan Metode</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
 
         <!-- Saved Addresses Modal -->
         <div id="saved-addresses-modal" class="fixed inset-0 z-[60] hidden">
@@ -633,40 +632,43 @@
             </div>
         </div>
     </main>
-    <!-- Bottom Navigation Bar (Mobile Only) -->
+    </div>
+    
+    <!-- BottomNavBar (Mobile Only) -->
     <nav
-        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
-        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="index.html">
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../../index.html">
             <span class="material-symbols-outlined" data-icon="home">home</span>
-            <span class="font-label-sm">Beranda</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="daftar-mobil.html">
-            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-            <span class="font-label-sm">Mobil</span>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../user/daftar-mobil.html">
+            <span class="material-symbols-outlined" data-icon="directions_car"
+               >directions_car</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="booking-mobil.html">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../user/booking-mobil.html">
             <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
-            <span class="font-label-sm">Pesanan</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
         </a>
-        <a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-95 duration-100"
-            href="pengaturan.html">
-            <span class="material-symbols-outlined" data-icon="person" data-weight="fill">person</span>
-            <span class="font-label-sm">Profil</span>
+        <a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-95 duration-100"
+            href="../user/pengaturan-user.html">
+            <span class="material-symbols-outlined" data-icon="person" style="font-variation-settings: \'FILL\' 1;">person</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
         </a>
     </nav>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <script src="../../controllers/api.js"></script>
+    <script src="../../controllers/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // 1. Authenticate user session
             if (!AuthAPI.checkAuth()) return;
 
             const currentUser = AuthAPI.getUser();
-            if (currentUser.role !== 'admin') {
-                window.location.href = 'pengaturan-user.html';
+            if (currentUser.role === 'admin') {
+                window.location.href = '../admin/pengaturan.html';
                 return;
             }
 
@@ -674,9 +676,9 @@
             let uploadedAvatarBase64 = null;
 
             // Elements
-            const asideProfileImg = document.getElementById('aside-profile-img');
-            const asideProfileName = document.getElementById('aside-profile-name');
-            const asideProfileRole = document.getElementById('aside-profile-role');
+            const asideProfileName = document.getElementById('profile-name-aside');
+            const asideProfileRole = document.getElementById('profile-occupation-aside');
+            const navProfileImg = document.getElementById('nav-profile-img-top');
             const formProfileImg = document.getElementById('form-profile-img');
             const btnChangePhoto = document.getElementById('btn-change-photo');
             const btnChangePhotoOverlay = document.getElementById('btn-change-photo-overlay');
@@ -711,59 +713,57 @@
                 const isAdmin = profile.role === 'admin';
                 
                 // Header & aside bindings
-                asideProfileName.textContent = profile.name;
-                asideProfileRole.textContent = isAdmin ? 'Administrator' : (profile.occupation || 'Pelanggan Rentify');
+                if (asideProfileName) asideProfileName.textContent = profile.name;
+                if (asideProfileRole) asideProfileRole.textContent = isAdmin ? 'Administrator' : (profile.occupation || 'Pelanggan Rentify');
+                if (navProfileImg) navProfileImg.src = profile.avatar;
+                formProfileImg.src = profile.avatar;
                 
-                if (profile.avatar) {
-                    asideProfileImg.src = profile.avatar;
-                    formProfileImg.src = profile.avatar;
-                }
 
                 // Update sidebar navigation dynamically depending on role
                 const sidebarNav = document.getElementById('sidebar-nav');
                 if (sidebarNav) {
                     if (isAdmin) {
                         sidebarNav.innerHTML = `
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="admin.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin.html">
                                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                                 <span class="font-label-md">Dashboard</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="manajemen-armada.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-armada.html">
                                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                                 <span class="font-label-md">Armada Mobil</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="manajemen-user.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-user.html">
                                 <span class="material-symbols-outlined" data-icon="group">group</span>
                                 <span class="font-label-md">Manajemen Pengguna</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="admin-riwayat.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-riwayat.html">
                                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                                 <span class="font-label-md">Riwayat Pembayaran</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="admin-laporan.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-laporan.html">
                                 <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
                                 <span class="font-label-md">Laporan</span>
                             </a>
-                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="pengaturan.html">
+                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../admin/pengaturan.html">
                                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                                 <span class="font-label-md font-bold">Pengaturan</span>
                             </a>
                         `;
                     } else {
                         sidebarNav.innerHTML = `
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="index.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../../index.html">
                                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                                 <span class="font-label-md">Dasbor</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="daftar-mobil.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/daftar-mobil.html">
                                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                                 <span class="font-label-md">Armada Mobil</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="booking-mobil.html">
+                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/booking-mobil.html">
                                 <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                                 <span class="font-label-md">Pesanan Saya</span>
                             </a>
-                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="pengaturan-user.html">
+                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../user/pengaturan-user.html">
                                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                                 <span class="font-label-md font-bold">Pengaturan</span>
                             </a>
@@ -1049,152 +1049,6 @@
 
             setupToggle('btn-toggle-notification', 'toggle-notif-track', 'toggle-notif-thumb', 'pref_notif');
             setupToggle('btn-toggle-biometric', 'toggle-bio-track', 'toggle-bio-thumb', 'pref_bio');
-
-            // 8. PAYMENT METHODS MODAL
-            const btnPaymentMethods = document.getElementById('btn-payment-methods');
-            const paymentMethodsModal = document.getElementById('payment-methods-modal');
-            const btnClosePaymentMethods = document.getElementById('btn-close-payment-methods');
-            const paymentMethodsModalBg = document.getElementById('payment-methods-modal-bg');
-            const paymentMethodsList = document.getElementById('payment-methods-list');
-
-            const btnAddCard = document.getElementById('btn-add-card');
-            const btnAddGopay = document.getElementById('btn-add-gopay');
-            const addPaymentModal = document.getElementById('add-payment-modal');
-            const btnCloseAddPayment = document.getElementById('btn-close-add-payment');
-            const addPaymentModalBg = document.getElementById('add-payment-modal-bg');
-            const addPaymentForm = document.getElementById('add-payment-form');
-            const addPaymentTitle = document.getElementById('add-payment-title');
-            const inputPaymentType = document.getElementById('input-payment-type');
-            const formCardInputs = document.getElementById('form-card-inputs');
-            const formWalletInputs = document.getElementById('form-wallet-inputs');
-
-            // Default mock payment methods if none in storage
-            const defaultPayments = [
-                { id: '1', type: 'card', name: 'Mastercard Premium', detail: '•••• •••• •••• 5389' },
-                { id: '2', type: 'wallet', name: 'GoPay Personal', detail: '0812 •••• 4455' }
-            ];
-
-            const loadPaymentMethods = () => {
-                let list = localStorage.getItem('rentify_payments');
-                if (!list) {
-                    list = JSON.stringify(defaultPayments);
-                    localStorage.setItem('rentify_payments', list);
-                }
-                const payments = JSON.parse(list);
-                paymentMethodsList.innerHTML = '';
-                if (payments.length === 0) {
-                    paymentMethodsList.innerHTML = '<p class="text-sm text-on-surface-variant text-center py-4">Belum ada metode pembayaran tersimpan.</p>';
-                    return;
-                }
-                payments.forEach(p => {
-                    const icon = p.type === 'card' ? 'credit_card' : 'account_balance_wallet';
-                    const item = document.createElement('div');
-                    item.className = 'flex items-center justify-between p-3.5 bg-surface-container border border-outline-variant rounded-xl';
-                    item.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-primary">${icon}</span>
-                            <div>
-                                <h5 class="font-label-md text-on-surface text-sm font-semibold">${p.name}</h5>
-                                <p class="text-xs text-on-surface-variant">${p.detail}</p>
-                            </div>
-                        </div>
-                        <button class="btn-delete-payment text-on-surface-variant hover:text-error transition-colors" data-id="${p.id}">
-                            <span class="material-symbols-outlined text-lg">delete</span>
-                        </button>
-                    `;
-                    paymentMethodsList.appendChild(item);
-                });
-
-                // Attach delete listeners
-                document.querySelectorAll('.btn-delete-payment').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        const id = btn.getAttribute('data-id');
-                        let current = JSON.parse(localStorage.getItem('rentify_payments') || '[]');
-                        current = current.filter(item => item.id !== id);
-                        localStorage.setItem('rentify_payments', JSON.stringify(current));
-                        loadPaymentMethods();
-                    });
-                });
-            };
-
-            const togglePaymentMethodsModal = (show) => {
-                if (show) {
-                    loadPaymentMethods();
-                    paymentMethodsModal.classList.remove('hidden');
-                } else {
-                    paymentMethodsModal.classList.add('hidden');
-                }
-            };
-
-            if (btnPaymentMethods) btnPaymentMethods.addEventListener('click', () => togglePaymentMethodsModal(true));
-            if (btnClosePaymentMethods) btnClosePaymentMethods.addEventListener('click', () => togglePaymentMethodsModal(false));
-            if (paymentMethodsModalBg) paymentMethodsModalBg.addEventListener('click', () => togglePaymentMethodsModal(false));
-
-            const toggleAddPaymentModal = (show, type = 'card') => {
-                if (show) {
-                    inputPaymentType.value = type;
-                    if (type === 'card') {
-                        addPaymentTitle.textContent = 'Tambah Kartu Kredit';
-                        formCardInputs.classList.remove('hidden');
-                        formWalletInputs.classList.add('hidden');
-                        document.getElementById('input-card-number').required = true;
-                        document.getElementById('input-card-expiry').required = true;
-                        document.getElementById('input-card-cvv').required = true;
-                        document.getElementById('input-wallet-phone').required = false;
-                    } else {
-                        addPaymentTitle.textContent = 'Tambah E-Wallet';
-                        formCardInputs.classList.add('hidden');
-                        formWalletInputs.classList.remove('hidden');
-                        document.getElementById('input-card-number').required = false;
-                        document.getElementById('input-card-expiry').required = false;
-                        document.getElementById('input-card-cvv').required = false;
-                        document.getElementById('input-wallet-phone').required = true;
-                    }
-                    addPaymentModal.classList.remove('hidden');
-                } else {
-                    addPaymentModal.classList.add('hidden');
-                    addPaymentForm.reset();
-                }
-            };
-
-            if (btnAddCard) btnAddCard.addEventListener('click', () => toggleAddPaymentModal(true, 'card'));
-            if (btnAddGopay) btnAddGopay.addEventListener('click', () => toggleAddPaymentModal(true, 'wallet'));
-            if (btnCloseAddPayment) btnCloseAddPayment.addEventListener('click', () => toggleAddPaymentModal(false));
-            if (addPaymentModalBg) addPaymentModalBg.addEventListener('click', () => toggleAddPaymentModal(false));
-
-            if (addPaymentForm) {
-                addPaymentForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const type = inputPaymentType.value;
-                    let newItem = {};
-                    if (type === 'card') {
-                        const num = document.getElementById('input-card-number').value.replace(/\s+/g, '');
-                        const lastFour = num.substring(num.length - 4);
-                        newItem = {
-                            id: Date.now().toString(),
-                            type: 'card',
-                            name: num.startsWith('4') ? 'Visa Premium' : 'Mastercard Platinum',
-                            detail: `•••• •••• •••• ${lastFour || '4444'}`
-                        };
-                    } else {
-                        const phone = document.getElementById('input-wallet-phone').value;
-                        const maskedPhone = phone.substring(0, 4) + ' •••• ' + phone.substring(phone.length - 4);
-                        newItem = {
-                            id: Date.now().toString(),
-                            type: 'wallet',
-                            name: 'GoPay / OVO Wallet',
-                            detail: maskedPhone
-                        };
-                    }
-                    let current = JSON.parse(localStorage.getItem('rentify_payments') || '[]');
-                    current.push(newItem);
-                    localStorage.setItem('rentify_payments', JSON.stringify(current));
-                    
-                    alert('Metode pembayaran berhasil ditambahkan!');
-                    toggleAddPaymentModal(false);
-                    loadPaymentMethods();
-                });
-            }
 
             // 9. SAVED ADDRESSES MODAL
             const btnSavedAddresses = document.getElementById('btn-saved-addresses');

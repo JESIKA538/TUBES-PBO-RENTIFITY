@@ -71,19 +71,86 @@
 </head>
 
 <body>
-    <header class="sticky top-0 z-50 flex justify-between items-center px-8 w-full h-16 bg-white shadow-sm">
+    <!-- TopAppBar -->
+    <header
+        class="sticky top-0 z-50 flex justify-between items-center px-4 md:px-margin-desktop w-full h-16 bg-surface shadow-sm dark:shadow-none">
         <div class="flex items-center gap-4">
-            <span class="material-symbols-outlined text-blue-700">menu</span>
-            <h1 class="text-2xl font-bold text-blue-700">Rentify</h1>
+            <span class="material-symbols-outlined text-primary lg:hidden" data-icon="menu">menu</span>
+            <h1 class="text-headline-md font-headline-md font-bold text-primary">Rentify</h1>
         </div>
-        <div class="hidden md:flex gap-8">
-            <a href="index.html" class="text-slate-500 hover:text-blue-700">Dashboard</a>
-            <a href="daftar-mobil.html" class="text-slate-500 hover:text-blue-700">Armada</a>
-            <a href="riwayat.html" class="text-blue-700 font-bold border-b-2 border-blue-700">Riwayat Pembayaran</a>
+        <div class="hidden md:flex items-center gap-8">
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="../../index.html">Dashboard</a>
+            <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
+                href="../user/daftar-mobil.html">Armada Mobil</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="../user/booking-mobil.html">Pesanan Saya</a>
+            <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
+                href="../user/riwayat.html">Riwayat &amp; Laporan</a>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="hidden md:block text-right">
+                <p id="top-bar-name" class="font-label-md text-on-surface">Alex Walker</p>
+                <p id="top-bar-role" class="text-[10px] text-on-surface-variant">Pelanggan Rentify</p>
+            </div>
+            <img id="nav-profile-img-top" alt="User Avatar" class="w-10 h-10 rounded-full object-cover"
+                src="../../assets/jeje_profile.png" />
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto p-6 grid lg:grid-cols-12 gap-6">
+    <div class="flex min-h-[calc(100vh-64px)]">
+    <!-- Sidebar Navigation -->
+    <aside
+        class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface shadow-lg h-full w-72 rounded-r-xl pt-20">
+        <div class="px-6 py-8 flex flex-col items-start gap-1">
+            <h2 id="profile-name-aside" class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Alex Walker</h2>
+            <p id="profile-occupation-aside" class="text-on-surface-variant text-body-sm">Anggota Premium</p>
+            <span id="profile-role-badge" class="mt-2 px-2 py-1 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded uppercase tracking-wider">Peran User</span>
+        </div>
+        <nav class="flex-1 flex flex-col gap-1 px-2">
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../../index.html">
+                <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/daftar-mobil.html">
+                <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/booking-mobil.html">
+                <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
+            </a>
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 active:scale-[0.99] transition-transform duration-150"
+                href="../user/riwayat.html">
+                <span class="material-symbols-outlined" data-icon="payments" style="font-variation-settings: \'FILL\' 1;" style="font-variation-settings: \'FILL\' 1;">payments</span>
+                <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/riwayat.html">
+                <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                <span class="font-body-md text-body-md font-manrope">Laporan</span>
+            </a>
+            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                href="../user/pengaturan-user.html">
+                <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
+            </a>
+        </nav>
+        <div class="p-6">
+            <div class="bg-primary-container text-on-primary-container p-4 rounded-xl flex flex-col gap-3">
+                <p class="font-label-sm text-label-sm opacity-90">Butuh Bantuan?</p>
+                <p class="font-body-sm text-body-sm leading-tight">Layanan concierge 24/7 kami siap membantu perjalanan
+                    Anda.</p>
+                <button
+                    class="bg-white text-primary px-4 py-2 rounded-lg font-label-md text-label-md self-start">Hubungi
+                    Dukungan</button>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 lg:ml-72 px-4 md:px-margin-desktop py-8 pb-24 lg:pb-12 grid lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 space-y-6">
             <div class="bg-white rounded-2xl shadow p-6 border">
                 <h2 class="text-2xl font-bold mb-6">Detail Transaksi</h2>
@@ -242,9 +309,35 @@
             </div>
         </div>
     </main>
+    </div>
 
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <!-- BottomNavBar (Mobile Only) -->
+    <nav
+        class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface dark:bg-inverse-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../../index.html">
+            <span class="material-symbols-outlined" data-icon="home">home</span>
+            <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../user/daftar-mobil.html">
+            <span class="material-symbols-outlined" data-icon="directions_car"
+               >directions_car</span>
+            <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../user/booking-mobil.html">
+            <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+            <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
+            href="../user/pengaturan-user.html">
+            <span class="material-symbols-outlined" data-icon="person">person</span>
+            <span class="font-label-sm text-label-sm font-manrope">Profil</span>
+        </a>
+    </nav>
+    <script src="../../controllers/api.js"></script>
+    <script src="../../controllers/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // 1. Authenticate user
@@ -252,7 +345,7 @@
             
             const user = AuthAPI.getUser();
             if (user.role === 'admin') {
-                window.location.href = 'admin.html';
+                window.location.href = '../admin/admin.html';
                 return;
             }
 
@@ -262,7 +355,7 @@
 
             if (!bookingId) {
                 // Tidak ada booking_id — arahkan ke riwayat tanpa alert
-                window.location.href = 'riwayat.html';
+                window.location.href = '../user/riwayat.html';
                 return;
             }
 
@@ -274,13 +367,13 @@
                 
                 if (!targetBooking) {
                     alert('Pemesanan tidak ditemukan atau Anda tidak memiliki akses!');
-                    window.location.href = 'riwayat.html';
+                    window.location.href = '../user/riwayat.html';
                     return;
                 }
             } catch (err) {
                 console.error(err);
                 alert('Gagal mengambil data pemesanan: ' + err.message);
-                window.location.href = 'riwayat.html';
+                window.location.href = '../user/riwayat.html';
                 return;
             }
 
@@ -511,7 +604,7 @@
             });
 
             document.getElementById('btn-close-billing').addEventListener('click', () => {
-                 window.location.href = 'riwayat.html';
+                 window.location.href = '../user/riwayat.html';
             });
 
             function showInvoiceDetails(payment, booking) {
@@ -590,7 +683,7 @@
 
             // Bind buttons
             document.getElementById('btn-close-invoice').addEventListener('click', () => {
-                window.location.href = 'riwayat.html';
+                window.location.href = '../user/riwayat.html';
             });
 
             document.getElementById('btn-print-invoice').addEventListener('click', () => {

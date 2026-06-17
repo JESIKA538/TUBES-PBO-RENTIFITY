@@ -191,35 +191,35 @@
         </div>
         <div class="px-4 py-6 flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-grow">
             <!-- Active Link: Dashboard -->
-            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-bold"
-                href="admin.html">
+            <a class="text-on-surface-variant dark:text-surface-variant rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-all"
+                href="../admin/admin.html">
                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                 <span class="font-body-md text-body-md font-manrope">Dashboard</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="manajemen-armada.html">
+                href="../admin/manajemen-armada.html">
                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                 <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="manajemen-user.html">
+                href="../admin/manajemen-user.html">
                 <span class="material-symbols-outlined" data-icon="group">group</span>
                 <span class="font-body-md text-body-md font-manrope">Manajemen Pengguna</span>
             </a>
 
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="admin-riwayat.html">
+                href="../admin/admin-riwayat.html">
                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
-            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="admin-laporan.html">
+            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-bold"
+                href="../admin/admin-laporan.html">
                 <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
                 <span class="font-body-md text-body-md font-manrope">Laporan</span>
             </a>
             <div class="mt-auto border-t border-outline-variant pt-4">
                 <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all font-body-md"
-                    href="pengaturan.html">
+                    href="../admin/pengaturan.html">
                     <span class="material-symbols-outlined" data-icon="settings">settings</span>
                     <span>Pengaturan</span>
                 </a>
@@ -233,7 +233,7 @@
         <div class="p-6 border-t border-outline-variant">
             <div class="flex items-center gap-3">
                 <img id="aside-admin-img" alt="User Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm"
-                    src="jeje_profile.png" />
+                    src="../../assets/jeje_profile.png" />
                 <div class="flex flex-col">
                     <span id="aside-admin-name" class="font-label-md text-label-md text-on-surface">Alex Walker</span>
                     <span class="text-xs text-on-surface-variant">Peran Admin</span>
@@ -251,7 +251,7 @@
                     <span class="material-symbols-outlined" data-icon="menu">menu</span>
                 </button>
                 <h1 class="hidden lg:block font-headline-md text-headline-md font-plus-jakarta-sans text-on-surface">
-                    Ikhtisar Dashboard</h1>
+                    Laporan & Analitik</h1>
             </div>
             <div class="flex items-center gap-4">
                 <div class="relative hidden md:flex items-center">
@@ -287,89 +287,11 @@
             </div>
         </header>
         <div class="p-margin-desktop space-y-gutter flex-grow">
-            <!-- Stats Bento Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-                <!-- Card: Total Mobil -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-                        </div>
-                        <span
-                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
-                            <span class="material-symbols-outlined text-[14px]"
-                                data-icon="trending_up">trending_up</span> +12%
-                        </span>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-on-surface-variant font-label-md text-label-md">Total Mobil</p>
-                        <h3 id="stat-total-cars" class="text-headline-md font-headline-md text-on-surface">0</h3>
-                    </div>
-                </div>
-                <!-- Card: Mobil Disewa -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <div
-                            class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
-                            <span class="material-symbols-outlined" data-icon="key">key</span>
-                        </div>
-                        <span
-                            class="text-xs font-bold text-error-red flex items-center gap-1 bg-error-container/20 px-2 py-1 rounded-full">
-                            <span class="material-symbols-outlined text-[14px]"
-                                data-icon="trending_down">trending_down</span> -2%
-                        </span>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-on-surface-variant font-label-md text-label-md">Mobil Disewa</p>
-                        <h3 id="stat-rented-cars" class="text-headline-md font-headline-md text-on-surface">0</h3>
-                    </div>
-                </div>
-                <!-- Card: Total Pelanggan -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <div class="w-12 h-12 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
-                            <span class="material-symbols-outlined" data-icon="group">group</span>
-                        </div>
-                        <span
-                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
-                            <span class="material-symbols-outlined text-[14px]"
-                                data-icon="trending_up">trending_up</span> +18%
-                        </span>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-on-surface-variant font-label-md text-label-md">Total Pelanggan</p>
-                        <h3 id="stat-total-customers" class="text-headline-md font-headline-md text-on-surface">0</h3>
-                    </div>
-                </div>
-                <!-- Card: Pendapatan -->
-                <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 flex flex-col justify-between">
-                    <div class="flex justify-between items-start">
-                        <div
-                            class="w-12 h-12 rounded-lg bg-warning-amber/10 flex items-center justify-center text-warning-amber">
-                            <span class="material-symbols-outlined"
-                                data-icon="account_balance_wallet">account_balance_wallet</span>
-                        </div>
-                        <span
-                            class="text-xs font-bold text-secondary flex items-center gap-1 bg-emerald-subtle px-2 py-1 rounded-full">
-                            <span class="material-symbols-outlined text-[14px]"
-                                data-icon="trending_up">trending_up</span> +24%
-                        </span>
-                    </div>
-                    <div class="mt-4">
-                        <p class="text-on-surface-variant font-label-md text-label-md">Total Pendapatan</p>
-                        <h3 id="stat-total-revenue" class="text-headline-md font-headline-md text-on-surface">Rp 0</h3>
-                    </div>
-                </div>
-            </div>
             <!-- Main Layout Sections -->
-            <div class="grid grid-cols-1 gap-gutter">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
                 <!-- Analytics Chart Placeholder Section -->
                 <div
-                    class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
+                    class="lg:col-span-3 bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30">
                     <div class="flex justify-between items-center mb-8">
                         <div>
                             <h2 class="text-headline-sm font-headline-sm text-on-surface">Analitik Penyewaan</h2>
@@ -437,6 +359,7 @@
                     </div>
                 </div>
 
+            </div>
             <!-- Recent Transactions Table -->
             <div
                 class="bg-surface-card rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] border border-outline-variant/30 overflow-hidden">
@@ -484,7 +407,7 @@
                     </table>
                 </div>
                 <div class="p-4 bg-surface-container-lowest flex items-center justify-center">
-                    <a href="admin-riwayat.html" class="text-label-md font-label-md text-primary hover:underline">Lihat Semua
+                    <a href="../admin/admin-riwayat.html" class="text-label-md font-label-md text-primary hover:underline">Lihat Semua
                         Transaksi</a>
                 </div>
             </div>
@@ -519,8 +442,8 @@
         class="fixed bottom-24 right-8 lg:bottom-12 lg:right-12 w-14 h-14 rounded-full bg-secondary text-on-secondary shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-40">
         <span class="material-symbols-outlined text-[28px]" data-icon="add">add</span>
     </button>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <script src="../../controllers/api.js"></script>
+    <script src="../../controllers/main.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -530,7 +453,7 @@
             const currentUser = AuthAPI.getUser();
             if (currentUser.role !== 'admin') {
                 alert('Akses ditolak! Halaman ini hanya untuk Administrator.');
-                window.location.href = 'index.html';
+                window.location.href = '../../index.html';
                 return;
             }
 
@@ -564,20 +487,7 @@
             try {
                 const reports = await BookingsAPI.getReports();
 
-                // Stats Cards
-                document.getElementById('stat-total-cars').textContent = reports.total_cars;
-                document.getElementById('stat-rented-cars').textContent = reports.total_cars - reports.available_cars;
-                
-                // Fetch user counts for Total Pelanggan card
-                try {
-                    const users = await UserAPI.getAll();
-                    document.getElementById('stat-total-customers').textContent = users.length;
-                } catch (e) {
-                    console.error('Gagal mengambil daftar pengguna untuk statistik:', e);
-                    document.getElementById('stat-total-customers').textContent = '0';
-                }
-
-                document.getElementById('stat-total-revenue').textContent = `Rp ${Number(reports.total_revenue).toLocaleString('id-ID')}`;
+                // JS for Stats Cards removed in Laporan page
 
                 // Render Analytics Chart
                 const chartContainer = document.querySelector('.h-64.flex.items-end');
@@ -608,6 +518,8 @@
                     }
                 }
 
+                // JS for Performa Terbaik removed in Laporan page
+
                 // Render Transaksi Terkini
                 const tbody = document.querySelector('table tbody');
                 if (tbody) {
@@ -632,32 +544,20 @@
                             let statusBadge = '';
                             if (booking.status === 'pending') {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-amber-50 text-amber-600 text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Menunggu
+                                    <span class="inline-flex items-center gap-1 bg-warning-amber/10 text-warning-amber text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span> Menunggu
                                     </span>
                                 `;
-                            } else if (booking.status === 'confirmed') {
+                            } else if (booking.status === 'confirmed' || booking.status === 'completed') {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-blue-50 text-blue-600 text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span> Disewa
-                                    </span>
-                                `;
-                            } else if (booking.status === 'returning') {
-                                statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-indigo-50 text-indigo-600 text-[12px] font-bold px-3 py-1 rounded-full animate-pulse">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span> Pengembalian
-                                    </span>
-                                `;
-                            } else if (booking.status === 'completed') {
-                                statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Selesai
+                                    <span class="inline-flex items-center gap-1 bg-secondary-container/30 text-on-secondary-container text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Selesai
                                     </span>
                                 `;
                             } else {
                                 statusBadge = `
-                                    <span class="inline-flex items-center gap-1 bg-red-50 text-red-600 text-[12px] font-bold px-3 py-1 rounded-full">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Batal
+                                    <span class="inline-flex items-center gap-1 bg-error-container/30 text-error-red text-[12px] font-bold px-3 py-1 rounded-full">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-error"></span> Batal
                                     </span>
                                 `;
                             }
@@ -667,13 +567,9 @@
                                     <td class="px-6 py-4 font-body-md text-on-surface">#RT-${booking.id}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            ${booking.user && booking.user.avatar ? `
-                                                <img src="${booking.user.avatar}" alt="${userName}" class="w-8 h-8 rounded-full object-cover shadow-sm border border-outline-variant/30" />
-                                            ` : `
-                                                <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">
-                                                    ${initials}
-                                                </div>
-                                            `}
+                                            <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">
+                                                ${initials}
+                                            </div>
                                             <span class="font-body-md text-on-surface">${userName}</span>
                                         </div>
                                     </td>
@@ -682,24 +578,10 @@
                                     <td class="px-6 py-4 font-bold text-on-surface">${formattedAmount}</td>
                                     <td class="px-6 py-4">${statusBadge}</td>
                                     <td class="px-6 py-4 text-center">
-                                        <div class="flex items-center justify-center gap-1.5">
-                                            <button onclick="showInvoiceDetailsById(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
-                                                <span class="material-symbols-outlined text-[16px]">receipt</span>
-                                                Invoice
-                                            </button>
-                                            ${booking.status === 'returning' ? `
-                                                <button onclick="confirmCarReturn(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-600 text-white hover:bg-indigo-700 rounded-lg text-label-sm font-semibold transition-colors duration-150">
-                                                    <span class="material-symbols-outlined text-[16px]">restart_alt</span>
-                                                    Terima Mobil
-                                                </button>
-                                            ` : ''}
-                                            ${booking.status === 'confirmed' ? `
-                                                <button onclick="confirmCarReturn(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-slate-100 text-slate-700 hover:bg-slate-200 rounded-lg text-label-sm font-semibold transition-colors duration-150">
-                                                    <span class="material-symbols-outlined text-[16px]">check</span>
-                                                    Selesai Sewa
-                                                </button>
-                                            ` : ''}
-                                        </div>
+                                        <button onclick="showInvoiceDetailsById(${booking.id})" class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-label-sm font-semibold transition-colors duration-150">
+                                            <span class="material-symbols-outlined text-[16px]">receipt</span>
+                                            Invoice
+                                        </button>
                                     </td>
                                 </tr>
                             `;
@@ -865,17 +747,6 @@
                 });
             }
         });
-
-        window.confirmCarReturn = async function(bookingId) {
-            if (!confirm('Apakah Anda yakin ingin mengonfirmasi pengembalian armada mobil ini?')) return;
-            try {
-                await BookingsAPI.confirmReturn(bookingId);
-                alert('Pengembalian armada mobil berhasil dikonfirmasi! Status armada kembali menjadi tersedia.');
-                location.reload();
-            } catch (e) {
-                alert('Gagal mengonfirmasi pengembalian: ' + e.message);
-            }
-        };
     </script>
     <!-- Invoice Modal -->
     <div id="invoice-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 flex items-center justify-center p-4">

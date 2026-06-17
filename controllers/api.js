@@ -28,12 +28,17 @@ async function apiFetch(endpoint, options = {}) {
     try {
         const response = await fetch(`${API_URL}${endpoint}`, config);
         
-        // Handle unauthorized (session expired)
         if (response.status === 401) {
             localStorage.removeItem('rentify_token');
             localStorage.removeItem('rentify_user');
             if (!window.location.pathname.endsWith('login.html') && !window.location.pathname.endsWith('register.html')) {
-                window.location.href = 'login.html';
+                let loginPath = 'login.html';
+                if (window.location.pathname.includes('/views/')) {
+                    loginPath = '../auth/login.html';
+                } else {
+                    loginPath = 'views/auth/login.html';
+                }
+                window.location.href = loginPath;
             }
             throw new Error('Sesi Anda telah berakhir. Silakan login kembali.');
         }
@@ -93,7 +98,14 @@ const AuthAPI = {
         }
         localStorage.removeItem('rentify_token');
         localStorage.removeItem('rentify_user');
-        window.location.href = 'login.html';
+        
+        let loginPath = 'login.html';
+        if (window.location.pathname.includes('/views/')) {
+            loginPath = '../auth/login.html';
+        } else {
+            loginPath = 'views/auth/login.html';
+        }
+        window.location.href = loginPath;
     },
 
     getUser() {
@@ -110,7 +122,13 @@ const AuthAPI = {
         const user = this.getUser();
         if (!token || !user) {
             if (!window.location.pathname.endsWith('login.html') && !window.location.pathname.endsWith('register.html')) {
-                window.location.href = 'login.html';
+                let loginPath = 'login.html';
+                if (window.location.pathname.includes('/views/')) {
+                    loginPath = '../auth/login.html';
+                } else {
+                    loginPath = 'views/auth/login.html';
+                }
+                window.location.href = loginPath;
             }
             return false;
         }

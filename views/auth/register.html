@@ -91,7 +91,7 @@
         <div class="absolute -bottom-32 -left-20 w-96 h-96 rounded-full bg-white/5"></div>
 
         <div class="relative z-10">
-            <a href="landing.html" class="flex items-center gap-3">
+            <a href="../../landing.html" class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                     <span class="material-symbols-outlined text-primary text-xl">directions_car</span>
                 </div>
@@ -238,10 +238,10 @@
 
             <p class="text-center text-gray-500 text-sm mt-6">
                 Sudah punya akun?
-                <a href="login.html" class="text-primary font-bold hover:underline">Masuk di sini</a>
+                <a href="../auth/login.html" class="text-primary font-bold hover:underline">Masuk di sini</a>
             </p>
             <p class="text-center mt-3">
-                <a href="landing.html"
+                <a href="../../landing.html"
                     class="text-gray-400 text-xs hover:text-primary flex items-center justify-center gap-1">
                     <span class="material-symbols-outlined text-sm">arrow_back</span> Kembali ke halaman utama
                 </a>
@@ -249,7 +249,7 @@
         </div>
     </div>
 
-    <script src="api.js"></script>
+    <script src="../../controllers/api.js"></script>
     <script>
         // Toggle passwords
         document.getElementById('togglePwd').addEventListener('click', () => {
@@ -304,7 +304,7 @@
                 const data = await AuthAPI.register(name, email, password, phone, '', '');
                 showAlert('success', 'Pendaftaran berhasil! Mengalihkan...');
                 setTimeout(() => { 
-                    window.location.href = data.user.role === 'admin' ? 'admin.html' : 'index.html'; 
+                    window.location.href = data.user.role === 'admin' ? '../admin/admin.html' : '../../index.html'; 
                 }, 1200);
             } catch (error) {
                 showAlert('error', error.message || 'Pendaftaran gagal. Pastikan email unik dan data valid.');

@@ -87,7 +87,7 @@
 
         <!-- Logo -->
         <div class="relative z-10">
-            <a href="landing.html" class="flex items-center gap-3">
+            <a href="../../landing.html" class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
                     <span class="material-symbols-outlined text-primary text-xl">directions_car</span>
                 </div>
@@ -226,18 +226,18 @@
 
             <p class="text-center text-gray-500 text-sm mt-6">
                 Belum punya akun?
-                <a href="register.html" class="text-primary font-bold hover:underline">Daftar sekarang</a>
+                <a href="../auth/register.html" class="text-primary font-bold hover:underline">Daftar sekarang</a>
             </p>
 
             <p class="text-center text-gray-400 text-xs mt-4">
-                <a href="landing.html" class="hover:text-primary flex items-center justify-center gap-1">
+                <a href="../../landing.html" class="hover:text-primary flex items-center justify-center gap-1">
                     <span class="material-symbols-outlined text-sm">arrow_back</span> Kembali ke halaman utama
                 </a>
             </p>
         </div>
     </div>
 
-    <script src="api.js"></script>
+    <script src="../../controllers/api.js"></script>
     <script>
         document.getElementById('togglePwd').addEventListener('click', () => {
             const pwd = document.getElementById('password');
@@ -273,11 +273,11 @@
                 btnAdmin.className = inactiveStyle;
                 
                 // Autofill email and password
-                document.getElementById('email').value = 'jesiccametaniarahma@gmail.com';
+                document.getElementById('email').value = 'rahmaarifinjesikametania@gmail.com';
                 document.getElementById('password').value = 'password123';
                 
                 // Do login
-                doLogin('jesiccametaniarahma@gmail.com', 'password123');
+                doLogin('rahmaarifinjesikametania@gmail.com', 'password123');
             }
         }
 
@@ -307,7 +307,7 @@
                 }
 
                 setTimeout(() => {
-                    window.location.href = data.user.role === 'admin' ? 'admin.html' : 'index.html';
+                    window.location.href = data.user.role === 'admin' ? '../admin/admin.html' : '../../index.html';
                 }, 800);
             } catch (error) {
                 showError(error.message || 'Email atau password salah.');
@@ -433,7 +433,7 @@
         const currentUser = localStorage.getItem('rentify_user');
         if (currentUser) {
             const u = JSON.parse(currentUser);
-            window.location.href = u.role === 'admin' ? 'admin.html' : 'index.html';
+            window.location.href = u.role === 'admin' ? '../admin/admin.html' : '../../index.html';
         }
     </script>
 </body>

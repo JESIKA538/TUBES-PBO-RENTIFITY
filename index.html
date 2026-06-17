@@ -140,11 +140,11 @@
             <a class="font-label-md text-label-md text-primary dark:text-primary-fixed font-bold border-b-2 border-primary py-5"
                 href="index.html">Dashboard</a>
             <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="daftar-mobil.html">Armada Mobil</a>
+                href="views/user/daftar-mobil.html">Armada Mobil</a>
             <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="booking-mobil.html">Pesanan Saya</a>
+                href="views/user/booking-mobil.html">Pesanan Saya</a>
             <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-variant transition-colors py-2 px-3 rounded-lg"
-                href="riwayat.html">Riwayat &amp; Laporan</a>
+                href="views/user/riwayat.html">Riwayat &amp; Laporan</a>
         </div>
         <div class="flex items-center gap-4">
             <button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
@@ -171,7 +171,7 @@
 
             <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
                 <img id="nav-profile-img" alt="Profil Pengguna" class="w-full h-full object-cover" data-alt="Profil profesional"
-                    src="jeje_profile.png" />
+                    src="assets/jeje_profile.png" />
             </div>
         </div>
     </header>
@@ -190,27 +190,27 @@
                 <span class="font-body-md text-body-md font-manrope">Dashboard</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="daftar-mobil.html">
+                href="views/user/daftar-mobil.html">
                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                 <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="booking-mobil.html">
+                href="views/user/booking-mobil.html">
                 <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                 <span class="font-body-md text-body-md font-manrope">Pesanan Saya</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="riwayat.html">
+                href="views/user/riwayat.html">
                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                 <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="riwayat.html">
+                href="views/user/riwayat.html">
                 <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
                 <span class="font-body-md text-body-md font-manrope">Laporan</span>
             </a>
             <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                href="pengaturan-user.html">
+                href="views/user/pengaturan-user.html">
                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                 <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
             </a>
@@ -237,7 +237,7 @@
                         <p class="text-body-lg text-on-surface-variant">Inilah yang terjadi dengan penyewaan Anda hari ini.</p>
                     </div>
                     <button 
-                        onclick="window.location.href='daftar-mobil.html'"
+                        onclick="window.location.href='views/user/daftar-mobil.html'"
                         class="bg-primary text-on-primary px-6 py-3 rounded-xl flex items-center gap-2 font-label-md shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity self-start md:self-center">
                         <span class="material-symbols-outlined" data-icon="add">add</span>
                         Pesan Perjalanan Baru
@@ -247,7 +247,7 @@
             <!-- Bento Stats Grid -->
             <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-12">
                 <!-- Total Bookings -->
-                <a href="booking-mobil.html"
+                <a href="views/user/booking-mobil.html"
                     class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-start">
                         <div
@@ -261,7 +261,7 @@
                     </div>
                 </a>
                 <!-- Available Cars -->
-                <a href="daftar-mobil.html"
+                <a href="views/user/daftar-mobil.html"
                     class="bg-surface-card p-6 rounded-xl shadow-[0px_4px_20px_rgba(48,49,53,0.05)] flex flex-col gap-4 border border-outline-variant/30 hover:shadow-lg active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-start">
                         <div
@@ -276,7 +276,7 @@
                     </div>
                 </a>
                 <!-- Transaction History - Featured Bento Card -->
-                <a href="riwayat.html"
+                <a href="views/user/riwayat.html"
                     class="bg-inverse-surface text-inverse-on-surface p-6 rounded-xl shadow-xl flex flex-col gap-4 md:row-span-1 hover:shadow-2xl active:scale-[0.98] transition-all cursor-pointer block">
                     <div class="flex justify-between items-center">
                         <p class="font-label-md uppercase tracking-wide opacity-80">TRANSAKSI TERAKHIR</p>
@@ -295,7 +295,7 @@
                 <div class="flex items-center justify-between mb-8">
                     <h2 class="font-headline-md text-headline-md text-on-surface">Populer untuk Anda</h2>
                     <a class="text-primary font-label-md flex items-center gap-1 hover:underline"
-                        href="daftar-mobil.html">
+                        href="views/user/daftar-mobil.html">
                         Lihat semua mobil
                         <span class="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
                     </a>
@@ -428,23 +428,23 @@
             <span class="font-label-sm text-label-sm font-manrope">Beranda</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="daftar-mobil.html">
+            href="views/user/daftar-mobil.html">
             <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
             <span class="font-label-sm text-label-sm font-manrope">Mobil</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="booking-mobil.html">
+            href="views/user/booking-mobil.html">
             <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
             <span class="font-label-sm text-label-sm font-manrope">Pesanan</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant active:bg-surface-container-high transition-colors"
-            href="pengaturan-user.html">
+            href="views/user/pengaturan-user.html">
             <span class="material-symbols-outlined" data-icon="person">person</span>
             <span class="font-label-sm text-label-sm font-manrope">Profil</span>
         </a>
     </nav>
-    <script src="api.js"></script>
-    <script src="main.js"></script>
+    <script src="controllers/api.js"></script>
+    <script src="controllers/main.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // 1. Enforce authentication
@@ -454,7 +454,7 @@
             
             // Redirect admin to admin page
             if (user.role === 'admin') {
-                window.location.href = 'admin.html';
+                window.location.href = 'views/admin/admin.html';
                 return;
             }
 
