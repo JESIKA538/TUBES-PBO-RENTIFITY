@@ -164,7 +164,7 @@ function syncUserProfile() {
     });
 
     // ── Update semua elemen nama ──
-    const nameIds = ['profile-name-aside', 'aside-profile-name'];
+    const nameIds = ['profile-name-aside', 'aside-profile-name', 'top-bar-name', 'aside-admin-name'];
     nameIds.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = name;
