@@ -56,15 +56,14 @@ public class PaymentService {
             billingCode = prefix + "-" + (long)(Math.random() * 10000000000L);
         }
 
-        Payment payment = Payment.builder()
-                .booking(booking)
-                .paymentMethod(req.getPaymentMethod())
-                .paymentChannel(req.getPaymentChannel())
-                .billingCode(billingCode)
-                .amount(req.getAmount())
-                .status("pending")
-                .proofOfPayment(req.getProofOfPayment())
-                .build();
+        Payment payment = new Payment();
+        payment.setBooking(booking);
+        payment.setPaymentMethod(req.getPaymentMethod());
+        payment.setPaymentChannel(req.getPaymentChannel());
+        payment.setBillingCode(billingCode);
+        payment.setAmount(req.getAmount());
+        payment.setStatus("pending");
+        payment.setProofOfPayment(req.getProofOfPayment());
 
         return paymentRepository.save(payment);
     }

@@ -2,7 +2,6 @@ package com.rentifity.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,10 +12,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "bookings")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class Booking {
 
     @Id
@@ -32,7 +27,6 @@ public class Booking {
     @Column(name = "total_price", precision = 15, scale = 2)
     private BigDecimal totalPrice;
 
-    @Builder.Default
     private String status = "pending";
 
     @Column(columnDefinition = "TEXT")
@@ -61,7 +55,7 @@ public class Booking {
     private List<Payment> payments;
 
     @Column(name = "delivery_option")
-    private String deliveryOption; // e.g., 'pickup', 'delivery'
+    private String deliveryOption; 
 
     @Column(name = "delivery_address", columnDefinition = "TEXT")
     private String deliveryAddress;
@@ -69,11 +63,65 @@ public class Booking {
     @Column(name = "late_fee")
     private BigDecimal lateFee;
     
+    public Booking() {
+    }
+
+    public Booking(Long id, LocalDate startDate, LocalDate endDate, BigDecimal totalPrice, String status, String notes, LocalDateTime createdAt, LocalDateTime updatedAt, User user, Car car, List<Payment> payments, String deliveryOption, String deliveryAddress, BigDecimal lateFee) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.totalPrice = totalPrice;
+        if (status != null) this.status = status;
+        this.notes = notes;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.user = user;
+        this.car = car;
+        this.payments = payments;
+        this.deliveryOption = deliveryOption;
+        this.deliveryAddress = deliveryAddress;
+        this.lateFee = lateFee;
+    }
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public LocalDate getStartDate() { return startDate; }
+    public void setStartDate(LocalDate startDate) { this.startDate = startDate; }
+
+    public LocalDate getEndDate() { return endDate; }
+    public void setEndDate(LocalDate endDate) { this.endDate = endDate; }
+
+    public BigDecimal getTotalPrice() { return totalPrice; }
+    public void setTotalPrice(BigDecimal totalPrice) { this.totalPrice = totalPrice; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
+
+    public Car getCar() { return car; }
+    public void setCar(Car car) { this.car = car; }
+
+    public List<Payment> getPayments() { return payments; }
+    public void setPayments(List<Payment> payments) { this.payments = payments; }
+
     public String getDeliveryOption() { return deliveryOption; }
     public void setDeliveryOption(String deliveryOption) { this.deliveryOption = deliveryOption; }
+
     public String getDeliveryAddress() { return deliveryAddress; }
     public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+
     public BigDecimal getLateFee() { return lateFee; }
     public void setLateFee(BigDecimal lateFee) { this.lateFee = lateFee; }
-
 }

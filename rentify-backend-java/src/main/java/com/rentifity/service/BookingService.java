@@ -62,18 +62,17 @@ public class BookingService {
 
         BigDecimal totalPrice = car.getPricePerDay().multiply(BigDecimal.valueOf(days));
 
-        Booking booking = Booking.builder()
-                .user(user)
-                .car(car)
-                .startDate(startDate)
-                .endDate(endDate)
-                .totalPrice(totalPrice)
-                .status("pending")
-                .notes(req.getNotes())
-                .deliveryOption(req.getDeliveryOption())
-                .deliveryAddress(req.getDeliveryAddress())
-                .lateFee(BigDecimal.ZERO)
-                .build();
+        Booking booking = new Booking();
+        booking.setUser(user);
+        booking.setCar(car);
+        booking.setStartDate(startDate);
+        booking.setEndDate(endDate);
+        booking.setTotalPrice(totalPrice);
+        booking.setStatus("pending");
+        booking.setNotes(req.getNotes());
+        booking.setDeliveryOption(req.getDeliveryOption());
+        booking.setDeliveryAddress(req.getDeliveryAddress());
+        booking.setLateFee(BigDecimal.ZERO);
 
         car.setStatus("rented");
         carRepository.save(car);
@@ -134,14 +133,14 @@ public class BookingService {
             revenueStats.add(stat);
         }
 
-        return ReportResponse.builder()
-                .totalBookings(totalBookings)
-                .totalRevenue(totalRevenue)
-                .availableCars(availableCars)
-                .totalCars(totalCars)
-                .recentBookings(recentBookings)
-                .revenueStats(revenueStats)
-                .build();
+        ReportResponse reportResponse = new ReportResponse();
+        reportResponse.setTotalBookings(totalBookings);
+        reportResponse.setTotalRevenue(totalRevenue);
+        reportResponse.setAvailableCars(availableCars);
+        reportResponse.setTotalCars(totalCars);
+        reportResponse.setRecentBookings(recentBookings);
+        reportResponse.setRevenueStats(revenueStats);
+        return reportResponse;
     }
 
     public Booking requestReturn(Long bookingId, User user) {

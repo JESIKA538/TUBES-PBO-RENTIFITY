@@ -29,17 +29,16 @@ public class CarService {
     }
 
     public Car createCar(CarRequest req) {
-        Car car = Car.builder()
-                .name(req.getName())
-                .brand(req.getBrand())
-                .type(req.getType())
-                .transmission(req.getTransmission())
-                .fuelType(req.getFuelType())
-                .pricePerDay(req.getPricePerDay())
-                .status(req.getStatus())
-                .imageUrl(req.getImageUrl())
-                .description(req.getDescription())
-                .build();
+        Car car = new Car();
+        car.setName(req.getName());
+        car.setBrand(req.getBrand());
+        car.setType(req.getType());
+        car.setTransmission(req.getTransmission());
+        car.setFuelType(req.getFuelType());
+        car.setPricePerDay(req.getPricePerDay());
+        car.setStatus(req.getStatus());
+        car.setImageUrl(req.getImageUrl());
+        car.setDescription(req.getDescription());
 
         return carRepository.save(car);
     }

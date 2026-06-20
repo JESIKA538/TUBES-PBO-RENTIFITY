@@ -1,4 +1,3 @@
-com\rentifity\model\Payment$PaymentBuilder.class
 com\rentifity\service\PaymentService.class
 com\rentifity\security\JwtUtil.class
 com\rentifity\exception\ResourceNotFoundException.class
@@ -24,13 +23,9 @@ com\rentifity\controller\AuthController.class
 com\rentifity\model\User.class
 com\rentifity\repository\UserRepository.class
 com\rentifity\dto\response\ApiResponse.class
-com\rentifity\model\Car$CarBuilder.class
 com\rentifity\repository\NotificationRepository.class
-com\rentifity\model\User$UserBuilder.class
 com\rentifity\controller\PaymentController.class
 com\rentifity\repository\PromoRepository.class
-com\rentifity\model\Booking$BookingBuilder.class
-com\rentifity\dto\response\ReportResponse$ReportResponseBuilder.class
 com\rentifity\repository\CarRepository.class
 com\rentifity\config\SecurityConfig.class
 com\rentifity\dto\request\CarRequest.class

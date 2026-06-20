@@ -27,15 +27,14 @@ public class AuthService {
             throw new RuntimeException("Email sudah terdaftar");
         }
 
-        User user = User.builder()
-                .name(request.getName())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole() != null ? request.getRole() : "user")
-                .phone(request.getPhone())
-                .occupation(request.getOccupation())
-                .address(request.getAddress())
-                .build();
+        User user = new User();
+        user.setName(request.getName());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setRole(request.getRole() != null ? request.getRole() : "user");
+        user.setPhone(request.getPhone());
+        user.setOccupation(request.getOccupation());
+        user.setAddress(request.getAddress());
 
         User savedUser = userRepository.save(user);
         String token = jwtUtil.generateToken(savedUser.getEmail());
