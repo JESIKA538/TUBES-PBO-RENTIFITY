@@ -391,6 +391,12 @@
                         statusBadge = `<span class="inline-flex items-center gap-1 bg-error-container/30 text-error-red text-[12px] font-bold px-3 py-1 rounded-full"><span class="w-1.5 h-1.5 rounded-full bg-error"></span> Batal</span>`;
                     }
                     
+                    const lateFee = Number(payment.booking?.lateFee || payment.booking?.late_fee || 0);
+                    let lateFeeHtml = '';
+                    if (lateFee > 0) {
+                        lateFeeHtml = `<br><span class="text-error-red text-xs font-bold">+ Denda: Rp ${lateFee.toLocaleString('id-ID')}</span>`;
+                    }
+                    
                     tbody.innerHTML += `
                         <tr class="hover:bg-surface-container-lowest transition-colors">
                             <td class="px-6 py-4 font-body-md text-on-surface">#TRX-${payment.id}</td>
@@ -401,7 +407,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 font-body-md text-on-surface">${carName}<br><span class="text-xs text-on-surface-variant">${startDate} - ${endDate}</span></td>
-                            <td class="px-6 py-4 font-bold text-on-surface">${payment.payment_method}<br><span class="text-primary font-bold">${formattedAmount}</span></td>
+                            <td class="px-6 py-4 font-bold text-on-surface">${payment.payment_method}<br><span class="text-primary font-bold">${formattedAmount}</span>${lateFeeHtml}</td>
                             <td class="px-6 py-4">${statusBadge}</td>
                             <td class="px-6 py-4">${actionButtons}</td>
                         </tr>

@@ -160,8 +160,8 @@ public class BookingService {
         LocalDate today = LocalDate.now(ZoneId.of("Asia/Jakarta"));
         if (today.isAfter(booking.getEndDate())) {
             long daysLate = java.time.temporal.ChronoUnit.DAYS.between(booking.getEndDate(), today);
-            // Example: 10% of total price per day late
-            BigDecimal penalty = booking.getTotalPrice().multiply(BigDecimal.valueOf(0.1)).multiply(BigDecimal.valueOf(daysLate));
+            // Denda tetap: Rp 50.000 per hari keterlambatan
+            BigDecimal penalty = BigDecimal.valueOf(50000).multiply(BigDecimal.valueOf(daysLate));
             booking.setLateFee(penalty);
         } else {
             booking.setLateFee(BigDecimal.ZERO);

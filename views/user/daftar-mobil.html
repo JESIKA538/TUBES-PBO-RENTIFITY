@@ -628,9 +628,7 @@
                         const isAvailable = car.status === 'available';
                         const isFav = favs.includes(String(car.id));
                         
-                        // Fake a good rating for premium UI feel (since DB lacks it currently)
-                        const simulatedRating = (4.5 + Math.random() * 0.5).toFixed(1);
-                        const simulatedReviewCount = Math.floor(Math.random() * 50) + 15;
+
                         
                         grid.innerHTML += `
                         <div ${isAvailable ? `onclick="window.location.href='detail-mobil.html?id=${car.id}'"` : ''} class="bg-white rounded-xl custom-shadow overflow-hidden group flex flex-col transition-all duration-300 ${isAvailable ? 'cursor-pointer hover:shadow-lg' : 'opacity-90'}">
@@ -655,10 +653,7 @@
                                         <p class="text-on-surface-variant text-label-sm">/ hari</p>
                                     </div>
                                 </div>
-                                <div class="flex items-center gap-1 text-warning-amber mb-4">
-                                    <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1">star</span>
-                                    <span class="font-label-sm text-label-sm">${simulatedRating} <span class="text-on-surface-variant font-body-sm font-normal">(${simulatedReviewCount} ulasan)</span></span>
-                                </div>
+
                                 <div class="grid grid-cols-2 gap-4 mb-6">
                                     <div class="flex items-center gap-2 text-on-surface-variant">
                                         <span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
