@@ -171,65 +171,86 @@
 <body class="bg-surface-bg text-on-surface font-body-md min-h-screen pb-24 lg:pb-0 dark:bg-inverse-surface dark:text-inverse-on-surface">
     <!-- Top AppBar (Mobile/Compact context suppressed for Back Action) -->
     <header
-        class="sticky top-0 z-50 flex justify-between items-center px-4 lg:px-margin-desktop w-full h-16 bg-surface shadow-sm transition-colors">
+        class="sticky top-0 z-50 flex justify-between items-center px-margin-desktop w-full h-16 bg-surface dark:bg-inverse-surface shadow-sm">
         <div class="flex items-center gap-4">
-            <a href="../../index.html"
-                class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low transition-colors">
-                <span class="material-symbols-outlined text-primary">arrow_back</span>
-            </a>
-            <h1 class="font-headline-md text-headline-md font-bold text-primary">Pengaturan</h1>
-        </div>
-        <div class="flex items-center gap-2">
-            <button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-low">
-                <span class="material-symbols-outlined text-on-surface-variant">search</span>
+            <button class="lg:hidden p-2 text-on-surface">
+                <span class="material-symbols-outlined" data-icon="menu">menu</span>
             </button>
+            <h1 class="hidden lg:block font-headline-md text-headline-md font-plus-jakarta-sans text-on-surface">Pengaturan</h1>
         </div>
-    </header>
-    <main class="max-w-[1440px] mx-auto px-4 lg:px-margin-desktop py-6 lg:flex lg:gap-gutter">
-        <!-- Sidebar Navigation (Hidden on Mobile) -->
-        <nav
-            class="hidden lg:flex flex-col w-72 h-[calc(100vh-100px)] sticky top-24 bg-surface-container-lowest rounded-r-xl border-r border-outline-variant p-4">
-            <div class="flex items-center gap-3 px-4 py-6 mb-6">
-                <div
-                    class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
-                    <img id="aside-profile-img" alt="Profil Pengguna" class="w-full h-full object-cover"
-                        src="../../assets/jeje_profile.png" />
-                </div>
-                <div>
-                    <h2 id="aside-profile-name" class="font-headline-sm text-headline-sm text-primary">Memuat...</h2>
-                    <p id="aside-profile-role" class="font-body-sm text-body-sm text-on-surface-variant">Pelanggan Rentify</p>
-                </div>
+        <div class="flex items-center gap-4">
+            <div class="relative hidden md:flex items-center">
+                <span class="material-symbols-outlined absolute left-3 text-on-surface-variant" data-icon="search">search</span>
+                <input
+                    class="pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-full text-body-sm w-64 focus:ring-2 focus:ring-primary"
+                    placeholder="Cari data..." type="text" />
             </div>
-            <div id="sidebar-nav" class="space-y-1">
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="../../index.html">
-                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-                    <span class="font-label-md">Dasbor</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="../user/daftar-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
-                    <span class="font-label-md">Armada Mobil</span>
-                </a>
-                <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
-                    href="../user/booking-mobil.html">
-                    <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
-                    <span class="font-label-md">Pesanan Saya</span>
-                </a>
-                <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]"
-                    href="../admin/pengaturan.html">
-                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
-                    <span class="font-label-md font-bold">Pengaturan</span>
-                </a>
-            </div>
-            <div class="mt-auto p-4">
-                <button id="btn-logout-sidebar"
-                    class="w-full flex items-center gap-3 px-4 py-3 text-error-red hover:bg-error-container/20 rounded-lg transition-colors">
-                    <span class="material-symbols-outlined">logout</span>
-                    <span class="font-label-md font-bold">Keluar</span>
+            <div class="relative flex items-center">
+                <button id="btn-open-notifications" class="p-2 text-slate-600 hover:bg-slate-100 rounded-full transition-colors relative">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span id="notif-badge" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-white hidden"></span>
                 </button>
             </div>
-        </nav>
+        </div>
+    </header>
+    <main class="lg:ml-72 min-h-screen flex flex-col">
+        <aside
+            class="fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col border-r border-outline-variant bg-surface-container-lowest dark:bg-inverse-surface w-72 rounded-r-xl shadow-lg">
+            <div class="p-8">
+                <span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">Rentify</span>
+            </div>
+            <div class="px-4 py-6 flex flex-col gap-1 overflow-y-auto custom-scrollbar flex-grow">
+                <div id="sidebar-nav" class="space-y-1">
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                        href="../admin/admin.html">
+                        <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                        <span class="font-body-md text-body-md font-manrope">Dashboard</span>
+                    </a>
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                        href="../admin/manajemen-armada.html">
+                        <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
+                        <span class="font-body-md text-body-md font-manrope">Armada Mobil</span>
+                    </a>
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                        href="../admin/manajemen-user.html">
+                        <span class="material-symbols-outlined" data-icon="group">group</span>
+                        <span class="font-body-md text-body-md font-manrope">Manajemen Pengguna</span>
+                    </a>
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                        href="../admin/admin-riwayat.html">
+                        <span class="material-symbols-outlined" data-icon="payments">payments</span>
+                        <span class="font-body-md text-body-md font-manrope">Riwayat Pembayaran</span>
+                    </a>
+                    <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all"
+                        href="../admin/admin-laporan.html">
+                        <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+                        <span class="font-body-md text-body-md font-manrope">Laporan</span>
+                    </a>
+                    <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 font-bold"
+                        href="../admin/pengaturan.html">
+                        <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        <span class="font-body-md text-body-md font-manrope">Pengaturan</span>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-auto border-t border-outline-variant pt-4 px-4 pb-6">
+                <a id="btn-logout-sidebar" class="w-full flex items-center gap-3 px-4 py-3 text-error-red hover:bg-error-container/20 rounded-lg transition-colors"
+                    href="#">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span class="font-body-md font-semibold">Keluar</span>
+                </a>
+            </div>
+            <div class="p-6 border-t border-outline-variant">
+                <div class="flex items-center gap-3">
+                    <img id="aside-admin-img" alt="User Avatar" class="w-10 h-10 rounded-full object-cover shadow-sm"
+                        src="../../assets/jeje_profile.png" />
+                    <div class="flex flex-col">
+                        <span id="aside-admin-name" class="font-label-md text-label-md text-on-surface">Memuat...</span>
+                        <span id="aside-admin-role" class="text-xs text-on-surface-variant">Peran Admin</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
         <!-- Main Content Area -->
         <div class="flex-1 space-y-gutter">
 
@@ -637,19 +658,19 @@
     <nav
         class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 py-3 bg-surface shadow-[0_-4px_10px_rgba(0,0,0,0.05)] rounded-t-xl">
         <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="../../index.html">
+            href="../admin/admin.html">
             <span class="material-symbols-outlined" data-icon="home">home</span>
             <span class="font-label-sm">Beranda</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="../user/daftar-mobil.html">
+            href="../admin/manajemen-armada.html">
             <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
             <span class="font-label-sm">Mobil</span>
         </a>
         <a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 duration-100"
-            href="../user/booking-mobil.html">
+            href="../admin/admin-riwayat.html">
             <span class="material-symbols-outlined" data-icon="event_note">event_note</span>
-            <span class="font-label-sm">Pesanan</span>
+            <span class="font-label-sm">Riwayat</span>
         </a>
         <a class="flex flex-col items-center justify-center text-secondary font-bold active:scale-95 duration-100"
             href="../admin/pengaturan.html">
@@ -674,9 +695,9 @@
             let uploadedAvatarBase64 = null;
 
             // Elements
-            const asideProfileImg = document.getElementById('aside-profile-img');
-            const asideProfileName = document.getElementById('aside-profile-name');
-            const asideProfileRole = document.getElementById('aside-profile-role');
+            const asideProfileImg = document.getElementById('aside-admin-img');
+            const asideProfileName = document.getElementById('aside-admin-name');
+            const asideProfileRole = document.getElementById('aside-admin-role');
             const formProfileImg = document.getElementById('form-profile-img');
             const btnChangePhoto = document.getElementById('btn-change-photo');
             const btnChangePhotoOverlay = document.getElementById('btn-change-photo-overlay');
@@ -724,46 +745,46 @@
                 if (sidebarNav) {
                     if (isAdmin) {
                         sidebarNav.innerHTML = `
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin.html">
                                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                                 <span class="font-label-md">Dashboard</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-armada.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-armada.html">
                                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                                 <span class="font-label-md">Armada Mobil</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-user.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/manajemen-user.html">
                                 <span class="material-symbols-outlined" data-icon="group">group</span>
                                 <span class="font-label-md">Manajemen Pengguna</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-riwayat.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-riwayat.html">
                                 <span class="material-symbols-outlined" data-icon="payments">payments</span>
                                 <span class="font-label-md">Riwayat Pembayaran</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-laporan.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../admin/admin-laporan.html">
                                 <span class="material-symbols-outlined" data-icon="assessment">assessment</span>
                                 <span class="font-label-md">Laporan</span>
                             </a>
-                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../admin/pengaturan.html">
+                            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../admin/pengaturan.html">
                                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                                 <span class="font-label-md font-bold">Pengaturan</span>
                             </a>
                         `;
                     } else {
                         sidebarNav.innerHTML = `
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../../index.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../../index.html">
                                 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
                                 <span class="font-label-md">Dasbor</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/daftar-mobil.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/daftar-mobil.html">
                                 <span class="material-symbols-outlined" data-icon="directions_car">directions_car</span>
                                 <span class="font-label-md">Armada Mobil</span>
                             </a>
-                            <a class="text-on-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/booking-mobil.html">
+                            <a class="text-on-surface-variant dark:text-surface-variant mx-2 my-1 px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high rounded-lg transition-all" href="../user/booking-mobil.html">
                                 <span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
                                 <span class="font-label-md">Pesanan Saya</span>
                             </a>
-                            <a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../user/pengaturan-user.html">
+                            <a class="bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg mx-2 my-1 px-4 py-3 flex items-center gap-3 scale-[0.99]" href="../user/pengaturan-user.html">
                                 <span class="material-symbols-outlined" data-icon="settings">settings</span>
                                 <span class="font-label-md font-bold">Pengaturan</span>
                             </a>

@@ -9,12 +9,15 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+//ENKAPSULASI
 @Entity
 @Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // SEMUA ATRIBUT DIDEKLARASIKAN DENGAN AKSES MODIFIER PRIVATE
+    // UNTUK MENJAGA KEAMANAN DAN INTEGRITAS DATA
     private Long id;
 
     private String name;
@@ -51,6 +54,7 @@ public class Car {
     @JsonIgnore
     private List<Booking> bookings;
 
+    //METHOD GETTER DAN SETTER UNTUK MENGAKSES DAN MEMODIFIKASI NILAI
     public Car() {
     }
 

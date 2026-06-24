@@ -1,5 +1,7 @@
 package com.rentifity.repository;
-
+// jpa membantu menghubungkan java dengan DBMYSQL
+// jadi kita tidak perlu menulis query manual
+// jpa repository menyediakan method bawaan seperti save, delete, dll
 import com.rentifity.model.Booking;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

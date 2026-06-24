@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
-
+// MENGHUBUNGKAN DATA MOBIL DENGAN DB MYSQL
+// tinggal panggil method bawaan seperti save atau delete
 public interface CarRepository extends JpaRepository<Car, Long> {
 
     List<Car> findByStatus(String status);

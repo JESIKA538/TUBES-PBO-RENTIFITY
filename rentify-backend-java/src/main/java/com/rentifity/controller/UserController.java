@@ -66,18 +66,12 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<List<User>> index(Authentication auth) {
         User user = getCurrentUser(auth);
-        if (!user.getRole().equals("admin")) {
-            throw new RuntimeException("Forbidden");
-        }
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Map<String, String>> destroy(@PathVariable Long id, Authentication auth) {
         User user = getCurrentUser(auth);
-        if (!user.getRole().equals("admin")) {
-            throw new RuntimeException("Forbidden");
-        }
         userService.deleteUser(id, user);
         return ResponseEntity.ok(Map.of("message", "User berhasil dihapus"));
     }
